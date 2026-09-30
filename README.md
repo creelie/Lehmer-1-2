@@ -15,8 +15,12 @@ What the computations establish (see the paper for the proofs they complete):
 5. The Fermat-type solutions (n+1 = 2φ(n)) are exactly the closure of 1 under one- and two-prime extensions.
 6. Every Fermat-type n₀ = p₁⋯p_m gives a pseudo-solution (p₁, …, p_m, n₀) of x₁⋯x_k − 1 = 2∏(xᵢ − 1) that passes
    the congruence prune, so a proof for all k has to use the primality of the factors.
+7. These pseudo-solutions have two entries divisible by 3. No solution of x₁⋯x_k ± 1 = 2∏(xᵢ − 1) in odd integers
+   prime to 3 exists for k ≤ 12, nor for k ≤ 15 when x₁, …, x_{k−3} are prime (`pseudo/`). The number of entries
+   divisible by 3 is even for the sign −1 and odd or zero for +1, and Lemma 2.2 is the only congruence obstruction to
+   completing a prefix.
 
-The lemmas and propositions behind 1–3, and statements 4, 5 and 6 in full, are proved in Lean 4 in `lean/`
+The lemmas and propositions behind 1–3 and 7, and statements 4, 5 and 6 in full, are proved in Lean 4 in `lean/`
 (see `lean/README.md`). The exhaustive searches are checked by independent programs, not formalised.
 
 Neither Lehmer's totient conjecture nor the question whether φ(n) | n+1 has further solutions is settled.
@@ -68,6 +72,7 @@ factors nothing, so its negative answers rely on no primality test.
 | `data/k15/frontier.json` | the 54,985 prefixes of twelve primes for k = 15 with their intervals for p₁₃ | |
 | `data/k15/run_*.jsonl.gz` | one line per task of each k = 15 run (A, B, C, and `_plus` for n + 1 = 2φ(n)), gzipped | |
 | `data/k15/stats.json` | output of `k15_stats.py` | |
+| `pseudo/` | Section 8: pseudo-solutions prime to 3 (Theorem 8.3) and the first-moment count; see `pseudo/README.md` | |
 | `logs/` | recorded output of every script | |
 | `lean/` | Lean 4 formalisation (Lean and Mathlib v4.34.1); `lake build`, then `lake env lean Check.lean` for the axiom audit | ~1 min with the Mathlib cache |
 

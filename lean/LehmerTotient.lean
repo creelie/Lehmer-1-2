@@ -6,3 +6,4 @@ import LehmerTotient.Data
 import LehmerTotient.Thresholds
 import LehmerTotient.ExtBasic
 import LehmerTotient.Ext
+import LehmerTotient.Barrier

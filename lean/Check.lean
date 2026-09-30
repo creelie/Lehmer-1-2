@@ -42,3 +42,10 @@ open LehmerTotient
 #print axioms pseudo_solution_prune
 #print axioms lucas_cert
 #print axioms reached_iff
+#print axioms gcd_of_product_eq
+#print axioms three_parity
+#print axioms three_parity_lehmer
+#print axioms three_parity_companion
+#print axioms lehmer_coprime_three_free
+#print axioms local_witness
+#print axioms three_obstruction
