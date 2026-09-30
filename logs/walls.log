@@ -12,6 +12,11 @@ n + 1 = 2 phi(n), k = 8, depth 5: frontier nodes=10459, total width=1.305e+10, <
    width=167247870  prefix=[3, 5, 17, 353, 929]  T-1=1.196e-08
    width=117799612  prefix=[3, 5, 17, 257, 65609]  T-1=1.698e-08
    width=88685746  prefix=[3, 5, 17, 257, 65633]  T-1=2.255e-08
+n + 1 = 2 phi(n), k = 8, 3 | n: 10458 prefixes, 651725354 primes p_6 in their intervals, 228260561 admissible
+   admissible 131788942  primes 376346661  prefix=[3, 5, 17, 257, 65537]
+   admissible 20584033  primes 58780037  prefix=[3, 5, 17, 257, 65543]
+   admissible 3672196  primes 10485621  prefix=[3, 5, 17, 257, 65579]
+   admissible 3101004  primes 8855948  prefix=[3, 5, 17, 353, 929]
 profile eps=-1 k= 7: [1, 2, 3, 1, 1, 0]
 profile eps=-1 k= 8: [1, 3, 4, 4, 3, 2, 1]
 profile eps=-1 k= 9: [1, 4, 6, 5, 7, 4, 1, 1]
@@ -28,4 +33,4 @@ profile eps=+1 k=11: [1, 4, 10, 15, 14, 9, 6, 3, 4, 7]
 profile eps=+1 k=12: [1, 5, 12, 19, 17, 14, 8, 7, 12, 29, 63]
 profile eps=+1 k=13: [1, 6, 15, 23, 25, 19, 12, 17, 30, 60, 154, 730]
 profile eps=+1 k=14: [1, 6, 16, 27, 29, 23, 22, 33, 58, 127, 335, 1654, 29631]
-(10s)
+(221s)

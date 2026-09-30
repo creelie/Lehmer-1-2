@@ -1,9 +1,9 @@
-# Lehmer's totient problem and the companion equation φ(n) | n+1
+# Lehmer's totient problem with fewer than sixteen prime factors
 
-Code and data for the paper
+Code, data and Lean proofs for the paper
 
 > D. Bhattacharjee, P. Mandal, U. Bhattacharya,
-> *Lehmer's totient problem and the companion equation φ(n) | n+1*.
+> *Lehmer's totient problem with fewer than sixteen prime factors*.
 
 What the computations establish (see the paper for the proofs they complete):
 
@@ -13,6 +13,11 @@ What the computations establish (see the paper for the proofs they complete):
 3. Every solution of φ(n) | n+1 with n > 3 and 3 ∤ n has at least 16 distinct prime factors.
 4. Every solution of φ(n) | n+1 with n > 3 and (n+1)/φ(n) ≥ 3 has at least 33 prime factors (1540 if 3 | n).
 5. The Fermat-type solutions (n+1 = 2φ(n)) are exactly the closure of 1 under one- and two-prime extensions.
+6. Every Fermat-type n₀ = p₁⋯p_m gives a pseudo-solution (p₁, …, p_m, n₀) of x₁⋯x_k − 1 = 2∏(xᵢ − 1) that passes
+   the congruence prune, so a proof for all k has to use the primality of the factors.
+
+The lemmas and propositions behind 1–3, and statements 4, 5 and 6 in full, are proved in Lean 4 in `lean/`
+(see `lean/README.md`). The exhaustive searches are checked by independent programs, not formalised.
 
 Neither Lehmer's totient conjecture nor the question whether φ(n) | n+1 has further solutions is settled.
 
@@ -64,6 +69,7 @@ factors nothing, so its negative answers rely on no primality test.
 | `data/k15/run_*.jsonl.gz` | one line per task of each k = 15 run (A, B, C, and `_plus` for n + 1 = 2φ(n)), gzipped | |
 | `data/k15/stats.json` | output of `k15_stats.py` | |
 | `logs/` | recorded output of every script | |
+| `lean/` | Lean 4 formalisation (Lean and Mathlib v4.34.1); `lake build`, then `lake env lean Check.lean` for the axiom audit | ~1 min with the Mathlib cache |
 
 Run any script from the repository root, for example `python3 first_equation.py` or
 `python3 k15_run.py data/k15/run_A.jsonl --program A --eps -1 --workers 4`.
@@ -71,4 +77,4 @@ Run any script from the repository root, for example `python3 first_equation.py`
 ## Authors
 
 Deep Bhattacharjee, Priyabrata Mandal, Ushashi Bhattacharya.
-The code was written by Deep Bhattacharjee with the assistance of Claude (Anthropic).
+The code and the Lean proofs were written by Deep Bhattacharjee with the assistance of Claude (Anthropic).

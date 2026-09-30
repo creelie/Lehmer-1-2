@@ -1,0 +1,44 @@
+import LehmerTotient
+
+/-! Axiom audit: every theorem below must depend only on `propext`,
+`Classical.choice` and `Quot.sound`. `lake env lean Check.lean` prints the list. -/
+
+open LehmerTotient
+
+#print axioms odd_of_dvd
+#print axioms squarefree_of_dvd
+#print axioms prime_not_dvd_sub_one
+#print axioms prime_not_dvd_quotient
+#print axioms not_prime_of_dvd_add_one
+#print axioms two_le_quotient
+#print axioms quotient_mod_three
+#print axioms P_lt_two
+#print axioms bounds_minus
+#print axioms bounds_plus
+#print axioms last_two
+#print axioms last_two_converse
+#print axioms last_two_general
+#print axioms class_of_solution
+#print axioms solution_of_class
+#print axioms coset_of_divisor
+#print axioms box
+#print axioms sum_identity
+#print axioms sum_converse
+#print axioms cofactor_class
+#print axioms at_most_one_divisor
+#print axioms isCoprime_of_prune
+#print axioms firstHit_spec
+#print axioms quotient_eq_two_of_not_three_dvd
+#print axioms quotient_eq_two_of_card_le_seven
+#print axioms card_ge_of_three_dvd
+#print axioms three_dvd_consequences
+#print axioms theorem_quotient
+#print axioms one_prime_ext
+#print axioms two_prime_ext
+#print axioms two_prime_ext_of_factor
+#print axioms three_prime_ext
+#print axioms three_prime_identity
+#print axioms pseudo_solution
+#print axioms pseudo_solution_prune
+#print axioms lucas_cert
+#print axioms reached_iff

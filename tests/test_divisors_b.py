@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """The second implementation (lastthree_b.divisors_b) against brute force, as in test_divisors.py but with
 t <= sqrt(N) and gcd(r, c) = 1, which is the case that occurs in the search."""
-import sys, random, time
+import sys, random, time, math
 sys.path.insert(0, ".")
 import lastthree_b as LB
 from gmpy2 import mpz, next_prime, gcd, isqrt
 
 rng = random.Random(4242)
 def rand_prime(bits): return int(next_prime(mpz(rng.getrandbits(bits)) | (1 << (bits - 1))))
-bad = 0; cases = 0; nonempty = 0; fact = 0; t0 = time.time()
+bad = 0; cases = 0; nonempty = 0; fact = 0; t0 = time.time(); lg = []; ndig = 0
 for trial in range(4000):
     fac = {}
     for _ in range(rng.randint(1, 7)):
@@ -33,8 +33,10 @@ for trial in range(4000):
         got = LB.divisors_by_factoring_b(N, c, r); fact += 1
     got = sorted(int(x) for x in got)
     cases += 1; nonempty += bool(want)
+    lg.append(3 * math.log10(c) - math.log10(N)); ndig = max(ndig, len(str(N)))
     if got != want:
         bad += 1; print("MISMATCH", N, c, r, want, got)
         if bad > 5: break
-print(f"{cases} cases ({nonempty} with divisors in the class, {fact} factored), mismatches: {bad}, "
+print(f"{cases} cases ({nonempty} with divisors in the class, {fact} factored), N up to {ndig} digits, "
+      f"log10(c^3/N) from {min(lg):.1f} to {max(lg):.1f}, mismatches: {bad}, "
       f"{time.time()-t0:.1f}s")

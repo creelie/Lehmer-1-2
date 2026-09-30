@@ -1,15 +1,34 @@
 {
-  "title": "Lehmer's totient problem and the companion equation phi(n) | n+1: code and data",
+  "title": "Code, data and Lean proofs for Lehmer's totient problem with fewer than sixteen prime factors",
   "upload_type": "software",
   "version": "1.0.0",
-  "description": "Programs, recorded output and factorisation data for the paper 'Lehmer's totient problem and the companion equation phi(n) | n+1'. The searches prove that composite solutions of phi(n) | n-1 have at least 16 prime factors, classify the solutions of phi(n) | n+1 with at most 7 prime factors, and show that solutions of phi(n) | n+1 prime to 3 have at least 16 prime factors. The last three prime factors are found through divisors of an explicit integer in a residue class, located by counting lattice points near a hyperbola, in two independent implementations.",
+  "description": "Programs, recorded output, factorisation data and a Lean 4 formalisation for the paper 'Lehmer's totient problem with fewer than sixteen prime factors'. The searches prove that composite solutions of phi(n) | n-1 have at least 16 prime factors, classify the solutions of phi(n) | n+1 with at most 7 prime factors, and show that solutions of phi(n) | n+1 prime to 3 have at least 16 prime factors. The last three prime factors are found through divisors of an explicit integer in a residue class, in three independent implementations. The lemmas and propositions of the paper, the quotient theorem and the extension theorem are proved in Lean 4 with Mathlib.",
   "creators": [
-    {"name": "Bhattacharjee, Deep", "orcid": "0000-0003-0466-750X"},
-    {"name": "Mandal, Priyabrata", "affiliation": "Maulana Azad National Institute of Technology Bhopal", "orcid": "0000-0001-6472-6239"},
-    {"name": "Bhattacharya, Ushashi", "orcid": "0009-0002-2254-3914"}
+    {
+      "name": "Bhattacharjee, Deep",
+      "orcid": "0000-0003-0466-750X"
+    },
+    {
+      "name": "Mandal, Priyabrata",
+      "affiliation": "Maulana Azad National Institute of Technology Bhopal",
+      "orcid": "0000-0001-6472-6239"
+    },
+    {
+      "name": "Bhattacharya, Ushashi",
+      "orcid": "0009-0002-2254-3914"
+    }
   ],
   "contributors": [
-    {"name": "Claude (Anthropic)", "type": "Other"}
+    {
+      "name": "Claude (Anthropic)",
+      "type": "Other"
+    }
   ],
-  "keywords": ["Euler's totient function", "Lehmer's totient problem", "Fermat primes", "exhaustive search"]
+  "keywords": [
+    "Euler's totient function",
+    "Lehmer's totient problem",
+    "Fermat primes",
+    "exhaustive search",
+    "formal verification"
+  ]
 }
