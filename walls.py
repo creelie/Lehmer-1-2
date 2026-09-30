@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Section 7 of the paper: the next cases.  (a) n - 1 = 2 phi(n), k = 15, p_1 >= 5: the nodes at depth 12 and the widths of
+"""Sections 5 and 8 of the paper.  (a) n - 1 = 2 phi(n), k = 15, p_1 >= 5: the nodes at depth 12 and the widths of
 the intervals for p_13.  (b) n + 1 = 2 phi(n), k = 8, p_1 >= 3: the nodes at depth 5 and the widths of the
-intervals for p_6.  Also the per-depth node counts for k = 7..14 used in Figure 2.  Runtime: about a minute."""
+intervals for p_6.  Also the per-depth node counts for k = 7..14 used in Figure 3.  Runtime: about a minute."""
 import sys, time, math, collections
 sys.path.insert(0, ".")
 from fractions import Fraction as Fr
