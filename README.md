@@ -52,7 +52,7 @@ factors nothing, so its negative answers rely on no primality test.
 | `validate.py` | both programs on 2^k(n−1) = (2^k+m)φ(n), k = 4, 5: must return the 56 listed solutions | ~10 min |
 | `sieve_check.py` | independent totient sieve to 10^8 | ~3 min |
 | `walls.py` | the k = 15 frontier of Section 5, the k = 8 frontier of Section 8, and the depth profiles of Figure 3 | ~1 min |
-| `tests/test_divisors.py`, `tests/test_divisors_b.py`, `tests/test_divisors_c.py` | the three divisor routines against brute force on random integers with known factorisation | minutes |
+| `tests/test_divisors.py`, `tests/test_divisors_b.py`, `tests/test_divisors_c.py` | the three divisor routines against brute force on random integers with known factorisation (the recorded run of `test_divisors_b.py` used a box limit of 200000, given as its argument) | minutes |
 | `tests/planted_k15.py` | planted divisors at the scale of the k = 15 search, for all three implementations (4 processes) | ~15 min |
 | `tests/validate_lastthree.py`, `tests/validate_b.py` | both lattice programs on the 56 validation solutions, on n + 1 = 2φ(n) with k ≤ 7, and on k = 7..14 | seconds |
 | `tests/validate_c.py` | the sum route on k = 7..14 for both signs, and on the prefixes of the 61 known solutions | seconds |
