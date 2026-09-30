@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Sections 5 and 8 of the paper.  (a) n - 1 = 2 phi(n), k = 15, p_1 >= 5: the nodes at depth 12 and the widths of
 the intervals for p_13.  (b) n + 1 = 2 phi(n), k = 8, p_1 >= 3: the nodes at depth 5 and the widths of the
-intervals for p_6.  Also the per-depth node counts for k = 7..14 used in Figure 3.  Runtime: about a minute."""
+intervals for p_6, with the exact numbers of primes p_6 in these intervals and of those that pass the congruence
+prune (each leaves a two-prime problem).  Also the per-depth node counts for k = 7..14 used in Figure 3.
+Runtime: a few minutes."""
 import sys, time, math, collections
 sys.path.insert(0, ".")
 from fractions import Fraction as Fr
@@ -34,6 +36,18 @@ def report(name, rows):
 t0 = time.time()
 rows, _ = frontier(15, 5, -1, 3); report("n - 1 = 2 phi(n), k = 15, depth 12", rows)
 rows, _ = frontier(8, 3, +1, 3); report("n + 1 = 2 phi(n), k = 8, depth 5", rows)
+import lastthree as L                  # the same frontier with exact intervals, and a segmented sieve for p_6
+fr8 = [x for x in L.frontier(8, 3, 2, 1, +1, 3) if 3 in x[0]]
+n_pr = 0; n_adm = 0; per = []
+for chosen, A, B, lo, hi in fr8:
+    a_pr = a_adm = 0; a = lo
+    while a <= hi:
+        b = min(hi, a + 10**9); ss = L.primes_in(a, b)
+        a_pr += len(ss); a_adm += int(L.admissible_mask(ss, chosen).sum()); a = b + 1
+    n_pr += a_pr; n_adm += a_adm; per.append((a_adm, a_pr, list(chosen)))
+per.sort(reverse=True)
+print(f"n + 1 = 2 phi(n), k = 8, 3 | n: {len(fr8)} prefixes, {n_pr} primes p_6 in their intervals, {n_adm} admissible")
+for x in per[:4]: print(f"   admissible {x[0]}  primes {x[1]}  prefix={x[2]}")
 for eps in (-1, +1):
     for k in range(7, 15):
         _, prof = frontier(k, 5, eps, 2)
