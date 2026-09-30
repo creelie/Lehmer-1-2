@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "Lehmer's totient problem and the companion equation phi(n) | n+1: code and data"
+title: "Code, data and Lean proofs for Lehmer's totient problem with fewer than sixteen prime factors"
 version: 1.0.0
 authors:
   - family-names: Bhattacharjee
@@ -16,3 +16,4 @@ keywords:
   - Euler's totient function
   - Lehmer's totient problem
   - exhaustive search
+  - formal verification

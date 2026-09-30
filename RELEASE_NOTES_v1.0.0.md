@@ -1,6 +1,6 @@
 # v1.0.0
 
-First archived release, accompanying the paper *Lehmer's totient problem and the companion equation φ(n) | n+1*.
+First archived release, accompanying the paper *Lehmer's totient problem with fewer than sixteen prime factors*.
 
 - Two independent implementations of the exact branch-and-bound for n ± 1 = 2φ(n) (`tree_enum.py`, `tree_search.py`).
 - Three independent implementations of the treatment of the last three primes. Once p_{k−2} is fixed, the last
@@ -14,6 +14,12 @@ First archived release, accompanying the paper *Lehmer's totient problem and the
   `data/k15/`.
 - Tests for the three-prime methods in `tests/`: brute force on random integers, planted divisors at the scale of
   the k = 15 search, the 56 validation solutions, the Fermat-type solutions, and the cases k = 7..14.
+- A Lean 4 formalisation (`lean/`, Lean and Mathlib v4.34.1) of Lemmas 2.1–2.3, Corollary 2.4, Propositions 3.1, 3.2,
+  3.4, 4.1 and 8.1, Lemmas 4.2 and 4.3, the identities of Section 4.5 and Remark 6.1, and Theorems 1.4 and 1.5 in
+  full, including the thresholds 7, 32 and 1540 and Lucas certificates for the large primes of Table 5. Every
+  theorem depends only on Lean's three standard axioms (`lean/Check.lean`).
+- The k = 16 statistics of Section 8 (`k15_stats.py`): the exact number of admissible p₁₃ and a first-order count
+  of the admissible pairs (p₁₃, p₁₄), with the sizes of N and of c³/N.
 - Drivers for every computational statement in the paper, with recorded logs in `logs/`.
 - Factorisation data for the fifteen long terminal nodes of the case k = 14, and the 56 solutions used for validation.
 - Change from the preprint code: the root of the search now uses p₀ = 1 in the bound φ(n) ≥ B_j (p_j + 1)^m, which is
