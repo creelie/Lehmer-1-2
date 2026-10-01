@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 pseudo/tail3
 pseudo/logs/.*
+pseudo/prefixes_k13.pkl
+pseudo/descent_out.pkl
+pseudo/tmp/

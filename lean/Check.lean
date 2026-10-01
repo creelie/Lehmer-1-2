@@ -49,3 +49,11 @@ open LehmerTotient
 #print axioms lehmer_coprime_three_free
 #print axioms local_witness
 #print axioms three_obstruction
+#print axioms companion_step
+#print axioms lehmer_step
+#print axioms companion_all
+#print axioms lehmer_all
+#print axioms pseudoXs_companion
+#print axioms pseudoXs_three
+#print axioms companion_pseudo_prime_to_three
+#print axioms lehmer_pseudo_prime_to_three

@@ -1,6 +1,6 @@
 # Pseudo-solutions prime to 3
 
-Programs and logs for Section 8 of the paper: Theorem 8.3 and the first-moment count of Section 8.6. The Lean
+Programs and logs for Section 8 of the paper: Theorems 8.3 and 8.5 and the first-moment count of Section 8.6. The Lean
 proofs of Lemma 8.2 and Proposition 8.4 are in `lean/LehmerTotient/Barrier.lean`.
 
 The equation is
@@ -31,6 +31,10 @@ PATH) for the two `pari_*` programs. Build the C program first, in this director
 | `validate_prime_mode.py` | `tail3` in prime mode treats the 33,865,004 values of p_13 of the case k = 15 (`logs/k15_run_*.log`) and finds no completion | 1 min per sign |
 | `first_moment.py` | the first-moment count of Section 8.6; the calibration with the entry 3 allowed | seconds (k <= 6), minutes (k = 7) |
 | `first_moment_node.py` | the count for solutions prime to 3 over the tree for k = 12, and below the prefix (5, 7, 13, 17, 19, 23, 25, 37, 119) for k = 12, 13, 14 | about 5 min |
+| `make_seeds.py` | the seeds of `descent.py`: every prefix of length 6 or more of the tree for k = 13, with its defect | seconds |
+| `descent.py` | the search that found `companion_k25.txt`: descent through the defects with selection, testing every node for a last entry | 2.2 h on 4 cores |
+| `companion_k25.txt` | a pseudo-solution prime to 3 with 25 entries and eps = +1, one entry per line | – |
+| `check_tuple.py`, `check_gp.sh` | independent checks of a pseudo-solution in Python and in PARI/GP: equation, order, oddness, 3 divides no entry, all gcd(x_i, x_j - 1) = 1 | seconds |
 | `logs/` | recorded output | |
 
 ## Commands of the recorded runs
@@ -50,5 +54,21 @@ Run from this directory.
     python3 first_moment.py K -1 --with3 --W0 100000   (K = 4, 5, 6)
     python3 first_moment.py 7 -1 --with3 --W0 1000 --reps 20            > logs/first_moment_with3.log
     python3 first_moment_node.py 1000 30 30 --tree                      > logs/first_moment_node.log
+    python3 make_seeds.py; python3 descent.py --N 10000000 --gens 16 --workers 4 --q 1.6   > logs/descent.log
+                                                       (the log is kept up to step 14, where the tuple was found)
+    python3 check_tuple.py companion_k25.txt 1; ./check_gp.sh companion_k25.txt 1
 
 The first-moment counts are heuristic: they estimate how many solutions to expect, and prove nothing.
+
+## Pseudo-solutions prime to 3 for every k >= 25 (Theorem 8.5)
+
+Write A = x_1 ... x_j, B = (x_1 - 1) ... (x_j - 1) and c = 2B - A for a prefix. Appending x gives the defect
+cx - 2B, so the children of a prefix have defects r0 + ic with r0 = (-2B) mod c. A prefix with 0 < c x_j < 2B and 3 | B is
+completed by one more entry exactly when c divides 2B + eps; the entry is then (2B + eps)/c, and it satisfies every
+condition. `descent.py` keeps, at each step, the 10^7 admissible children with the smallest defect and tests each of
+them. At step 14 the prefix with 24 entries and defect 29 closes with eps = +1, which gives `companion_k25.txt`.
+
+The Lean files `PseudoExtend.lean` and `PseudoData.lean` check this tuple in the kernel and prove the extension:
+appending 2B + 1 keeps eps = +1, and appending A gives eps = -1. So there are pseudo-solutions prime to 3 with
+eps = +1 for every k >= 25 and with eps = -1 for every k >= 26. Some entries are composite (25, 119 = 7 * 17), so
+none of these is a solution of Lehmer's problem or of the companion problem.
