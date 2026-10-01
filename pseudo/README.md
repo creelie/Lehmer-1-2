@@ -1,6 +1,6 @@
 # Pseudo-solutions prime to 3
 
-Programs and logs for Section 8 of the paper: Theorem 8.3 and the first-moment count of Section 8.6. The Lean
+Programs and logs for Section 8 of the paper: Theorems 8.3 and 8.5 and the first-moment count of Section 8.6. The Lean
 proofs of Lemma 8.2 and Proposition 8.4 are in `lean/LehmerTotient/Barrier.lean`.
 
 The equation is
@@ -60,7 +60,7 @@ Run from this directory.
 
 The first-moment counts are heuristic: they estimate how many solutions to expect, and prove nothing.
 
-## A pseudo-solution prime to 3 (Section 8.6)
+## Pseudo-solutions prime to 3 for every k >= 25 (Theorem 8.5)
 
 Write A = x_1 ... x_j, B = (x_1 - 1) ... (x_j - 1) and c = 2B - A for a prefix. Appending x gives the defect
 cx - 2B, so the children of a prefix have defects r0 + ic with r0 = (-2B) mod c. A prefix with 0 < c x_j < 2B and 3 | B is
