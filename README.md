@@ -19,8 +19,11 @@ What the computations establish (see the paper for the proofs they complete):
    prime to 3 exists for k ≤ 12, nor for k ≤ 15 when x₁, …, x_{k−3} are prime (`pseudo/`). The number of entries
    divisible by 3 is even for the sign −1 and odd or zero for +1, and Lemma 2.2 is the only congruence obstruction to
    completing a prefix.
+8. In odd integers prime to 3, with gcd(xᵢ, xⱼ − 1) = 1 for all i, j, the equation x₁⋯x_k + 1 = 2∏(xᵢ − 1) has a
+   solution for every k ≥ 25, and x₁⋯x_k − 1 = 2∏(xᵢ − 1) has one for every k ≥ 26 (`pseudo/companion_k25.txt`).
+   Some entries are composite, so the primality of the factors has to enter beyond the prime 3.
 
-The lemmas and propositions behind 1–3 and 7, and statements 4, 5 and 6 in full, are proved in Lean 4 in `lean/`
+The lemmas and propositions behind 1–3 and 7, and statements 4, 5, 6 and 8 in full, are proved in Lean 4 in `lean/`
 (see `lean/README.md`). The exhaustive searches are checked by independent programs, not formalised.
 
 Neither Lehmer's totient conjecture nor the question whether φ(n) | n+1 has further solutions is settled.
