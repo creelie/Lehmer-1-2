@@ -221,7 +221,7 @@ by the search are satisfied by tuples of integers that are not all
 prime (Proposition~\ref{prop:pseudo}), so a proof for all $k$ has to
 use primality in an essential way. These tuples all have two entries
 divisible by $3$. Tuples with no entry divisible by $3$ do not occur for
-$k\le@@KI@@$, nor for $k\le15$ when all entries but the last three are
+$k\le13$, nor for $k\le15$ when all entries but the last three are
 prime (Theorem~\ref{thm:pseudo3}), and no congruence condition other
 than that of Lemma~\ref{lem:three} can exclude them
 (Proposition~\ref{prop:local}). They do occur, for every $k\ge25$
@@ -1887,7 +1887,7 @@ a pseudo-solution with $s=0$ \emph{prime to $3$}.
 \begin{theorem}\label{thm:pseudo3}
 Let $\varepsilon=\pm1$.
 \begin{enumerate}
-\item[(i)] No pseudo-solution of \eqref{eq:product} with $k\le@@KI@@$ is
+\item[(i)] No pseudo-solution of \eqref{eq:product} with $k\le13$ is
 prime to $3$.
 \item[(ii)] For $k\le15$ no pseudo-solution of \eqref{eq:product} prime
 to $3$ has $x_1,\dots,x_{k-3}$ prime.
@@ -1902,20 +1902,40 @@ integers prime to $3$, with the congruence prune replaced by
 $x\not\equiv0$ modulo the odd primes of $B_j$ and $x\not\equiv1$ modulo
 the primes of $A_j$. For (i) the tree is traversed with integer entries
 down to depth $k-3$; for $k=12$ it has $489$ nodes at that depth, below
-which lie $55423$ admissible values of $x_{k-2}$. @@K13TEXT@@ For (ii) the
-traversal with prime entries is run to depth $k-3$. In both cases every
-admissible odd $x_{k-2}$ prime to $3$ in the interval is followed by
-the sum route of Section~\ref{sec:sum}, which does not use primality.
-For $k=15$ these are $1.43\cdot10^8$ values of $x_{k-2}$ for each sign,
+which lie $55423$ admissible values of $x_{k-2}$. For (ii) the
+traversal with prime entries is run to depth $k-3$. For $k\le12$ in
+(i), and for every $k$ in (ii), every admissible odd $x_{k-2}$ prime to
+$3$ in the interval is followed by the sum route of
+Section~\ref{sec:sum}, which does not use primality. For $k=15$ in
+(ii) these are $1.43\cdot10^8$ values of $x_{k-2}$ for each sign,
 treated in about four minutes per sign; for eight of them per sign the
 route would be long, and there $2AB+\varepsilon C$ is factored
 completely, with every prime factor proved prime. No completion occurs.
+
+For $k=13$ in (i) the tree has $86459$ nodes at depth $10$, the same
+for both signs. Their intervals for $x_{11}$ have total length
+$1.07\cdot10^{11}$ and contain $1.64\cdot10^{10}$ admissible values;
+the longest, of length $1.9\cdot10^{10}$, belongs to the prefix
+$5,7,13,17,19,23,25,37,119,147089$. These values are treated by the
+program of Section~\ref{sec:eight}, with the conditions on primes
+replaced by those of the integer prune: modulo $2$, modulo $3$ and
+modulo the odd primes of $B_{10}$ the residue $0$ is excluded, and
+modulo the primes of $A_{10}$ the residue $1$. Every completion in odd
+integers prime to $3$ avoids these residues, because
+$\gcd(x_i,x_j-1)=1$, so the sieve loses none of them. For $73106$
+values per sign, near the lower ends of the longest intervals, the
+integer $2AB+\varepsilon C$, of up to $54$ digits, is factored
+completely instead, with every prime factor proved prime. The run took
+about $15$ hours of processor time per sign, $2.5$ of them in PARI/GP,
+and found no completion in odd integers prime to $3$ for either sign.
 A second program factors each integer $2AB+\varepsilon C$ completely
 with PARI/GP \cite{PARI}, proves every prime factor prime, and runs through all its
 divisors in the class of Proposition~\ref{prop:class}. It traverses
 the integer tree independently, with its own bounds, and repeats (i)
 for $k\le12$; it repeats (ii) for $k\le14$, including all $67626$ values of $x_{11}$
-at $k=14$, with the same result. Allowed to use the entry $3$, the
+at $k=14$, with the same result. The case $k=13$ of (i) rests on the
+program of Section~\ref{sec:eight} and its checks in
+Section~\ref{sec:checks8}. Allowed to use the entry $3$, the
 second program finds $1$, $1$, $2$, $8$ and $47$ solutions of
 \eqref{eq:product} in odd integers with $\varepsilon=-1$ for
 $k=3,\dots,7$, all with $s\in\{2,4\}$, and $1$, $1$, $2$, $4$ and $18$
@@ -1924,7 +1944,7 @@ prime prefixes, finds exactly those whose first $k-3$ entries are
 prime.
 \end{proof}
 
-Theorem~\ref{thm:pseudo3} says that for $k\le@@KI@@$ the search behind
+Theorem~\ref{thm:pseudo3} says that for $k\le13$ the search behind
 Theorem~\ref{thm:first}, which solves \eqref{eq:product} with
 $\varepsilon=-1$ and $x_1\ge5$, needs no primality beyond the fact
 that $3$ divides at most one prime factor, and that for $k\le15$ it
@@ -2017,7 +2037,7 @@ if
 \eqref{eq:product} has no solution in odd integers prime to $3$, prime
 or not, then neither equation has a solution with $M=2$ and
 $3\nmid n$. This hypothesis involves no primes at all.
-Theorem~\ref{thm:pseudo3} verifies it for $k\le@@KI@@$. A first-moment count
+Theorem~\ref{thm:pseudo3} verifies it for $k\le13$. A first-moment count
 along the tree, weighting each two-entry problem by the expected number
 of divisors of $2AB+\varepsilon C$ in its class, predicts $0.8$, $1.7$,
 $5.2$ and about $25$ pseudo-solutions of Lehmer's equation with the
@@ -2090,7 +2110,7 @@ None of these tuples has pairwise coprime entries. By
 Lemma~\ref{lem:parity} a pseudo-solution of Lehmer's equation with
 pairwise coprime entries is prime to $3$, and we do not know whether
 one exists. The smallest $k$ with a pseudo-solution prime to $3$ lies
-between $@@KLOW@@$ and $25$ for $\varepsilon=+1$, and between $@@KLOW@@$ and $26$
+between $14$ and $25$ for $\varepsilon=+1$, and between $14$ and $26$
 for $\varepsilon=-1$.
 
 

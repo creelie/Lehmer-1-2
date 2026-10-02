@@ -16,7 +16,7 @@ What the computations establish (see the paper for the proofs they complete):
 6. Every Fermat-type n₀ = p₁⋯p_m gives a pseudo-solution (p₁, …, p_m, n₀) of x₁⋯x_k − 1 = 2∏(xᵢ − 1) that passes
    the congruence prune, so a proof for all k has to use the primality of the factors.
 7. These pseudo-solutions have two entries divisible by 3. No solution of x₁⋯x_k ± 1 = 2∏(xᵢ − 1) in odd integers
-   prime to 3 exists for k ≤ @@KI@@, nor for k ≤ 15 when x₁, …, x_{k−3} are prime (`pseudo/`). The number of entries
+   prime to 3 exists for k ≤ 13, nor for k ≤ 15 when x₁, …, x_{k−3} are prime (`pseudo/`). The number of entries
    divisible by 3 is even for the sign −1 and odd or zero for +1, and Lemma 2.2 is the only congruence obstruction to
    completing a prefix.
 8. In odd integers prime to 3, with gcd(xᵢ, xⱼ − 1) = 1 for all i, j, the equation x₁⋯x_k + 1 = 2∏(xᵢ − 1) has a

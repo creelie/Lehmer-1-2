@@ -8,7 +8,7 @@ The equation is
     x_1 x_2 ... x_k + eps = 2 (x_1 - 1)(x_2 - 1) ... (x_k - 1),        eps = -1 (Lehmer) or +1 (companion),
 
 in odd integers 5 <= x_1 < ... < x_k, none divisible by 3, prime or not. Theorem 8.3 states that there is no solution
-with k <= @@KI@@, and none with k <= 15 in which x_1, ..., x_{k-3} are prime. Each part is checked by two programs for
+with k <= 13, and none with k <= 15 in which x_1, ..., x_{k-3} are prime. Each part is checked by two programs for
 k <= 12; the case k = 13 of the first part is carried out by `integer_tree_scan.py`.
 
 ## Requirements
@@ -26,7 +26,7 @@ PATH) for the two `pari_*` programs. Build the C program first, in this director
 | `tail3lib.py` | driver for `tail3`; problems where the sum route would be long are solved by a complete factorisation, with every prime factor proved prime | – |
 | `integer_tree.py` | Theorem 8.3 (i), first program: the tree with integer entries prime to 3, k <= 12, both signs | seconds |
 | `prime_prefixes.py` | Theorem 8.3 (ii), first program: the prime prefixes of the search of Theorems 1.1 and 1.3, then three integer entries | about 4 min of CPU time per sign for k = 15 |
-| `integer_tree_scan.py` | Theorem 8.3 (i) for k = 13, both signs: the tree of `integer_tree.py`, and at depth 10 the program `scan3` of `../companion8` in its mode for odd integers prime to 3, with PARI/GP for the values where the sums would be slow; resumable through `../data/pseudo/integer_tree_k13_*.jsonl` | about @@H13@@ h of CPU time per sign |
+| `integer_tree_scan.py` | Theorem 8.3 (i) for k = 13, both signs: the tree of `integer_tree.py`, and at depth 10 the program `scan3` of `../companion8` in its mode for odd integers prime to 3, with PARI/GP for the values where the sums would be slow; resumable through `../data/pseudo/integer_tree_k13_*.jsonl` | about 15 h of CPU time per sign, 3.8 h on 4 cores |
 | `pari_integer_tree.py` | Theorem 8.3 (i), second program: its own bounds and tree, and at every node with two entries left a complete factorisation with PARI/GP, every factor proved prime; no code shared with the rest of the repository | about 10 min for k = 12 |
 | `pari_prime_prefixes.py` | Theorem 8.3 (ii), second program, for k <= 14: the same prime prefixes, its own range for x_{k-2}, and a complete factorisation for every value | about 15 min per sign for k = 14 |
 | `validate_with3.py` | with the entry 3 allowed, `tail3` finds exactly the solutions listed by `pari_integer_tree.py --with3` whose first k - 3 entries are prime (k <= 7, both signs) | minutes |

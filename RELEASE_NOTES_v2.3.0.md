@@ -16,8 +16,10 @@ Code and data for the revised paper *Lehmer's totient problem with fewer than si
     (known solutions, odd-integer counts, 2868 pairs against complete factorisation) and `recheck.py` (a random sample
     of the run repeated with other parameters). Logs in `companion8/logs/`.
 - **Pseudo-solutions prime to 3.** The product equation x₁⋯x_k ± 1 = 2∏(xᵢ − 1) has no solution in odd integers prime
-  to 3 for k ≤ @@KI@@ (Theorem 8.3 (i)); the case k = 13 is new, by `pseudo/integer_tree_scan.py`, which runs the same
-  kernel in its mode for odd integers prime to 3. Logs in `pseudo/logs/integer_tree_k13_*.log`.
+  to 3 for k ≤ 13 (Theorem 8.3 (i)). The case k = 13 is new: `pseudo/integer_tree_scan.py` runs the same kernel in its
+  mode for odd integers prime to 3 over the 16,360,285,828 admissible values of x₁₁ under the 86,459 nodes of depth
+  10, for each sign, and factors N completely for 73,106 of them; about 15 processor hours per sign. Journals in
+  `data/pseudo/`, logs in `pseudo/logs/integer_tree_k13_*.log`.
 - `paper/`: the LaTeX source, the TikZ sources of the figures with their PNG exports (`figures/build.sh`), and
   `make_arxiv.sh`, which builds the PDF and the arXiv source package.
 
