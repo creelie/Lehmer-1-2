@@ -5,3 +5,7 @@ pseudo/logs/.*
 pseudo/prefixes_k13.pkl
 pseudo/descent_out.pkl
 pseudo/tmp/
+companion8/scan3
+paper/build/
+paper/figures/build/
+paper/*.tar.gz

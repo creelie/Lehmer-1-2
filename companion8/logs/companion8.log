@@ -1,0 +1,6 @@
+k = 8, n + 1 = 2 phi(n), 3 | n: 10458 prefixes of five primes, total width of the intervals for p_6 13045270773, 10897 pieces in 445 batches, estimated work 5.6 processor hours
+0 batches already in the journal, 445 to do
+  1/445 batches, 42s
+  51/445 batches, 1145s
+  101/445 batches, 2156s
+  151/445 batches, 3033s
