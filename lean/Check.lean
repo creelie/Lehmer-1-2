@@ -57,3 +57,15 @@ open LehmerTotient
 #print axioms pseudoXs_three
 #print axioms companion_pseudo_prime_to_three
 #print axioms lehmer_pseudo_prime_to_three
+#print axioms eight_reduction
+#print axioms trial_dvd_iff
+#print axioms sigma_identities
+#print axioms sigma_class
+#print axioms sigma_range
+#print axioms sigma_converse
+#print axioms sieve_keeps
+#print axioms eight_kept
+#print axioms int_kept
+#print axioms no_small_factor_of_prime
+#print axioms fermat_prefix
+#print axioms eight_completions
