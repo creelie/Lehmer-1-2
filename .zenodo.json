@@ -1,7 +1,7 @@
 {
   "title": "Code, data and Lean proofs for Lehmer's totient problem with fewer than sixteen prime factors",
   "upload_type": "software",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Programs, recorded output, factorisation data and a Lean 4 formalisation for the paper 'Lehmer's totient problem with fewer than sixteen prime factors'. The searches prove that composite solutions of phi(n) | n-1 have at least 16 prime factors, find every solution of phi(n) | n+1 with at most 8 prime factors (the nine known ones), and show that solutions of phi(n) | n+1 prime to 3 have at least 16 prime factors. The last three prime factors are found through divisors of an explicit integer in a residue class, in three independent implementations; for eight prime factors this is done by trial division and by the sum of the two complementary divisors, sieved by congruences, and by a complete factorisation with every prime factor proved prime where that is faster. Further programs show that the product equation x_1...x_k +- 1 = 2(x_1 - 1)...(x_k - 1) has no solution in odd integers prime to 3 for k <= 13, and none for k <= 15 with the first k - 3 entries prime. A descent through the defects finds a solution of x_1...x_25 + 1 = 2(x_1 - 1)...(x_25 - 1) in odd integers prime to 3, and Lean proves from it that such solutions exist for every k >= 25 with the sign +1 and every k >= 26 with the sign -1; some entries are composite. The lemmas and propositions of the paper, the quotient theorem and the extension theorem are proved in Lean 4 with Mathlib.",
   "creators": [
     {
