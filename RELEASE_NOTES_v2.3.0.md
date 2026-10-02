@@ -12,7 +12,7 @@ Code and data for the revised paper *Lehmer's totient problem with fewer than si
     satisfy; every completion is checked with GMP.
   - `factor_class.gp`: the 1,967,265 cases in which this would be slow, by a complete factorisation with PARI/GP and
     every prime factor proved prime (`factor_proven = 1`).
-  - `companion8.py` (the run, 6.8 processor hours, journal `data/companion8/journal.jsonl`), `test_scan3.py`
+  - `companion8.py` (the run, 6.9 processor hours, journal `data/companion8/journal.jsonl`), `test_scan3.py`
     (known solutions, odd-integer counts, 2868 pairs against complete factorisation) and `recheck.py` (a random sample
     of the run repeated with other parameters). Logs in `companion8/logs/`.
 - **Pseudo-solutions prime to 3.** The product equation x₁⋯x_k ± 1 = 2∏(xᵢ − 1) has no solution in odd integers prime

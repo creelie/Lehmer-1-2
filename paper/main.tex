@@ -1460,9 +1460,9 @@ primality.
 The computation was cut into $10897$ pieces, each a range of $s$
 under one prefix, and run on four processors. It examined $228260561$
 pairs, made $3.4\cdot10^{11}$ trial divisions, visited $6.7\cdot10^{13}$
-values of $\sigma$ and tested $1.5\cdot10^{10}$ of them exactly.
+values of $\sigma$ and tested $2.1\cdot10^{8}$ of them exactly.
 In $1967265$ cases $N$ was factored, with up to $39$ digits. The
-whole run took $6.8$ hours of processor time, $2.9$ of them in
+whole run took $6.9$ hours of processor time, $3.2$ of them in
 PARI/GP. It found $21$ completions $s<p<q$ in integers and no
 solution. Sixteen of the completions lie under the prefix
 $3,5,17,353,929$ with $s=83623937$, where
@@ -1522,7 +1522,7 @@ $p_6$, on logarithmic axes; the two in the last bar end in $65537$ and
 $65543$. Right: processor time per admissible $p_6$ under the prefix
 $3,5,17,257,65537$, one point for each piece of the run, against the
 modulus $c=p_6-2^{32}$. For $c$ below about $10^8$ the integer $N$ is
-factored, in about five milliseconds; above that the sums and the
+factored, in about six milliseconds; above that the sums and the
 trial division are faster, and their cost falls as $c$ grows. Beyond
 $c=2^{32}$, that is for $p_6>2^{33}$, the condition $p>p_6$ leaves only
 a short range of divisors.}
@@ -1794,7 +1794,7 @@ Theorem~\ref{thm:pseudo3}, $k=13$ & the sieve keeps every completion \\
 
 The methods of Section~\ref{sec:three} settle the case $k=15$ in a
 quarter of an hour on a single processor, and the case of eight primes
-of the companion equation in $6.8$ hours. This section explains why
+of the companion equation in $6.9$ hours. This section explains why
 they do not reach the next cases, and which properties of the primes
 any further progress has to use.
 
