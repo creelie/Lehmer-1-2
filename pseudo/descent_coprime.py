@@ -9,7 +9,10 @@ Every node is tested for one-entry closure:
     c | 2B - 1 :  X = (2B - 1)/c  gives  x_1 ... x_k X - 1 = 2 prod (x - 1)     (Lehmer sign)
     c | 2B + 1 :  X = (2B + 1)/c  gives  x_1 ... x_k X + 1 = 2 prod (x - 1)     (companion sign)
 Every child is also required to be prime to the primes up to 3000 that divide A, so that the entries stay pairwise
-coprime; the remaining prime factors of A are large and are checked exactly at a hit.
+coprime; the remaining prime factors of A are large and are checked exactly at a hit.  Only children that one more
+entry can complete are kept (c' x < 2B', ensured by c' < B), the seeds are the prefixes of coprime_tree.py with
+0 < c x_j < 2B, and the threshold T is raised whenever needed to keep about 1.5 N candidates, capped at 4e18 so that
+the defects fit in 64 bits.
 Any hit is verified with exact integers (equation, order, oddness, 3 does not divide, all gcd(x_i, x_j - 1) = 1, and
 all gcd(x_i, x_j) = 1 for i != j)."""
 import sys, os, math, time, pickle, argparse
@@ -46,6 +49,7 @@ def verify(xs, eps):
 
 G = {}   # globals inherited by forked workers: seeds, gens
 CAP = 20000   # at most this many consecutive children of one node are examined
+TMAX = 4e18   # defects are stored as 64-bit integers
 
 def child_state(st, i, cp):
     """state of child i of st, whose defect cp = r0 + i c is known; A is not needed (A = 2B - c)."""
@@ -82,7 +86,9 @@ def candidates(s, T):
     c = s['c']; r0 = s['r0']; x0 = s['x0']
     i_lo = 0 if x0 > s['xl'] else int(s['xl'] - x0) + 1
     if r0 + i_lo * c > T: return None
-    i_hi = min((T - r0) // c, i_lo + CAP)      # the children with the smallest defects
+    Tn = min(T, int(s['B'])) if s['B'] < T else T     # children with c' < B can be completed by one entry
+    if r0 + i_lo * c > Tn: return None
+    i_hi = min((Tn - r0) // c, i_lo + CAP)      # the children with the smallest defects
     n = i_hi - i_lo + 1
     PA = s['PA']; PB = s['PB']
     if n > 64:
@@ -169,25 +175,26 @@ def main():
     ap.add_argument('--gens', type=int, default=10)
     ap.add_argument('--workers', type=int, default=4)
     ap.add_argument('--q', type=float, default=1.6, help='candidate threshold = max c of generation / q')
-    ap.add_argument('--rho', type=float, default=0.15)
     ap.add_argument('--tmp', default='tmp')
     ap.add_argument('--out', default='descent_coprime_out.pkl')
-    ap.add_argument('--seeds', default='prefixes_k13.pkl')
-    ap.add_argument('--minlen', type=int, default=6)
+    ap.add_argument('--seeds', default='coprime_prefixes_k15.pkl')
+    ap.add_argument('--minlen', type=int, default=5)
     ap.add_argument('--T0', type=float, default=0, help='initial threshold (default from the seed mass)')
+    ap.add_argument('--delta', type=float, default=0.07, help='expected share of admissible children')
     a = ap.parse_args()
     os.makedirs(a.tmp, exist_ok=True)
     pre = pickle.load(open(a.seeds, 'rb'))
     seeds = []
     for p, c in sorted(pre.items()):
         if len(p) < a.minlen or c <= 0: continue
+        if 2 * math.prod(x - 1 for x in p) <= c * p[-1]: continue     # one more entry cannot complete it
         if any(math.gcd(p[i], p[j]) != 1 for i in range(len(p)) for j in range(i)): continue
         seeds.append(seed_state(p))
     G['seeds'] = seeds; G['gens'] = [None]
     M0 = sum(1.0 / s['c'] for s in seeds)
     print(f"seeds {len(seeds)} mass {M0:.3e} N={a.N} workers={a.workers}", flush=True)
     allhits = []; tot = 0.0
-    T = int(a.T0) if a.T0 else int(1.3 * a.N / (a.rho * M0))
+    T = int(a.T0) if a.T0 else int(min(TMAX, 1.5 * a.N / (a.delta * M0)))
     t00 = time.time()
     for g in range(0, a.gens + 1):
         t0 = time.time()
@@ -218,7 +225,8 @@ def main():
         G['gens'].append(dict(c=cs[order].copy(), i=ii[order].copy(), par=pp[order].copy()))
         cmax = int(G['gens'][-1]['c'].max()); cmin = int(G['gens'][-1]['c'].min())
         print(f"   gen {g+1} selected {len(order)}: c min {cmin} max {cmax:.3e}", flush=True)
-        if ncand >= a.N: T = int(cmax / a.q)        # while the beam is not full the threshold is kept
+        Mn = float(np.sum(1.0 / G['gens'][-1]['c'].astype(np.float64)))
+        T = int(min(TMAX, max(cmax / a.q, 1.5 * a.N / (a.delta * Mn))))   # about 1.5 N candidates
         del cs, ii, pp
         pickle.dump(dict(hits=allhits, args=vars(a)), open(a.out, 'wb'))
     pickle.dump(dict(hits=allhits, args=vars(a)), open(a.out, 'wb'))
