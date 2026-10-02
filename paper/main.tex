@@ -104,10 +104,10 @@ Equation~\eqref{eq:first} has no known composite solution. Equation
 and no others are known. Apart from $1$, $2$ and $3$, each of them
 satisfies $n+1=2\varphi(n)$. Four of them are products of consecutive
 Fermat primes\footnote{The Fermat numbers $F_i=2^{2^i}+1$ are prime
-for $0\le i\le4$, and $\prod_{i<r}F_i=2^{2^r}-1$. For $r\le5$ the
-number $n=2^{2^r}-1$ satisfies $\varphi(n)=\prod_{i<r}2^{2^i}
-=2^{2^r-1}=(n+1)/2$. The chain breaks at $r=6$ because
-$F_5=641\cdot6700417$, as Euler found.}, namely $15=3\cdot5$,
+for $0\le i\le4$, and $F_0F_1\cdots F_{r-1}=2^{2^r}-1$. For $r\le5$
+the number $n=2^{2^r}-1$ is therefore a product of primes $F_i$, and
+$\varphi(n)=2^{1+2+\dots+2^{r-1}}=2^{2^r-1}=(n+1)/2$. The chain breaks
+at $r=6$ because $F_5=641\cdot6700417$, as Euler found.}, namely $15=3\cdot5$,
 $255=3\cdot5\cdot17$, $65535=3\cdot5\cdot17\cdot257$ and
 $4294967295=3\cdot5\cdot17\cdot257\cdot65537$. The other two are
 $83623935=3\cdot5\cdot17\cdot353\cdot929$ and
@@ -1923,9 +1923,12 @@ modulo the odd primes of $B_{10}$ the residue $0$ is excluded, and
 modulo the primes of $A_{10}$ the residue $1$. Every completion in odd
 integers prime to $3$ avoids these residues, because
 $\gcd(x_i,x_j-1)=1$, so the sieve loses none of them. For $73106$
-values per sign, near the lower ends of the longest intervals, the
-integer $2AB+\varepsilon C$, of up to $54$ digits, is factored
-completely instead, with every prime factor proved prime. The run took
+values, near the lower ends of the longest intervals, the integer
+$2AB+\varepsilon C$, of up to $54$ digits, is factored completely
+instead, with every prime factor proved prime. The program chooses
+these values from its estimate of the running time, which depends on
+$\varepsilon$ only through the term $\varepsilon C$, negligible beside
+$2AB$; it chooses the same $73106$ values for both signs. The run took
 about $15$ hours of processor time per sign, $2.5$ of them in PARI/GP,
 and found no completion in odd integers prime to $3$ for either sign.
 A second program factors each integer $2AB+\varepsilon C$ completely
