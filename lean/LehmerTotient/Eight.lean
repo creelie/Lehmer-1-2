@@ -30,7 +30,7 @@ namespace LehmerTotient
 theorem eight_reduction {n : ℕ} {M : ℤ} (hn : 3 < n) (hM : (n : ℤ) + 1 = M * φ n)
     (h8 : n.primeFactors.card = 8) (h3 : 3 ∣ n) :
     M = 2 ∧ 3 ∈ n.primeFactors ∧ ∀ p ∈ n.primeFactors, 3 ≤ p := by
-  have hdvd : (φ n : ℤ) ∣ n + 1 := ⟨M, by rw [hM]⟩
+  have hdvd : (φ n : ℤ) ∣ n + 1 := ⟨M, by rw [hM]; ring⟩
   have hε : IsSign 1 := Or.inl rfl
   have hc := not_prime_of_dvd_add_one hdvd hn
   have h2M := two_le_quotient hε (by omega) hc hM
@@ -91,11 +91,11 @@ theorem sigma_identities {A' B' p q ε : ℤ} (h : A' * p * q + ε = 2 * B' * (p
 /-- The class of `σ` modulo `c`: `2 B' σ ≡ 2 B' - ε`. -/
 theorem sigma_class {A' B' p q ε : ℤ} (h : A' * p * q + ε = 2 * B' * (p - 1) * (q - 1)) :
     2 * B' * (p + q) ≡ 2 * B' - ε [ZMOD (2 * B' - A')] :=
-  Int.modEq_iff_dvd.mpr ⟨-(p * q), by linear_combination h⟩
+  Int.modEq_iff_dvd.mpr ⟨-(p * q), by linear_combination (-1 : ℤ) * h⟩
 
-/-- The range of the sum: if `t u = N` with `0 < t_d ≤ t ≤ u`, then `4 N ≤ (t + u) ^ 2` and
-`t_d (t + u) ≤ t_d ^ 2 + N`, that is, `2 √N ≤ t + u ≤ t_d + N / t_d`. -/
-theorem sigma_range {N t u td : ℤ} (hN : t * u = N) (htd : 0 < td) (h1 : td ≤ t) (h2 : t ≤ u) :
+/-- The range of the sum: if `t u = N` with `t_d ≤ t ≤ u`, then `4 N ≤ (t + u) ^ 2` and
+`t_d (t + u) ≤ t_d ^ 2 + N`; for `t_d > 0` this says `2 √N ≤ t + u ≤ t_d + N / t_d`. -/
+theorem sigma_range {N t u td : ℤ} (hN : t * u = N) (h1 : td ≤ t) (h2 : t ≤ u) :
     4 * N ≤ (t + u) ^ 2 ∧ td * (t + u) ≤ td ^ 2 + N := by
   constructor
   · nlinarith [sq_nonneg (t - u)]
@@ -241,8 +241,8 @@ theorem int_not_excluded {k : ℕ} (x : Fin k → ℤ) (M ε : ℤ) (hε : ε = 
     Int.isCoprime_iff_gcd_eq_one.mpr (gcd_of_product_eq x M ε hε heq j i)
   have g2 : IsCoprime (x i) (x j - 1) :=
     Int.isCoprime_iff_gcd_eq_one.mpr (gcd_of_product_eq x M ε hε heq i j)
-  exact ⟨fun h1 h2 => hpr.not_unit (g1.isUnit_of_dvd' h2 h1),
-    fun h1 h2 => hpr.not_unit (g2.isUnit_of_dvd' h1 h2)⟩
+  exact ⟨fun h1 h2 => hpr.not_isUnit (g1.isUnit_of_dvd' h2 h1),
+    fun h1 h2 => hpr.not_isUnit (g2.isUnit_of_dvd' h1 h2)⟩
 
 /-- Step (iii) in the mode for odd integers prime to `3` (Theorem 8.3): if the entries satisfy the product
 equation, are odd and prime to `3`, the residue `0` is excluded only modulo `2`, `3` and primes dividing
@@ -261,9 +261,9 @@ theorem int_kept {k : ℕ} (x : Fin k → ℤ) (M ε : ℤ) (hε : ε = 1 ∨ ε
     · rcases hZ ℓ hZ' hℓ with rfl | rfl | hdiv
       · exact h2 j (by exact_mod_cast hd)
       · exact h3 j (by exact_mod_cast hd)
-      · obtain ⟨i, -, hi⟩ := (Prime.dvd_finset_prod_iff hpr _).mp hdiv
+      · obtain ⟨i, -, hi⟩ := (Prime.dvd_finsetProd_iff hpr _).mp hdiv
         exact (int_not_excluded x M ε hε heq hℓ i j).1 hi hd
-    · obtain ⟨i, -, hi⟩ := (Prime.dvd_finset_prod_iff hpr _).mp (hO ℓ hO' hℓ)
+    · obtain ⟨i, -, hi⟩ := (Prime.dvd_finsetProd_iff hpr _).mp (hO ℓ hO' hℓ)
       exact (int_not_excluded x M ε hε heq hℓ i j).2 hi hd
   exact ⟨hk, fun i j => sieve_keeps (hk i) (hk j)⟩
 
