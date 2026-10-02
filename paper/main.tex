@@ -1697,7 +1697,18 @@ from a complete factorisation of $N$, which has up to $55$ digits. The
 two agree: for none of these values does $N$ have a divisor in the
 class that yields integers $x_{11}<p<q$.
 
-\emph{Repetition.} @@CROSSCHECK@@
+\emph{Repetition.} After the run, $13$ pieces chosen at random with a
+fixed seed among the $441$ whose counts the run records separately,
+and the
+piece that contains the four completions in which $p$ and $q$ have no
+prime factor up to $61$, were run again with other parameters. The
+sums were weighted more than three times as heavily against the trial
+division, so that the split points $t_d$ move, and $N$ was factored
+whenever the estimated work exceeded $1.5$ milliseconds instead of
+four. The repetition treated $7415547$ admissible values of $p_6$ and
+factored $196063$ integers $N$. It found the same number of admissible
+values of $p_6$ in each of the $13$ pieces as the run, and the same
+four completions.
 
 \subsection{Formal verification}\label{sec:lean}
 The statements listed in Table~\ref{tab:lean} have been proved in
