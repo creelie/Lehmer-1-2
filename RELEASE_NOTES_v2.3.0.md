@@ -23,8 +23,14 @@ Code and data for the revised paper *Lehmer's totient problem with fewer than si
 - **Lean.** `lean/LehmerTotient/Eight.lean` proves the reduction of the eight-prime case to n + 1 = 2φ(n) with
   p₁ = 3, the identities behind trial division and the sum route, and that the sieve of `scan3` keeps every
   completion, for primes and for odd integers prime to 3; `EightData.lean` checks the 21 completions of the
-  eight-prime search in the kernel. `lake env lean lean/Check.lean` audits 64 theorems, each depending only on
-  `propext`, `Classical.choice` and `Quot.sound`.
+  eight-prime search in the kernel. `LehmerExt.lean` proves Proposition 8.6. `lake env lean lean/Check.lean` audits
+  70 theorems, each depending only on `propext`, `Classical.choice` and `Quot.sound`.
+- **Pairwise coprime pseudo-solutions.** Proposition 8.6 turns a solution of the product equation with ε = +1 and a
+  factorisation d e = A² + A − 1 into a solution with ε = −1; the new entries keep pairwise coprimality exactly when
+  gcd(d² − 1, A) = gcd(d − 1, A + 2) = 1, which fails when 5 | A. `pseudo/coprime_tree.py` and
+  `pseudo/descent_coprime.py` search for pairwise coprime solutions prime to 3 and find none: the 13,190 completable
+  prefixes of the coprime tree for k = 15 have a sum of 1/c of 7.7·10⁻¹¹, and the descent from them loses about a
+  fifth of it per step.
 - `paper/`: the LaTeX source, the TikZ sources of the figures with their PNG exports (`figures/build.sh`), and
   `make_arxiv.sh`, which builds the PDF and the arXiv source package.
 

@@ -69,3 +69,9 @@ open LehmerTotient
 #print axioms no_small_factor_of_prime
 #print axioms fermat_prefix
 #print axioms eight_completions
+#print axioms lehmer_ext_eq
+#print axioms lehmer_ext_sorted
+#print axioms lehmer_ext_pairwise
+#print axioms prime_dvd_mod_five
+#print axioms dvd_mod_five
+#print axioms lehmer_ext_five
