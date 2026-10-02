@@ -2,7 +2,7 @@
 
 Code, data and Lean proofs for the paper
 
-> D. Bhattacharjee, P. Mandal, U. Bhattacharya,
+> P. Mandal, D. Bhattacharjee, U. Bhattacharya,
 > *Lehmer's totient problem with fewer than sixteen prime factors*.
 
 What the computations establish (see the paper for the proofs they complete):
@@ -89,5 +89,5 @@ Run any script from the repository root, for example `python3 first_equation.py`
 
 ## Authors
 
-Deep Bhattacharjee, Priyabrata Mandal, Ushashi Bhattacharya.
+Priyabrata Mandal (corresponding author), Deep Bhattacharjee, Ushashi Bhattacharya.
 The code and the Lean proofs were written by Deep Bhattacharjee with the assistance of Claude (Anthropic).
