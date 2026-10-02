@@ -24,7 +24,8 @@ What the computations establish (see the paper for the proofs they complete):
    Some entries are composite, so the primality of the factors has to enter beyond the prime 3.
 
 The lemmas and propositions behind 1–3 and 7, and statements 4, 5, 6 and 8 in full, are proved in Lean 4 in `lean/`
-(see `lean/README.md`). The exhaustive searches are checked by independent programs, not formalised.
+(see `lean/README.md`); for 2 and 7 this includes the reduction, the identities and the sieve of the eight-prime
+program, and the 21 completions it finds. The exhaustive searches are checked by independent programs, not formalised.
 
 Neither Lehmer's totient conjecture nor the question whether φ(n) | n+1 has further solutions is settled.
 
