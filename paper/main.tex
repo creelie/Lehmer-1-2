@@ -279,10 +279,14 @@ Theorem~\ref{thm:quotient}, Theorem~\ref{thm:ext},
 Lemma~\ref{lem:parity}, Propositions~\ref{prop:pseudo}
 and~\ref{prop:local} and Theorem~\ref{thm:pseudo25} has been verified in the proof assistant
 Lean~4 \cite{Lean4} with its mathematical library Mathlib
-\cite{Mathlib} (Section~\ref{sec:lean}). The finite computations inside
-these proofs, namely the thresholds $7$, $32$ and $1540$, the
-factorisations of Table~\ref{tab:ext} and the primality of its factors,
-and the tuple of Theorem~\ref{thm:pseudo25}, are carried out by the
+\cite{Mathlib} (Section~\ref{sec:lean}), and so has every step of the
+eight-prime search of Section~\ref{sec:eight} that is not a
+computation: the reduction to $n+1=2\varphi(n)$ with $p_1=3$, the
+identities behind its two routes, and the soundness of its sieve. The
+finite computations inside these proofs, namely the thresholds $7$,
+$32$ and $1540$, the factorisations of Table~\ref{tab:ext} and the
+primality of its factors, the tuple of Theorem~\ref{thm:pseudo25} and
+the $21$ completions of the eight-prime search, are carried out by the
 Lean kernel. The exhaustive searches themselves
 are not formalised; for them the evidence is the agreement of
 independent programs described in Section~\ref{sec:checks}.
@@ -651,6 +655,27 @@ Proposition~\ref{prop:last}, applied with $A=A'$ and $B=B'$, the
 remaining primes $p<q$ of a solution satisfy
 $(cp-2B')(cq-2B')=N$ with both factors positive. Let $r$ be the least
 positive residue of $-2B'$ modulo $c$.
+
+By \eqref{eq:excess} the last three primes satisfy
+\[
+  \frac{s}{s-1}\cdot\frac{p}{p-1}\cdot\frac{q}{q-1}
+  =T-\frac{\varepsilon}{P_{k-3}\,\varphi(n)},\qquad T=\frac{2}{P_{k-3}},
+\]
+so the point $(s,p,q)$ lies next to the surface on which this product
+equals $T$. Fixing $s$ cuts the surface in a curve, and the pair
+$(p,q)$ lies exactly on the hyperbola $(cp-2B')(cq-2B')=N$ beside that
+curve (Figure~\ref{fig:surface}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{figures/fig_surface.png}
+\caption{The surface $\frac{s}{s-1}\cdot\frac{p}{p-1}\cdot\frac{q}{q-1}=T$
+with $s<p<q$, for $T=1.1$ on logarithmic axes. Each slice with fixed
+$s$, three of which are marked, falls steeply from large values of $q$
+to the edge $p=q$. The slices shrink as $s$ grows, and the surface ends
+at the point $s=p=q$ where $(s/(s-1))^3=T$.}
+\label{fig:surface}
+\end{figure}
 
 \begin{proposition}\label{prop:class}
 The integer $t=cp-2B'$ is a divisor of $N$ with
@@ -1415,8 +1440,8 @@ $t_0\le t_d$.
 Since $c$ is odd and prime to $3$, the admissible values of $\sigma$
 form one class modulo $6c$. The work of (i) and (ii) is therefore about
 $(t_d-t_0)/c$ values of $p$ and $(t_d+N/t_d-2\sqrt N)/(6c^2)$ values of
-$\sigma$, and $t_d$ is chosen to minimise it, with the two kinds of
-steps weighted by their measured costs. With equal weights the minimum
+$\sigma$, and $t_d$ is chosen to minimise it (Figure~\ref{fig:routes}),
+with the two kinds of steps weighted by their measured costs. With equal weights the minimum
 lies near $t_d=(N/6c)^{1/2}$ and amounts to about $2(N/6c^3)^{1/2}$
 steps, as in Section~\ref{sec:sum}. By the argument of that section,
 (i) and (ii) together find every divisor $t\ge t_0$ of $N$ in the class
@@ -1451,6 +1476,19 @@ $p_1,\dots,p_5$. So \eqref{eq:second} has no solution with eight prime
 factors, and
 together with Section~\ref{sec:seven} this proves
 Theorem~\ref{thm:eight}.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_routes.png}
+\caption{Steps (i), (ii) and (iv) for four admissible values
+$s_1<s_2<s_3<s_4$ of $p_6$, not to scale. The divisors $t=cp-2B'$ of
+$N$ with $t_0\le t\le\sqrt N$ lie on the branch $t\mapsto N/t$.
+Trial division covers $t<t_d$ and the sums cover $t_d\le t\le\sqrt N$.
+The split point $t_d$ is chosen for each $s$ to minimise the work, and
+where both routes would be slow, as for $s_1$, the integer $N$ is
+factored completely.}
+\label{fig:routes}
+\end{figure}
 
 \begin{table}[ht]
 \centering
@@ -1696,7 +1734,23 @@ $a$ has order $p-1$ modulo $p$, and so $p$ is prime. The certificate
 for $p$ consists of $a$ and the factorisation of $p-1$, whose prime
 factors are certified in the same way. The seven primes certified like
 this range from $22253377$ to $2^{64}-2^{32}+1$.} and proves each
-composite candidate composite by exhibiting a divisor. The
+composite candidate composite by exhibiting a divisor.
+
+For the case of eight prime factors the formal proofs cover the
+reduction to $n+1=2\varphi(n)$ and $p_1=3$, which takes
+Theorem~\ref{thm:coprime} as its hypothesis $3\mid n$; the identity
+$c(A'p+\varepsilon)=A't+N$ and the equivalence of the two divisibility
+tests in step (i); equation \eqref{eq:sigma}, the class and the range
+of $\sigma$, and the converse that turns a square value of
+$\sigma^2-4\pi$ back into a pair $p,q$ in step (ii); and step (iii) in
+the form that the sieve keeps every value coming from integers $p$ and
+$q$ at no excluded residue. The two facts that supply this hypothesis
+are proved as well: integers without prime factors up to $61$ avoid
+the excluded residues of the eight-prime search, and every completion
+in odd integers prime to $3$ avoids those of the search for $k=13$ in
+Theorem~\ref{thm:pseudo3}. The kernel checks each of the $21$
+completions $s<p<q$: it verifies the equation and a proper divisor of
+$p$ or of $q$. The
 exhaustive searches of Sections~\ref{sec:first} and~\ref{sec:second}
 and the completeness statements Theorems~\ref{thm:complete}
 and~\ref{thm:three}, which concern the programs, are not formalised,
@@ -1728,6 +1782,8 @@ Proposition~\ref{prop:pseudo} & in full \\
 Lemma~\ref{lem:parity} & in full, with $\gcd(x_i,x_j-1)=1$ from \eqref{eq:product} \\
 Proposition~\ref{prop:local} & in full \\
 Theorem~\ref{thm:pseudo25} & in full, the tuple checked by the kernel \\
+Section~\ref{sec:eight} & reduction, steps (i)--(iii), the $21$ completions \\
+Theorem~\ref{thm:pseudo3}, $k=13$ & the sieve keeps every completion \\
 \bottomrule
 \end{tabular}
 \end{table}

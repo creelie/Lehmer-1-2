@@ -9,3 +9,5 @@ import LehmerTotient.Ext
 import LehmerTotient.Barrier
 import LehmerTotient.PseudoExtend
 import LehmerTotient.PseudoData
+import LehmerTotient.Eight
+import LehmerTotient.EightData
