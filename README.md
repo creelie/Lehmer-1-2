@@ -65,7 +65,7 @@ factors nothing, so its negative answers rely on no primality test.
 | `validate.py` | both programs on 2^k(n−1) = (2^k+m)φ(n), k = 4, 5: must return the 56 listed solutions | ~10 min |
 | `sieve_check.py` | independent totient sieve to 10^8 | ~3 min |
 | `walls.py` | the k = 15 frontier of Section 5, the k = 8 frontier of Section 6.4, and the depth profiles of Figure 3 | ~1 min |
-| `companion8/` | Theorem 1.2 for eight prime factors (Section 6.4): the C program `scan3.c` for the last three primes (trial division and the sum of the two factors, sieved by congruences), the PARI/GP fallback `factor_class.gp`, the driver `companion8.py` (resumable, multi-core), the tests `test_scan3.py` and the partial repetition `recheck.py`; see `companion8/README.md` | about @@CPUH@@ h of CPU time |
+| `companion8/` | Theorem 1.2 for eight prime factors (Section 6.4): the C program `scan3.c` for the last three primes (trial division and the sum of the two factors, sieved by congruences), the PARI/GP fallback `factor_class.gp`, the driver `companion8.py` (resumable, multi-core), the tests `test_scan3.py` and the partial repetition `recheck.py`; see `companion8/README.md` | 6.8 h of CPU time, 1.8 h on 4 cores |
 | `data/companion8/journal.jsonl` | one line per batch of the eight-prime run: pieces, counts, timings and completions | |
 | `paper/` | LaTeX source of the paper, the TikZ sources of the figures with their PNG exports (`figures/build.sh`) | |
 | `tests/test_divisors.py`, `tests/test_divisors_b.py`, `tests/test_divisors_c.py` | the three divisor routines against brute force on random integers with known factorisation (the recorded run of `test_divisors_b.py` used a box limit of 200000, given as its argument) | minutes |

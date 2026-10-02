@@ -19,17 +19,18 @@
      sigma runs over its class in  (2 sqrt N + 4B')/c <= sigma <= (t_d + N/t_d + 4B')/c,  and sigma^2 - 4 pi is
      tested for being a square.
 
- t_d is chosen to minimise the estimated work.  When that work exceeds a threshold, or a quantity would not fit in
- 128 bits, x is not treated here but reported on an 'F' line; the caller then factors N completely and reads off
- its divisors in the class.
+ t_d is chosen to minimise the estimated work.  When that work exceeds a threshold, x is not treated here but reported
+ on an 'F' line; the caller then factors N completely and reads off its divisors in the class.  Quantities that fit
+ in 128 bits are handled in machine arithmetic; beyond that the trial division tests whether t < 2^64 divides N
+ (equivalent to t | A'p + eps, since c (A'p + eps) = A't + N and gcd(t, c) = gcd(2B', A') = 1) and the sums use GMP.
 
  Both loops are filtered by congruences modulo small primes l that every completion in the class of entries under
  consideration satisfies.  Each of p and q lies in an allowed set of residues modulo l (below).  Since p and q are
  the roots of X^2 - sigma X + pi, the pair (sigma, pi) must give modulo l a polynomial with a root, all of whose
  roots are allowed; and sigma^2 - 4 pi must be a square modulo 256, 9, 25 and 49.  Moreover sigma is even, and
- sigma = 1 (mod 3) when p and q are both 2 mod 3.  The trial division skips the p that are not allowed modulo the
- primes up to 61.  A candidate that passes the filters is tested exactly, and every completion is verified with GMP
- before it is printed.
+ sigma = 1 (mod 3) when p and q are both 2 mod 3.  The sums use a modulus only when the exact tests it saves cost more
+ than its table.  The trial division skips the p that are not allowed modulo the primes up to 61.  A candidate that
+ passes the filters is tested exactly, and every completion is verified with GMP before it is printed.
 
    mode 0 (primes):  x runs over the primes in [lo, hi] with x != 1 mod x_i for all i.  The entries p, q are taken
                      to be primes larger than x with p, q != 1 mod x_i: they are odd, prime to every prime l < lo,
@@ -47,7 +48,7 @@
  Options:       scan3 [a1 a2 fcost [forcetd]]   estimated cost in ns of one value of p in the trial division and
                 of one value of sigma, and the threshold (ns) above which x is deferred (defaults 1.0, 0.11, 4e6).
                 forcetd = 1 puts every divisor into the trial division, forcetd = 2 every divisor into the sum
-                route (for testing).
+                route, forcetd = 3 uses the wide paths below for every x (for testing).
  Build:         gcc -O3 -march=native -o scan3 scan3.c -lgmp -lm
 */
 #include <stdio.h>
@@ -87,11 +88,44 @@ static int nwh; static int whm[NWH];
 static void build_windows(const unsigned char *ok, int l, u64 *W) {
     u64 rep[(256 + 64) / 64 + 2];
     memset(rep, 0, sizeof rep);
-    for (int i = 0; i < l + 64; i++) if (ok[i % l]) rep[i >> 6] |= 1ULL << (i & 63);
+    for (int i = 0, r = 0; i < l + 64; i++) { if (ok[r]) rep[i >> 6] |= 1ULL << (i & 63); if (++r == l) r = 0; }
     for (int j = 0; j < l; j++) {
         int w = j >> 6, b = j & 63;
         W[j] = b ? (rep[w] >> b) | (rep[w + 1] << (64 - b)) : rep[w];
     }
+}
+
+/* the window of allowed steps k for the sums modulo l = SUMMOD[m], where sigma = sm + k hm and pi = pm + k gm (mod l):
+   sigma^2 - 4 pi is a square modulo l and X^2 - sigma X + pi has a root, all of whose roots are allowed */
+static unsigned char sqm[NSUM][256], rpr[NSUM][256];
+static void sum_windows(int m, u64 sm, u64 hm, u64 pm, u64 gm) {
+    int l = SUMMOD[m], pr = SUMPR[m];
+    unsigned char okk[256];
+    unsigned s2 = (unsigned) sm, p2 = (unsigned) pm, h2 = (unsigned) hm, g2 = (unsigned) gm;
+    unsigned f2 = (unsigned) ((4 * pm) % l), e2 = (unsigned) ((4 * gm) % l);          /* 4 pi mod l */
+    for (int k = 0; k < l; k++) {
+        int D2 = (int) sqm[m][s2] - (int) f2; if (D2 < 0) D2 += l;
+        okk[k] = issq[m][D2] && rootok[pr][rpr[m][s2]][rpr[m][p2]];
+        s2 += h2; if (s2 >= (unsigned) l) s2 -= l;
+        p2 += g2; if (p2 >= (unsigned) l) p2 -= l;
+        f2 += e2; if (f2 >= (unsigned) l) f2 -= l;
+    }
+    build_windows(okk, l, SW[m]);
+}
+
+/* The moduli worth sieving the sums with: modulus m is used when the exact tests it is expected to save (survivors
+   times the fraction it removes, SUMDENS being a rough fraction that passes) cost more than building its window.
+   The window of an unused modulus lets every step pass.  Returns the number of moduli used. */
+static const double SUMDENS[NSUM] = {0.2, 0.45, 0.45, 0.45, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
+static unsigned char sw_open[NSUM];
+static int sum_moduli(double nk, double ctest, int *use) {
+    double S = nk; int nu = 0;
+    for (int m = 0; m < NSUM; m++) {
+        use[m] = S * (1 - SUMDENS[m]) * ctest > 3.5 * SUMMOD[m];
+        if (use[m]) { S *= SUMDENS[m]; nu++; sw_open[m] = 0; }
+        else if (!sw_open[m]) { for (int i = 0; i < SUMMOD[m]; i++) SW[m][i] = ~0ULL; sw_open[m] = 1; }
+    }
+    return nu;
 }
 
 static int three_all;   /* p and q are 2 mod 3 */
@@ -124,6 +158,7 @@ static void setup_task(int mode, int j, const u64 *xs, u64 lo, int n0, const u64
     for (int m = 0; m < NSUM; m++) {
         int l = SUMMOD[m]; memset(issq[m], 0, 256);
         for (int y = 0; y < l; y++) issq[m][(y * y) % l] = 1;
+        for (int y = 0; y < l; y++) { sqm[m][y] = (unsigned char) ((y * y) % l); rpr[m][y] = (unsigned char) (y % SUMPR[m]); }
     }
     nwh = 0;
     for (int m = 0; m < NWH; m++) {
@@ -190,6 +225,29 @@ static void report(u64 x, u128 p, u128 q, int eps) {
     nfound++;
 }
 
+/* the same for p, q given as integers of any size */
+static mpz_t R1, R2, R3;
+static void report_mpz(u64 x, const mpz_t p, const mpz_t q, int eps) {
+    mpz_mul(R1, Ap, p); mpz_mul(R1, R1, q); if (eps > 0) mpz_add_ui(R1, R1, 1); else mpz_sub_ui(R1, R1, 1);
+    mpz_sub_ui(R2, p, 1); mpz_sub_ui(R3, q, 1);
+    mpz_mul(R2, R2, R3); mpz_mul(R2, R2, Bp); mpz_mul_2exp(R2, R2, 1);
+    if (mpz_cmp(R1, R2) != 0 || mpz_cmp_ui(p, x) <= 0 || mpz_cmp(q, p) <= 0) {
+        gmp_fprintf(stderr, "scan3: false completion %s %llu %Zd %Zd\n", prefix_str, (unsigned long long) x, p, q); exit(3);
+    }
+    gmp_printf("S %s %llu %Zd %Zd\n", prefix_str, (unsigned long long) x, p, q);
+    nfound++;
+}
+
+/* trial division in the wide path: t divides A'P + eps; then q = 1 + (A'P + eps)/t */
+static mpz_t W1, W2;
+static void trial_hit_wide(u64 x, u64 P, int eps) {
+    mpz_set_ui(W1, P); mpz_mul(W2, Ap, W1); if (eps > 0) mpz_add_ui(W2, W2, 1); else mpz_sub_ui(W2, W2, 1);
+    mpz_mul_ui(R1, c, P); mpz_mul_2exp(R3, Bp, 1); mpz_sub(R1, R1, R3);          /* t */
+    if (!mpz_divisible_p(W2, R1)) return;
+    mpz_divexact(W2, W2, R1); mpz_add_ui(W2, W2, 1);                              /* q */
+    if (mpz_cmp(W2, W1) > 0) report_mpz(x, W1, W2, eps);
+}
+
 static long why[8];
 static void defer(u64 x, int reason) { printf("F %s %llu\n", prefix_str, (unsigned long long) x); ndef++; why[reason]++; }
 
@@ -228,14 +286,64 @@ static void solve(u64 x, int eps) {
     if (mpz_cmp(pd, plo) < 0) mpz_set(pd, plo);
     mpz_add_ui(tmp, phi, 1); if (mpz_cmp(pd, tmp) > 0) mpz_set(pd, tmp);
 
-    /* size guards for the fast paths */
-    int ok = fits(pd, 62);
-    mpz_mul(tmp, Ap, pd); ok = ok && fits(tmp, 125);
-    mpz_mul(tmp, c, pd); ok = ok && fits(tmp, 125);
-    if (!ok) { defer(x, 2); mpz_clears(plo, phi, twoB, pd, NULL); return; }
+    /* size guards: the fast paths keep A'p and c p below 2^125; otherwise the wide paths are used, in which the trial
+       division tests whether t divides N (equivalent, since gcd(t, c) = 1) with t < 2^64, and the sums use GMP */
+    if (!fits(pd, 62)) { defer(x, 2); mpz_clears(plo, phi, twoB, pd, NULL); return; }
+    int wide = FORCE == 3;
+    mpz_mul(tmp, Ap, pd); if (!fits(tmp, 125)) wide = 1;
+    mpz_mul(tmp, c, pd); if (!fits(tmp, 125)) wide = 1;
+    if (wide) {
+        /* t = c p - 2B' < 2^64 for p < p_d: p_d <= floor((2^64 - 1 + 2B')/c) + 1 */
+        mpz_set_ui(tmp, 1); mpz_mul_2exp(tmp, tmp, 64); mpz_sub_ui(tmp, tmp, 1); mpz_add(tmp, tmp, twoB);
+        mpz_fdiv_q(tmp, tmp, c); mpz_add_ui(tmp, tmp, 1);
+        if (mpz_cmp(pd, tmp) > 0) mpz_set(pd, tmp);
+        if (mpz_cmp(pd, plo) < 0) mpz_set(pd, plo);
+    }
+
+    /* ---- trial division, wide: N mod t by limbs, t < 2^64 */
+    if (wide && mpz_cmp(plo, pd) < 0) {
+        u64 P0 = mpz_get_ui(plo), P1 = mpz_get_ui(pd);
+        u64 NL[16]; size_t nl = 0;
+        if (mpz_sizeinbase(N, 2) > 16 * 64) { defer(x, 5); mpz_clears(plo, phi, twoB, pd, NULL); return; }
+        mpz_export(NL, &nl, -1, 8, 0, 0, N);
+        mpz_mul(tmp, c, plo); mpz_sub(tmp, tmp, twoB);           /* t at p_lo, below 2^64 */
+        u64 tlo = mpz_get_ui(tmp);
+        if (!fits(c, 64)) {                                       /* then p_lo is the only value with t < 2^64 */
+            ntd += 1;
+            u64 r = 0;
+            for (long i = (long) nl - 1; i >= 0; i--) {
+                u64 qq, rr; __asm__("divq %4" : "=a"(qq), "=d"(rr) : "a"(NL[i]), "d"(r), "rm"(tlo)); (void) qq; r = rr;
+            }
+            if (r == 0) trial_hit_wide(x, P0, eps);
+        } else {
+            u64 c64 = mpz_get_ui(c);
+            int idx[NWH], inc[NWH];
+            for (int i = 0; i < nwh; i++) { int l = WHMOD[whm[i]]; idx[i] = (int) (P0 % l); inc[i] = 64 % l; }
+            for (u64 b0 = P0; b0 < P1; b0 += 64) {
+                u64 mask = ~0ULL;
+                for (int i = 0; i < nwh; i++) {
+                    int l = WHMOD[whm[i]];
+                    mask &= WW[whm[i]][idx[i]];
+                    idx[i] += inc[i]; if (idx[i] >= l) idx[i] -= l;
+                }
+                if (P1 - b0 < 64) mask &= (1ULL << (P1 - b0)) - 1;
+                while (mask) {
+                    int b = __builtin_ctzll(mask); mask &= mask - 1;
+                    u64 P = b0 + b;
+                    u64 t = tlo + c64 * (P - P0);
+                    ntd += 1;
+                    u64 r = 0;
+                    for (long i = (long) nl - 1; i >= 0; i--) {
+                        u64 qq, rr; __asm__("divq %4" : "=a"(qq), "=d"(rr) : "a"(NL[i]), "d"(r), "rm"(t)); (void) qq; r = rr;
+                    }
+                    if (r == 0) trial_hit_wide(x, P, eps);
+                }
+            }
+        }
+    }
 
     /* ---- trial division */
-    if (mpz_cmp(plo, pd) < 0) {
+    if (!wide && mpz_cmp(plo, pd) < 0) {
         u64 P0 = mpz_get_ui(plo), P1 = mpz_get_ui(pd);
         u128 Ap128 = mpz_get_u128(Ap), c128 = mpz_get_u128(c);
         mpz_mul(tmp, c, plo); mpz_sub(tmp, tmp, twoB);           /* t at p_lo */
@@ -288,8 +396,51 @@ static void solve(u64 x, int eps) {
             mpz_add(sig, sig, c);
         }
         unsigned long gw = mpz_gcd_ui(NULL, c, wq), mult = wq / gw;   /* step h = lcm(c, wq) = c * mult */
-        if (found && mpz_cmp(sig, shi) <= 0) {
-            if (!fits(shi, 62)) { defer(x, 4); mpz_clears(plo, phi, twoB, pd, shi, slo, NULL); return; }
+        if (found && mpz_cmp(sig, shi) <= 0 && (FORCE == 3 || !fits(shi, 62))) {
+            /* ---- sums, wide: sigma and pi as GMP integers; the filters work on residues */
+            static mpz_t hh, gg, ss, pp, DD, ee, P2, Q2, pi0z; static int init = 0;
+            if (!init) { mpz_inits(hh, gg, ss, pp, DD, ee, P2, Q2, pi0z, NULL); init = 1; }
+            mpz_mul(pi0z, twoB, sig); mpz_sub(pi0z, pi0z, twoB); if (eps > 0) mpz_add_ui(pi0z, pi0z, 1); else mpz_sub_ui(pi0z, pi0z, 1);
+            if (!mpz_divisible_p(pi0z, c)) { fprintf(stderr, "scan3: class error\n"); exit(4); }
+            mpz_divexact(pi0z, pi0z, c);
+            mpz_mul_ui(hh, c, mult); mpz_mul_ui(gg, twoB, mult);
+            mpz_sub(tmp, shi, sig); mpz_fdiv_q(tmp, tmp, hh);
+            if (!fits(tmp, 62)) { defer(x, 4); mpz_clears(plo, phi, twoB, pd, shi, slo, NULL); return; }
+            u64 nk = mpz_get_ui(tmp) + 1;
+            nsig += (double) nk;
+#define WIDE_TEST(k) do { \
+                mpz_set(ss, sig); mpz_addmul_ui(ss, hh, (k)); mpz_set(pp, pi0z); mpz_addmul_ui(pp, gg, (k)); \
+                mpz_mul(DD, ss, ss); mpz_submul_ui(DD, pp, 4); \
+                if (mpz_sgn(DD) > 0) { nsurv++; if (mpz_perfect_square_p(DD)) { \
+                    mpz_sqrt(ee, DD); mpz_sub(P2, ss, ee); mpz_fdiv_q_2exp(P2, P2, 1); mpz_add(Q2, ss, ee); mpz_fdiv_q_2exp(Q2, Q2, 1); \
+                    report_mpz(x, P2, Q2, eps); } } } while (0)
+            int use[NSUM];
+            if (sum_moduli((double) nk, 150.0, use) == 0) {
+                for (u64 k = 0; k < nk; k++) WIDE_TEST(k);
+            } else {
+                for (int m = 0; m < NSUM; m++) {
+                    int l = SUMMOD[m];
+                    if (!use[m]) continue;
+                    u64 sm = mpz_fdiv_ui(sig, l), hm = mpz_fdiv_ui(hh, l), pm = mpz_fdiv_ui(pi0z, l), gm = mpz_fdiv_ui(gg, l);
+                    sum_windows(m, sm, hm, pm, gm);
+                }
+                int idx[NSUM], inc[NSUM];
+                for (int m = 0; m < NSUM; m++) { idx[m] = 0; inc[m] = 64 % SUMMOD[m]; }
+                for (u64 k0 = 0; k0 < nk; k0 += 64) {
+                    u64 mask = ~0ULL;
+                    for (int m = 0; m < NSUM; m++) {
+                        mask &= SW[m][idx[m]];
+                        idx[m] += inc[m]; if (idx[m] >= SUMMOD[m]) idx[m] -= SUMMOD[m];
+                    }
+                    if (nk - k0 < 64) mask &= (1ULL << (nk - k0)) - 1;
+                    while (mask) {
+                        int b = __builtin_ctzll(mask); mask &= mask - 1;
+                        WIDE_TEST(k0 + b);
+                    }
+                }
+            }
+#undef WIDE_TEST
+        } else if (found && mpz_cmp(sig, shi) <= 0) {
             u128 s0 = mpz_get_u128(sig), s1 = mpz_get_u128(shi);
             /* pi_0 = (2B' sigma_0 - 2B' + eps)/c, g = 2B' mult, h = c mult */
             mpz_mul(tmp, twoB, sig); mpz_sub(tmp, tmp, twoB); if (eps > 0) mpz_add_ui(tmp, tmp, 1); else mpz_sub_ui(tmp, tmp, 1);
@@ -300,7 +451,8 @@ static void solve(u64 x, int eps) {
             mpz_mul_ui(tmp, twoB, mult); u128 g = mpz_get_u128(tmp);    /* < 2^75 */
             u64 nk = hfits ? (u64) ((s1 - s0) / h) + 1 : 1;
             nsig += (double) nk;
-            if (nk < 4096) {
+            int use[NSUM];
+            if (sum_moduli((double) nk, 25.0, use) == 0) {
                 u128 s = s0, pi = pi0;
                 for (u64 k = 0; k < nk; k++, s += h, pi += g) {
                     i128 D = (i128) (s * s) - (i128) (4 * pi);
@@ -311,15 +463,10 @@ static void solve(u64 x, int eps) {
                 }
             } else {
                 for (int m = 0; m < NSUM; m++) {
-                    int l = SUMMOD[m], pr = SUMPR[m];
+                    int l = SUMMOD[m];
+                    if (!use[m]) continue;
                     u64 sm = mod128(s0, l), hm = mod128(h, l), pm = mod128(pi0, l), gm = mod128(g, l);
-                    unsigned char okk[256];
-                    for (int k = 0; k < l; k++) {
-                        u64 ss = (sm + (u64) k * hm) % l, pp = (pm + (u64) k * gm) % l;
-                        u64 D = (ss * ss + 4 * (l - pp)) % l;
-                        okk[k] = issq[m][D] && rootok[pr][ss % pr][pp % pr];
-                    }
-                    build_windows(okk, l, SW[m]);
+                    sum_windows(m, sm, hm, pm, gm);
                 }
                 int idx[NSUM], inc[NSUM];
                 for (int m = 0; m < NSUM; m++) { idx[m] = 0; inc[m] = 64 % SUMMOD[m]; }
@@ -366,7 +513,7 @@ int main(int argc, char **argv) {
     if (argc > 2) A2 = atof(argv[2]);
     if (argc > 3) FCOST = atof(argv[3]);
     if (argc > 4) FORCE = atoi(argv[4]);
-    mpz_inits(A, B, Ap, Bp, c, N, sN, tmin, tmp, tmp2, pz, qz, td, sig, cls, inv, NULL);
+    mpz_inits(A, B, Ap, Bp, c, N, sN, tmin, tmp, tmp2, pz, qz, td, sig, cls, inv, R1, R2, R3, W1, W2, NULL);
     static char line[1 << 16];
     while (fgets(line, sizeof line, stdin)) {
         char *ptr = line; int eps, mode, j; int off;

@@ -268,7 +268,7 @@ problem whose modulus is far below the cube root of the integer to be
 split. We treat these problems by the sum route of
 Section~\ref{sec:sum}, combined with trial division for the small
 divisors and sieved by congruences that primes satisfy, and we settle
-the @@NDEF@@ cases in which this would be slow by factoring the integer
+the $1967265$ cases in which this would be slow by factoring the integer
 completely, with every prime factor proved prime
 (Section~\ref{sec:eight}). Theorem~\ref{thm:quotient} is
 elementary, and Theorem~\ref{thm:ext} rests on a short identity
@@ -1334,8 +1334,8 @@ that is, to the solution $4294967295$ itself, where $C_5=1$;
 $1.23\cdot10^9$ to $3,5,17,257,65543$; and $1.67\cdot10^8$ to
 $3,5,17,353,929$, the solution $83623935$, where again $C_5=1$.
 Thirty-four prefixes have an interval longer than $10^7$, and $326$
-one longer than $10^6$. The intervals contain @@NX@@ primes $s$ that
-pass the congruence prune, @@NXDOM@@ of them for the prefix
+one longer than $10^6$. The intervals contain $228260561$ primes $s$ that
+pass the congruence prune, $131788942$ of them for the prefix
 $3,5,17,257,65537$. Each pair of a prefix and such a prime $s=p_6$
 leaves the two-prime problem of Proposition~\ref{prop:class}, in which
 $N$ has between $15$ and $40$ digits.
@@ -1428,24 +1428,62 @@ Every completion $s<p<q$ in integers that is found is checked against
 $A'pq+1=2B'(p-1)(q-1)$ exactly, and $p$ and $q$ are tested for
 primality.
 
-The computation was cut into @@NPIECES@@ pieces, each a range of $s$
-under one prefix, and run on four processors. It examined @@NX@@
-pairs, made @@NTD@@ trial divisions and visited @@NSIG@@ values of
-$\sigma$, of which @@NSURV@@ passed the sieve and were tested exactly.
-In @@NDEF@@ cases $N$ was factored, with up to @@DMAXDEF@@ digits. The
-whole run took @@CPUH@@ hours of processor time, @@GPH@@ of them in
-PARI/GP. It found @@NCOMP@@ completions $s<p<q$ in integers, listed in
-Table~\ref{tab:eight}, and in each of them $p$ or $q$ is composite.
-So \eqref{eq:second} has no solution with eight prime factors, and
+The computation was cut into $10897$ pieces, each a range of $s$
+under one prefix, and run on four processors. It examined $228260561$
+pairs, made $3.4\cdot10^{11}$ trial divisions, visited $6.7\cdot10^{13}$
+values of $\sigma$ and tested $1.5\cdot10^{10}$ of them exactly.
+In $1967265$ cases $N$ was factored, with up to $39$ digits. The
+whole run took $6.8$ hours of processor time, $2.9$ of them in
+PARI/GP. It found $21$ completions $s<p<q$ in integers and no
+solution. Sixteen of the completions lie under the prefix
+$3,5,17,353,929$ with $s=83623937$, where
+$3\cdot5\cdot17\cdot353\cdot929\cdot s$ is the solution
+$n_0=6992962672132095$. They are the pairs $p=n_0+1+d$, $q=n_0+1+e$ of
+Theorem~\ref{thm:ext}(ii), one for each factorisation
+$n_0^2+n_0+1=de$ with $d<e$, and by Table~\ref{tab:ext} none of them
+consists of two primes. In each of the other five, listed in
+Table~\ref{tab:eight}, $p$ or $q$ is divisible by one of
+$p_1,\dots,p_5$. So \eqref{eq:second} has no solution with eight prime
+factors, and
 together with Section~\ref{sec:seven} this proves
 Theorem~\ref{thm:eight}.
 
-@@TABLE_EIGHT@@
+\begin{table}[ht]
+\centering
+\caption{The completions $s<p<q$ in integers of the case $k=8$ other
+than the sixteen two-prime extensions of $6992962672132095$, with the
+factorisations of $p$ and $q$.}
+\label{tab:eight}
+\smallskip
+\footnotesize
+\begin{tabular}{@{}lll@{}}
+\toprule
+$s=p_6$ & $p$ & $q$ \\
+\midrule
+\multicolumn{3}{@{}l}{prefix $3,5,17,257,65537$} \\
+$4294967459$ & $17\cdot43\cdot673\cdot230521189693$ & $5\cdot409642859\cdot26363459459$ \\
+$4294967969$ & $27419312914203719$ & $5\cdot19\cdot5011\cdot7699\cdot21393991009$ \\
+$4596195557$ & $65533391633$ & $17\cdot20923232569978145771052877$ \\
+\multicolumn{3}{@{}l}{prefix $3,5,17,353,929$} \\
+$83625827$ & $3^2\cdot5^3\cdot13\cdot252862031$ & $3\cdot5\cdot7\cdot13\cdot113\cdot794656817253868193$ \\
+$83760029$ & $3\cdot5\cdot3431155289$ & $3\cdot87389293\cdot45294677621$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_eight.png}
-\caption{@@FIG_EIGHT_CAPTION@@}
+\caption{The case $k=8$ of the companion equation. Left: the
+$10458$ prefixes $(3,p_2,\dots,p_5)$ by the width of the interval for
+$p_6$, on logarithmic axes; the two in the last bar end in $65537$ and
+$65543$. Right: processor time per admissible $p_6$ under the prefix
+$3,5,17,257,65537$, one point for each piece of the run, against the
+modulus $c=p_6-2^{32}$. For $c$ below about $10^8$ the integer $N$ is
+factored, in about five milliseconds; above that the sums and the
+trial division are faster, and their cost falls as $c$ grows. Beyond
+$c=2^{32}$, that is for $p_6>2^{33}$, the condition $p>p_6$ leaves only
+a short range of divisors.}
 \label{fig:eight}
 \end{figure}
 
@@ -1685,7 +1723,7 @@ Theorem~\ref{thm:pseudo25} & in full, the tuple checked by the kernel \\
 
 The methods of Section~\ref{sec:three} settle the case $k=15$ in a
 quarter of an hour on a single processor, and the case of eight primes
-of the companion equation in @@CPUH@@ hours. This section explains why
+of the companion equation in $6.8$ hours. This section explains why
 they do not reach the next cases, and which properties of the primes
 any further progress has to use.
 

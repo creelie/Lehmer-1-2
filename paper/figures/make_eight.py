@@ -37,8 +37,8 @@ out = r"""\begin{tikzpicture}
 \addplot[fill=orange!75!red, draw=black!55] coordinates {""" + " ".join(f"({i},{h})" for i, h in enumerate(hist)) + r"""};
 \end{axis}
 \begin{axis}[at={(left.east)}, anchor=west, xshift=16mm, width=0.50\textwidth, height=0.42\textwidth,
-  xmin=1.5, xmax=10.2, ymin=-1.3, ymax=4.6, axis line style={black!70},
-  xtick={2,4,6,8,10}, xticklabels={$10^2$,$10^4$,$10^6$,$10^8$,$10^{10}$},
+  xmin=4.7, xmax=10.2, ymin=-1.3, ymax=4.6, axis line style={black!70},
+  xtick={5,6,7,8,9,10}, xticklabels={$10^5$,$10^6$,$10^7$,$10^8$,$10^9$,$10^{10}$},
   ytick={-1,0,1,2,3,4}, yticklabels={$10^{-1}$,$10^0$,$10^1$,$10^2$,$10^3$,$10^4$},
   x tick label style={font=\scriptsize}, y tick label style={font=\scriptsize},
   xlabel={\small modulus $c=p_6-2^{32}$}, ylabel={\small microseconds per $p_6$},

@@ -29,7 +29,7 @@ root (for the frontier).
 | `factor_class.gp` | the fallback: complete factorisation of N, every prime factor proved prime, all divisors in the class | – |
 | `common.py` | helpers shared by the drivers: running `scan3` and `factor_class.gp`, exact check of a completion | – |
 | `test_scan3.py` | the tests of Section 7.6: known solutions for k ≤ 7, the odd-integer counts 1, 1, 2, 8, 47 and 1, 1, 2, 4, 18, and 2868 pairs (prefix, s) of the case k = 8 against complete factorisation | about 1 min |
-| `companion8.py` | the search: 10897 pieces in 445 batches, resumable through the journal `data/companion8/journal.jsonl` | about @@CPUH@@ h of CPU time |
+| `companion8.py` | the search: 10897 pieces in 445 batches, resumable through the journal `data/companion8/journal.jsonl` | 6.8 h of CPU time, 1.8 h on 4 cores |
 | `recheck.py` | a random sample of the pieces, and every piece with a completion, run again with other weights and another factoring threshold; counts and completions must agree with the journal | minutes |
 | `logs/` | recorded output | |
 

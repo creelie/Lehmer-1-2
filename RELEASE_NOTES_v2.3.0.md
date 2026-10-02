@@ -5,14 +5,14 @@ Code and data for the revised paper *Lehmer's totient problem with fewer than si
 
 - **The companion equation with eight prime factors.** φ(n) | n+1 has no solution with exactly eight prime factors,
   so its solutions with at most eight prime factors are the nine known ones (Theorem 1.2, Section 6.4). Such a
-  solution has n + 1 = 2φ(n) and p₁ = 3; the search runs over the 10458 prefixes of five primes and @@NX@@ admissible
-  sixth primes, @@NXDOM@@ of them under 3, 5, 17, 257, 65537. Programs in `companion8/`:
+  solution has n + 1 = 2φ(n) and p₁ = 3; the search runs over the 10458 prefixes of five primes and 228,260,561 admissible
+  sixth primes, 131,788,942 of them under 3, 5, 17, 257, 65537. Programs in `companion8/`:
   - `scan3.c`: the last three primes for a whole interval of the sixth prime, by trial division for the small divisors
     and by the sum of the two complementary divisors for the large ones, both sieved by congruences that primes
     satisfy; every completion is checked with GMP.
-  - `factor_class.gp`: the @@NDEF@@ cases in which this would be slow, by a complete factorisation with PARI/GP and
+  - `factor_class.gp`: the 1,967,265 cases in which this would be slow, by a complete factorisation with PARI/GP and
     every prime factor proved prime (`factor_proven = 1`).
-  - `companion8.py` (the run, @@CPUH@@ processor hours, journal `data/companion8/journal.jsonl`), `test_scan3.py`
+  - `companion8.py` (the run, 6.8 processor hours, journal `data/companion8/journal.jsonl`), `test_scan3.py`
     (known solutions, odd-integer counts, 2868 pairs against complete factorisation) and `recheck.py` (a random sample
     of the run repeated with other parameters). Logs in `companion8/logs/`.
 - **Pseudo-solutions prime to 3.** The product equation x₁⋯x_k ± 1 = 2∏(xᵢ − 1) has no solution in odd integers prime
