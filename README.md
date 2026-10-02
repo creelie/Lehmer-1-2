@@ -89,5 +89,5 @@ Run any script from the repository root, for example `python3 first_equation.py`
 
 ## Authors
 
-Priyabrata Mandal (corresponding author), Deep Bhattacharjee, Ushashi Bhattacharya.
+Priyabrata Mandal, Deep Bhattacharjee (corresponding author), Ushashi Bhattacharya.
 The code and the Lean proofs were written by Deep Bhattacharjee with the assistance of Claude (Anthropic).
