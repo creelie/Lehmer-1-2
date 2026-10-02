@@ -35,6 +35,7 @@ PATH) for the two `pari_*` programs. Build the C program first, in this director
 | `first_moment_node.py` | the count for solutions prime to 3 over the tree for k = 12, and below the prefix (5, 7, 13, 17, 19, 23, 25, 37, 119) for k = 12, 13, 14 | about 5 min |
 | `make_seeds.py` | the seeds of `descent.py`: every prefix of length 6 or more of the tree for k = 13, with its defect | seconds |
 | `descent.py` | the search that found `companion_k25.txt`: descent through the defects with selection, testing every node for a last entry | 2.2 h on 4 cores |
+| `descent_coprime.py` | `descent.py` restricted to pairwise coprime entries: every child must also be prime to every earlier entry; started from the 231 pairwise coprime prefixes of length 6 or more of the tree for k = 13, it ends after seven steps with no hit (Section 8) | 10 s |
 | `companion_k25.txt` | a pseudo-solution prime to 3 with 25 entries and eps = +1, one entry per line | – |
 | `check_tuple.py`, `check_gp.sh` | independent checks of a pseudo-solution in Python and in PARI/GP: equation, order, oddness, 3 divides no entry, all gcd(x_i, x_j - 1) = 1 | seconds |
 | `logs/` | recorded output | |
@@ -59,6 +60,7 @@ Run from this directory.
     python3 first_moment_node.py 1000 30 30 --tree                      > logs/first_moment_node.log
     python3 make_seeds.py; python3 descent.py --N 10000000 --gens 16 --workers 4 --q 1.6   > logs/descent.log
                                                        (the log is kept up to step 14, where the tuple was found)
+    python3 descent_coprime.py --N 10000000 --gens 16 --workers 1 --q 1.6   > logs/descent_coprime.log
     python3 check_tuple.py companion_k25.txt 1; ./check_gp.sh companion_k25.txt 1
 
 The first-moment counts are heuristic: they estimate how many solutions to expect, and prove nothing.

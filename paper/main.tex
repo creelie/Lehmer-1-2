@@ -2165,8 +2165,16 @@ grew by a factor of about $2.4$ per step, and its total over all steps
 first exceeded $1$ at the fourteenth step, where the completion above
 occurred.
 
-None of these tuples has pairwise coprime entries. By
-Lemma~\ref{lem:parity} a pseudo-solution of Lehmer's equation with
+None of these tuples has pairwise coprime entries, and the search
+does not reach such tuples. Among the $910$ prefixes of length $9$ of
+the tree for $k=13$ with positive defect the smallest defect is
+$2529647$, while among the $48$ of them with pairwise coprime entries
+it is $8544556193$. We ran the search from the $231$ prefixes of that
+tree of length at least $6$ with pairwise coprime entries, keeping
+only children prime to every earlier entry and only defects below
+$8.6\cdot10^{12}$. The sum of $1/c$ then falls at every step, from
+$1.0\cdot10^{-5}$ to $2.0\cdot10^{-13}$, and no prefix is left after
+seven steps. By Lemma~\ref{lem:parity} a pseudo-solution of Lehmer's equation with
 pairwise coprime entries is prime to $3$, and we do not know whether
 one exists. The smallest $k$ with a pseudo-solution prime to $3$ lies
 between $14$ and $25$ for $\varepsilon=+1$, and between $14$ and $26$

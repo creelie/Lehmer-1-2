@@ -4,6 +4,7 @@ pseudo/tail3
 pseudo/logs/.*
 pseudo/prefixes_k13.pkl
 pseudo/descent_out.pkl
+pseudo/descent_coprime_out.pkl
 pseudo/tmp/
 companion8/scan3
 paper/build/

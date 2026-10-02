@@ -1,0 +1,17 @@
+seeds 231 mass 1.006e-05 N=10000000 workers=1
+gen 0: nodes 231 mass 1.006e-05 total 1.006e-05 maxbits 47 hits 0; candidates 39797 (T 8.614e+12) 0s  [0s]
+   gen 1 selected 39797: c min 6316081 max 8.614e+12
+gen 1: nodes 39797 mass 5.714e-06 total 1.577e-05 maxbits 53 hits 0; candidates 1234666 (T 8.614e+12) 2s  [2s]
+   gen 2 selected 1234666: c min 241265483 max 8.614e+12
+gen 2: nodes 1234666 mass 1.370e-06 total 1.715e-05 maxbits 67 hits 0; candidates 143963 (T 8.614e+12) 7s  [9s]
+   gen 3 selected 143963: c min 8544556193 max 8.614e+12
+gen 3: nodes 143963 mass 5.406e-08 total 1.720e-05 maxbits 89 hits 0; candidates 1144 (T 8.614e+12) 1s  [9s]
+   gen 4 selected 1144: c min 120817345001 max 8.606e+12
+gen 4: nodes 1144 mass 3.241e-10 total 1.720e-05 maxbits 89 hits 0; candidates 30 (T 8.614e+12) 0s  [9s]
+   gen 5 selected 30: c min 294429603653 max 8.606e+12
+gen 5: nodes 30 mass 1.073e-11 total 1.720e-05 maxbits 89 hits 0; candidates 5 (T 8.614e+12) 0s  [9s]
+   gen 6 selected 5: c min 3471399237557 max 6.527e+12
+gen 6: nodes 5 mass 1.144e-12 total 1.720e-05 maxbits 89 hits 0; candidates 1 (T 8.614e+12) 0s  [10s]
+   gen 7 selected 1: c min 5078046055421 max 5.078e+12
+gen 7: nodes 1 mass 1.969e-13 total 1.720e-05 maxbits 89 hits 0; candidates 0 (T 8.614e+12) 0s  [10s]
+HITS []
