@@ -6,7 +6,8 @@ cost weights and the factoring threshold changed: a1 = 1.0, a2 = 0.35 (the sums 
 times as much as in the run, so that the split point t_d moves) and a threshold of 1.5 ms (so that a different set of
 integers N is factored).  For every piece, the number of admissible values of p_6 and the set of completions with
 p and q free of prime factors up to 61 (common.sifted; every route finds all of these) must equal those recorded in
-the journal of the run.
+the journal of the run.  Every piece containing the sixth entry of a recorded completion is repeated as well; when
+it was run in a batch with other pieces, only its completions are compared.
 
 usage:  recheck.py [fraction] [workers] [journal]      (defaults 0.03, 4, data/companion8/journal.jsonl)"""
 import sys, os, json, random, time
@@ -36,25 +37,31 @@ def main():
     build(); t0 = time.time()
     fr, batches = pieces()
     # the journal records totals per batch; single-piece batches give the count per piece
-    single = {}
+    single = {}; recorded = set()
     for l in open(jpath):
         if not l.strip(): continue
         r = json.loads(l)
+        recorded |= {tuple(c) for c in r["completions"] if sifted(c)}
         if len(r["keys"]) == 1:
-            single[r["keys"][0]] = (r["nx"], sorted(tuple(c) for c in r["completions"] if sifted(c)))
+            single[r["keys"][0]] = r["nx"]
+    def expected(p):
+        return sorted(c for c in recorded if list(c[:5]) == p[0] and p[1] <= c[5] <= p[2])
     allp = [p for b in batches for p in b if len(b) == 1 and key(p) in single]
     random.seed(20261002)
     sample = random.sample(allp, max(1, int(frac * len(allp))))
-    # also every piece that recorded a completion
-    sample += [p for p in allp if single[key(p)][1] and p not in sample]
+    # also every piece that contains a recorded completion
+    withc = [p for b in batches for p in b if expected(p)]
+    sample += [p for p in withc if p not in sample]
     bad = 0; nx = 0; ndef = 0; ncomp = 0
     with Pool(W) as P:
         for k, n, nd, comps in P.imap_unordered(one, sample):
+            p = next(p for p in sample if key(p) == k)
             nx += n; ndef += nd; ncomp += len(comps)
-            if (n, comps) != single[k]:
-                bad += 1; print("MISMATCH", k, (n, comps), single[k], flush=True)
-    print(f"{len(sample)} of {len(allp)} single-piece batches repeated with parameters {PARAMS}: admissible p_6 {nx}, "
-          f"factored {ndef}, completions {ncomp}; mismatches {bad}  ({time.time() - t0:.0f}s)")
+            if comps != expected(p) or (k in single and n != single[k]):
+                bad += 1; print("MISMATCH", k, n, comps, single.get(k), expected(p), flush=True)
+    print(f"{len(sample) - len(withc)} of {len(allp)} single-piece batches and the {len(withc)} pieces with a completion "
+          f"repeated with parameters {PARAMS}: admissible p_6 {nx}, factored {ndef}, completions {ncomp}; "
+          f"mismatches {bad}  ({time.time() - t0:.0f}s)")
     return 1 if bad else 0
 
 

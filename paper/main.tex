@@ -1359,7 +1359,11 @@ $t_0\le t_d$.
 \begin{enumerate}[label=\textup{(\roman*)}, leftmargin=*]
 \item The divisors with $t<t_d$ are found by running $p$ over the
   integers with $t_0\le cp-2B'<t_d$ and testing whether $t$ divides
-  $A'p+\varepsilon$, as in Proposition~\ref{prop:last}.
+  $A'p+\varepsilon$, as in Proposition~\ref{prop:last}. Since
+  $c(A'p+\varepsilon)=A't+N$ and $\gcd(t,c)=1$ by
+  Proposition~\ref{prop:class}, this is the same as testing whether $t$
+  divides $N$, and the program does that when $A'p$ is too large for
+  $128$-bit arithmetic.
 \item For the divisors with $t_d\le t\le\sqrt N$ we use the sum
   $\sigma=p+q$ and the product $\pi=pq$. By \eqref{eq:hyperbola},
   \begin{equation}\label{eq:sigma}
@@ -1394,8 +1398,7 @@ $t_0\le t_d$.
   from integers $p$ and $q$ without prime factors up to $61$, and in
   particular every value that comes from primes.
 \item If the estimated work of (i) and (ii) exceeds that of factoring
-  $N$, about four milliseconds, or if an intermediate quantity would
-  not fit into $128$ bits, then $N$ is factored completely with
+  $N$, about four milliseconds, then $N$ is factored completely with
   PARI/GP \cite{PARI}, every prime factor is proved
   prime,\footnote{With the option \texttt{factor\_proven} set, PARI/GP
   certifies every prime factor it returns. A factor below $2^{64}$ is
@@ -1415,11 +1418,12 @@ $(t_d-t_0)/c$ values of $p$ and $(t_d+N/t_d-2\sqrt N)/(6c^2)$ values of
 $\sigma$, and $t_d$ is chosen to minimise it, with the two kinds of
 steps weighted by their measured costs. With equal weights the minimum
 lies near $t_d=(N/6c)^{1/2}$ and amounts to about $2(N/6c^3)^{1/2}$
-steps, as in Section~\ref{sec:sum}.
-By the argument of that section, (i) and (ii) together find every
-divisor $t\ge t_0$ of $N$ in the class up to $\sqrt N$, and so does
-(iv); the sieve (iii) loses none that comes from integers $p$ and $q$
-without prime factors up to $61$. Now let $n$ be a solution with
+steps, as in Section~\ref{sec:sum}. By the argument of that section,
+(i) and (ii) together find every divisor $t\ge t_0$ of $N$ in the class
+up to $\sqrt N$, and so does (iv); the sieve (iii) loses none that
+comes from integers $p$ and $q$ without prime factors up to $61$. Where
+$\sigma$ and $\pi$ are too large for $128$-bit arithmetic, (ii) is
+carried out in multiprecision arithmetic. Now let $n$ be a solution with
 $p_1=3$ and $k=8$. By Theorem~\ref{thm:complete} its first five primes
 form one of the prefixes and $p_6$ is one of the admissible primes $s$
 of its interval, and by Proposition~\ref{prop:class} its last two
@@ -1613,17 +1617,19 @@ counted the same number of primes $p_{13}$ in every task, and returned
 no completion in integers in any task.
 
 \subsection{The eight-prime search}\label{sec:checks8}
-The program of Section~\ref{sec:eight} was tested in three ways
-before the run, and part of the run was repeated afterwards.
+The program of Section~\ref{sec:eight} was tested in four ways
+before the runs, and part of the eight-prime run was repeated
+afterwards.
 
 \emph{Known solutions.} Run with prime entries, $\varepsilon=+1$ and
 $p_{\min}=3$ from depth $k-3$ for $3\le k\le7$, the program returns
 the solutions $255$, $65535$, $83623935$, $4294967295$ and
 $6992962672132095$, and no other completion with prime entries. The
 runs were repeated with every divisor sent to the trial division (i),
-and with every divisor sent to the sum route (ii); the three runs
-return the same completions among those in which $p$ and $q$ have no
-prime factor up to $61$ other than themselves.
+with every divisor sent to the sum route (ii), and with the
+multiprecision arithmetic used for every quantity; all runs return the
+same completions among those in which $p$ and $q$ have no prime factor
+up to $61$ other than themselves.
 
 \emph{Odd integers.} With the conditions modulo $3$ removed, and with
 the congruence prune of Theorem~\ref{thm:pseudo3} in place of the
@@ -1631,7 +1637,7 @@ conditions on primes, the program solves \eqref{eq:product} in odd
 integers. For $3\le k\le7$ it finds $1$, $1$, $2$, $8$ and $47$
 solutions with $\varepsilon=-1$, and $1$, $1$, $2$, $4$ and $18$ with
 $\varepsilon=+1$, the numbers found by the independent program of
-Theorem~\ref{thm:pseudo3}, and again the three routes agree.
+Theorem~\ref{thm:pseudo3}, and again all runs agree.
 
 \emph{Complete factorisation.} We took $400$ random pairs of a prefix
 of the case $k=8$ and an admissible prime $s$, and all $2468$
@@ -1643,6 +1649,15 @@ together with those found by factoring the $633$ integers $N$ it
 passed on to PARI/GP, coincide with those found by factoring $N$ for
 every one of the $2868$ pairs. There are three of them, and they
 reappear in Table~\ref{tab:eight}.
+
+\emph{Thirteen entries.} The case $k=13$ of
+Theorem~\ref{thm:pseudo3}(i) uses the program with odd entries prime
+to $3$. For each sign we took $600$ values of $x_{11}$, $270$ of them
+at nine places of the longest interval and $330$ under random nodes,
+and compared the completions found by the program with those read off
+from a complete factorisation of $N$, which has up to $55$ digits. The
+two agree: for none of these values does $N$ have a divisor in the
+class that yields integers $x_{11}<p<q$.
 
 \emph{Repetition.} @@CROSSCHECK@@
 
