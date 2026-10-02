@@ -130,6 +130,10 @@ theorem lehmer_ext_pairwise {l : List ℕ} {d e : ℕ} (hl : l.Pairwise Nat.Copr
   rw [hall, coprime_X, coprime_Y hde hd, coprime_XY hde hd]
   tauto
 
+/-- The squares modulo `5` are `0`, `1` and `4`. -/
+lemma sq_mod_five : ∀ m : ℕ, m < 5 → ∀ y : ZMod 5, (m : ZMod 5) = y * y → m = 0 ∨ m = 1 ∨ m = 4 := by
+  decide
+
 /-- If `5 ∣ A`, every prime factor of `A² + A - 1` is `≡ ±1 (mod 5)`: `(2A + 1)² ≡ 5`, so `5` is a square modulo the
 prime, and quadratic reciprocity applies. -/
 lemma prime_dvd_mod_five {A r : ℕ} (hr : r.Prime) (h5 : 5 ∣ A) (hA : 1 ≤ A) (hdvd : r ∣ A * A + A - 1) :
@@ -142,8 +146,8 @@ lemma prime_dvd_mod_five {A r : ℕ} (hr : r.Prime) (h5 : 5 ∣ A) (hA : 1 ≤ A
   generalize ht : A * A + A = t at hev h5N hpos hdvd
   have hr2 : r ≠ 2 := by rintro rfl; omega
   have hr5 : r ≠ 5 := by rintro rfl; omega
-  haveI := Fact.mk hr
-  haveI : Fact (Nat.Prime 5) := ⟨by norm_num⟩
+  have := Fact.mk hr
+  have : Fact (Nat.Prime 5) := ⟨by norm_num⟩
   have hsq : IsSquare ((5 : ℕ) : ZMod r) := by
     refine ⟨((2 * A + 1 : ℕ) : ZMod r), ?_⟩
     have hz : ((t - 1 : ℕ) : ZMod r) = 0 := (ZMod.natCast_eq_zero_iff _ _).mpr hdvd
@@ -162,8 +166,7 @@ lemma prime_dvd_mod_five {A r : ℕ} (hr : r.Prime) (h5 : 5 ∣ A) (hA : 1 ≤ A
   have hne : r % 5 ≠ 0 := by
     intro h0
     exact hr5 ((Nat.prime_dvd_prime_iff_eq (by norm_num) hr).mp (Nat.dvd_of_mod_eq_zero h0)).symm
-  have key : ∀ m : ℕ, m < 5 → ∀ y : ZMod 5, (m : ZMod 5) = y * y → m = 0 ∨ m = 1 ∨ m = 4 := by decide
-  rcases key _ hlt y hmod with h | h | h
+  rcases sq_mod_five _ hlt y hmod with h | h | h
   · exact absurd h hne
   · exact Or.inl h
   · exact Or.inr h
