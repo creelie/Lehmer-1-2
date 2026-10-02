@@ -8,7 +8,8 @@ The equation is
     x_1 x_2 ... x_k + eps = 2 (x_1 - 1)(x_2 - 1) ... (x_k - 1),        eps = -1 (Lehmer) or +1 (companion),
 
 in odd integers 5 <= x_1 < ... < x_k, none divisible by 3, prime or not. Theorem 8.3 states that there is no solution
-with k <= 12, and none with k <= 15 in which x_1, ..., x_{k-3} are prime. Each part is checked by two programs.
+with k <= 13, and none with k <= 15 in which x_1, ..., x_{k-3} are prime. Each part is checked by two programs for
+k <= 12; the case k = 13 of the first part is carried out by `integer_tree_scan.py`.
 
 ## Requirements
 
@@ -25,6 +26,7 @@ PATH) for the two `pari_*` programs. Build the C program first, in this director
 | `tail3lib.py` | driver for `tail3`; problems where the sum route would be long are solved by a complete factorisation, with every prime factor proved prime | – |
 | `integer_tree.py` | Theorem 8.3 (i), first program: the tree with integer entries prime to 3, k <= 12, both signs | seconds |
 | `prime_prefixes.py` | Theorem 8.3 (ii), first program: the prime prefixes of the search of Theorems 1.1 and 1.3, then three integer entries | about 4 min of CPU time per sign for k = 15 |
+| `integer_tree_scan.py` | Theorem 8.3 (i) for k = 13, both signs: the tree of `integer_tree.py`, and at depth 10 the program `scan3` of `../companion8` in its mode for odd integers prime to 3, with PARI/GP for the values where the sums would be slow; resumable through `../data/pseudo/integer_tree_k13_*.jsonl` | about 15 h of CPU time per sign, 3.8 h on 4 cores |
 | `pari_integer_tree.py` | Theorem 8.3 (i), second program: its own bounds and tree, and at every node with two entries left a complete factorisation with PARI/GP, every factor proved prime; no code shared with the rest of the repository | about 10 min for k = 12 |
 | `pari_prime_prefixes.py` | Theorem 8.3 (ii), second program, for k <= 14: the same prime prefixes, its own range for x_{k-2}, and a complete factorisation for every value | about 15 min per sign for k = 14 |
 | `validate_with3.py` | with the entry 3 allowed, `tail3` finds exactly the solutions listed by `pari_integer_tree.py --with3` whose first k - 3 entries are prime (k <= 7, both signs) | minutes |
@@ -33,6 +35,8 @@ PATH) for the two `pari_*` programs. Build the C program first, in this director
 | `first_moment_node.py` | the count for solutions prime to 3 over the tree for k = 12, and below the prefix (5, 7, 13, 17, 19, 23, 25, 37, 119) for k = 12, 13, 14 | about 5 min |
 | `make_seeds.py` | the seeds of `descent.py`: every prefix of length 6 or more of the tree for k = 13, with its defect | seconds |
 | `descent.py` | the search that found `companion_k25.txt`: descent through the defects with selection, testing every node for a last entry | 2.2 h on 4 cores |
+| `coprime_tree.py` | the tree of `integer_tree.py` restricted to pairwise coprime entries, down to depth k - 3; collects every prefix with 0 < c x_j < 2B, which one more entry can complete (Section 8) | 1 s for k = 15 |
+| `descent_coprime.py` | `descent.py` restricted to pairwise coprime entries: every child must also be prime to every earlier entry and completable by one more entry, and the threshold keeps the beam full; started from the 13190 prefixes of `coprime_tree.py 15`, the sum of 1/c falls by about a factor 0.8 per step and no completion occurs in twelve steps (Section 8) | 3 min on 3 cores |
 | `companion_k25.txt` | a pseudo-solution prime to 3 with 25 entries and eps = +1, one entry per line | – |
 | `check_tuple.py`, `check_gp.sh` | independent checks of a pseudo-solution in Python and in PARI/GP: equation, order, oddness, 3 divides no entry, all gcd(x_i, x_j - 1) = 1 | seconds |
 | `logs/` | recorded output | |
@@ -42,6 +46,7 @@ PATH) for the two `pari_*` programs. Build the C program first, in this director
 Run from this directory.
 
     python3 integer_tree.py 12                                          > logs/integer_tree.log
+    python3 integer_tree_scan.py 13 -1 4    > logs/integer_tree_k13_m1.log    (and 13 1 4: _p1)
     for k in $(seq 3 14); do for e in -1 1; do python3 prime_prefixes.py $k $e; done; done   > logs/prime_prefixes_k3_14.log
     python3 prime_prefixes.py 15 -1 P 4    (P = 0, 1, 2, 3, and the same for eps = 1)   > logs/prime_prefixes_k15.log
     for k in $(seq 3 12); do python3 pari_integer_tree.py $k -1; done  > logs/pari_integer_tree_m1.log   (and 1: _p1)
@@ -56,6 +61,7 @@ Run from this directory.
     python3 first_moment_node.py 1000 30 30 --tree                      > logs/first_moment_node.log
     python3 make_seeds.py; python3 descent.py --N 10000000 --gens 16 --workers 4 --q 1.6   > logs/descent.log
                                                        (the log is kept up to step 14, where the tuple was found)
+    python3 coprime_tree.py 15 > logs/coprime_tree_k15.log; python3 descent_coprime.py --N 1000000 --gens 12 --workers 3   > logs/descent_coprime.log
     python3 check_tuple.py companion_k25.txt 1; ./check_gp.sh companion_k25.txt 1
 
 The first-moment counts are heuristic: they estimate how many solutions to expect, and prove nothing.

@@ -2,21 +2,21 @@
 
 Code, data and Lean proofs for the paper
 
-> D. Bhattacharjee, P. Mandal, U. Bhattacharya,
+> P. Mandal, D. Bhattacharjee, U. Bhattacharya,
 > *Lehmer's totient problem with fewer than sixteen prime factors*.
 
 What the computations establish (see the paper for the proofs they complete):
 
 1. Every composite n with φ(n) | n−1 has at least 16 distinct prime factors.
-2. The solutions of φ(n) | n+1 with at most 7 prime factors are exactly
-   1, 2, 3, 15, 255, 65535, 83623935, 4294967295, 6992962672132095.
+2. The solutions of φ(n) | n+1 with at most 8 prime factors are exactly
+   1, 2, 3, 15, 255, 65535, 83623935, 4294967295, 6992962672132095 (`companion8/` for eight prime factors).
 3. Every solution of φ(n) | n+1 with n > 3 and 3 ∤ n has at least 16 distinct prime factors.
 4. Every solution of φ(n) | n+1 with n > 3 and (n+1)/φ(n) ≥ 3 has at least 33 prime factors (1540 if 3 | n).
 5. The Fermat-type solutions (n+1 = 2φ(n)) are exactly the closure of 1 under one- and two-prime extensions.
 6. Every Fermat-type n₀ = p₁⋯p_m gives a pseudo-solution (p₁, …, p_m, n₀) of x₁⋯x_k − 1 = 2∏(xᵢ − 1) that passes
    the congruence prune, so a proof for all k has to use the primality of the factors.
 7. These pseudo-solutions have two entries divisible by 3. No solution of x₁⋯x_k ± 1 = 2∏(xᵢ − 1) in odd integers
-   prime to 3 exists for k ≤ 12, nor for k ≤ 15 when x₁, …, x_{k−3} are prime (`pseudo/`). The number of entries
+   prime to 3 exists for k ≤ 13, nor for k ≤ 15 when x₁, …, x_{k−3} are prime (`pseudo/`). The number of entries
    divisible by 3 is even for the sign −1 and odd or zero for +1, and Lemma 2.2 is the only congruence obstruction to
    completing a prefix.
 8. In odd integers prime to 3, with gcd(xᵢ, xⱼ − 1) = 1 for all i, j, the equation x₁⋯x_k + 1 = 2∏(xᵢ − 1) has a
@@ -24,7 +24,8 @@ What the computations establish (see the paper for the proofs they complete):
    Some entries are composite, so the primality of the factors has to enter beyond the prime 3.
 
 The lemmas and propositions behind 1–3 and 7, and statements 4, 5, 6 and 8 in full, are proved in Lean 4 in `lean/`
-(see `lean/README.md`). The exhaustive searches are checked by independent programs, not formalised.
+(see `lean/README.md`); for 2 and 7 this includes the reduction, the identities and the sieve of the eight-prime
+program, and the 21 completions it finds. The exhaustive searches are checked by independent programs, not formalised.
 
 Neither Lehmer's totient conjecture nor the question whether φ(n) | n+1 has further solutions is settled.
 
@@ -33,7 +34,8 @@ Neither Lehmer's totient conjecture nor the question whether φ(n) | n+1 has fur
 Python 3.8 or later with `sympy` (tested with Python 3.11 and sympy 1.14). `sieve_check.py` also needs `numpy`
 and about 2 GB of memory. The fifteen-prime programs (`lastthree.py`, `lastthree_b.py`, `lastthree_c.py`, `k15_run.py`,
 `k15_stats.py` and the scripts in `tests/`) need `numpy`, `gmpy2` and `python-flint` (tested with numpy 2.4,
-gmpy2 2.3 and python-flint 0.9, which bundles FLINT 3.6).
+gmpy2 2.3 and python-flint 0.9, which bundles FLINT 3.6). The eight-prime search in `companion8/` and
+`pseudo/integer_tree_scan.py` also need a C compiler with GMP and PARI/GP 2.15 or later (`gp` on the PATH).
 
 **Primality tests.** Without `gmpy2`, SymPy's `isprime` is a strong probable-prime test to the first thirteen
 prime bases below 3.3·10^24, which is a proof there (Sorenson and Webster), and a Baillie–PSW test above.
@@ -63,7 +65,10 @@ factors nothing, so its negative answers rely on no primality test.
 | `check_certificates.py` | re-derives the fifteen long terminal nodes of k = 14 and checks the stored factorisations | seconds |
 | `validate.py` | both programs on 2^k(n−1) = (2^k+m)φ(n), k = 4, 5: must return the 56 listed solutions | ~10 min |
 | `sieve_check.py` | independent totient sieve to 10^8 | ~3 min |
-| `walls.py` | the k = 15 frontier of Section 5, the k = 8 frontier of Section 8, and the depth profiles of Figure 3 | ~1 min |
+| `walls.py` | the k = 15 frontier of Section 5, the k = 8 frontier of Section 6.4, and the depth profiles of Figure 3 | ~1 min |
+| `companion8/` | Theorem 1.2 for eight prime factors (Section 6.4): the C program `scan3.c` for the last three primes (trial division and the sum of the two factors, sieved by congruences), the PARI/GP fallback `factor_class.gp`, the driver `companion8.py` (resumable, multi-core), the tests `test_scan3.py` and the partial repetition `recheck.py`; see `companion8/README.md` | 6.9 h of CPU time, 2.0 h on 4 cores |
+| `data/companion8/journal.jsonl` | one line per batch of the eight-prime run: pieces, counts, timings and completions | |
+| `paper/` | LaTeX source of the paper, the TikZ sources of the figures with their PNG exports (`figures/build.sh`) | |
 | `tests/test_divisors.py`, `tests/test_divisors_b.py`, `tests/test_divisors_c.py` | the three divisor routines against brute force on random integers with known factorisation (the recorded run of `test_divisors_b.py` used a box limit of 200000, given as its argument) | minutes |
 | `tests/planted_k15.py` | planted divisors at the scale of the k = 15 search, for all three implementations (4 processes) | ~15 min |
 | `tests/validate_lastthree.py`, `tests/validate_b.py` | both lattice programs on the 56 validation solutions, on n + 1 = 2φ(n) with k ≤ 7, and on k = 7..14 | seconds |
@@ -84,5 +89,5 @@ Run any script from the repository root, for example `python3 first_equation.py`
 
 ## Authors
 
-Deep Bhattacharjee, Priyabrata Mandal, Ushashi Bhattacharya.
+Priyabrata Mandal (corresponding author), Deep Bhattacharjee, Ushashi Bhattacharya.
 The code and the Lean proofs were written by Deep Bhattacharjee with the assistance of Claude (Anthropic).
