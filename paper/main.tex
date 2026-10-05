@@ -54,7 +54,7 @@
 
 \subjclass[2020]{Primary 11A25; Secondary 11Y70, 11A51}
 \keywords{Euler's totient function, Lehmer's totient problem,
-Fermat primes, exhaustive search, formal verification}
+Fermat primes, exhaustive search}
 \date{}
 
 \begin{document}
@@ -274,23 +274,6 @@ completely, with every prime factor proved prime
 elementary, and Theorem~\ref{thm:ext} rests on a short identity
 together with the factorisation of eight integers.
 
-Every lemma and proposition of Sections~\ref{sec:elem}--\ref{sec:three},
-Theorem~\ref{thm:quotient}, Theorem~\ref{thm:ext},
-Lemma~\ref{lem:parity}, Propositions~\ref{prop:pseudo}, \ref{prop:local}
-and~\ref{prop:lehmerext} and Theorem~\ref{thm:pseudo25} has been verified in the proof assistant
-Lean~4 \cite{Lean4} with its mathematical library Mathlib
-\cite{Mathlib} (Section~\ref{sec:lean}), and so has every step of the
-eight-prime search of Section~\ref{sec:eight} that is not a
-computation: the reduction to $n+1=2\varphi(n)$ with $p_1=3$, the
-identities behind its two routes, and the soundness of its sieve. The
-finite computations inside these proofs, namely the thresholds $7$,
-$32$ and $1540$, the factorisations of Table~\ref{tab:ext} and the
-primality of its factors, the tuple of Theorem~\ref{thm:pseudo25} and
-the $21$ completions of the eight-prime search, are carried out by the
-Lean kernel. The exhaustive searches themselves
-are not formalised; for them the evidence is the agreement of
-independent programs described in Section~\ref{sec:checks}.
-
 The paper is organised as follows. Section~\ref{sec:elem} proves the
 reductions and Theorem~\ref{thm:quotient}. Section~\ref{sec:search}
 sets up the search and proves that it is complete, and
@@ -298,8 +281,7 @@ Section~\ref{sec:three} describes the treatment of the last three
 primes. Section~\ref{sec:first} proves Theorem~\ref{thm:first}, and
 Section~\ref{sec:second} proves Theorems~\ref{thm:eight},
 \ref{thm:coprime} and \ref{thm:ext}. Section~\ref{sec:checks} describes
-the checks applied to the computations and the formal verification,
-and Section~\ref{sec:walls} the next cases and the pseudo-solutions.
+the checks applied to the computations, and Section~\ref{sec:walls} the next cases and the pseudo-solutions.
 
 \subsection*{Notation}
 Throughout, $n=p_1p_2\cdots p_k$ with primes $p_1<\dots<p_k$, and
@@ -599,17 +581,15 @@ Two points concern rigour. First, all arithmetic is exact:
 $A_j$, $B_j$, $C_j$, the interval endpoints and the quantities in
 \eqref{eq:last} are integers or ratios of integers compared by cross
 multiplication. Second, the probabilistic primality tests used by the
-programs\footnote{The programs use the test of the SymPy library
-\cite{SymPy}. In the configuration we used, without the optional
-gmpy2 package, it is a strong probable-prime test to the thirteen
-bases $2,3,\dots,41$ below $\psi_{13}=3317044064679887385961981$,
-and a Baillie--PSW test above it. Sorenson and Webster \cite{SW17}
+programs\footnote{The programs use a strong probable-prime test to
+the thirteen bases $2,3,\dots,41$ below
+$\psi_{13}=3317044064679887385961981$, and a Baillie--PSW test above
+it. Sorenson and Webster \cite{SW17}
 showed that every composite number below $\psi_{13}$ fails the first
 test for at least one of these bases, so there it is a proof. The
 Baillie--PSW test \cite{BW80,PSW80} combines a strong probable-prime
 test to base $2$ with a strong Lucas test; no composite number is
-known to pass it. With gmpy2 installed, SymPy applies the
-Baillie--PSW test throughout.} can err only by declaring a composite number prime,
+known to pass it.} can err only by declaring a composite number prime,
 never by declaring a prime composite. Such an error could add a node
 or accept a composite $q$, but it can never remove an actual solution.
 A search that finds nothing is therefore a proof that there is
@@ -1710,96 +1690,6 @@ factored $196063$ integers $N$. It found the same number of admissible
 values of $p_6$ in each of the $13$ pieces as the run, and the same
 four completions.
 
-\subsection{Formal verification}\label{sec:lean}
-The statements listed in Table~\ref{tab:lean} have been proved in
-Lean~4 \cite{Lean4}, version~4.34.1, using Mathlib \cite{Mathlib}. The
-bounds of Proposition~\ref{prop:bounds} and the identities of
-Propositions~\ref{prop:last} and~\ref{prop:class} are proved for
-arbitrary integers $A,B,p,q$ satisfying the hypotheses used in the
-text, so that they apply at every node of the search. Lemma~\ref{lem:firsthit}
-is proved for the recursive function itself: the function terminates,
-every value it returns is the least solution, and when it reports that
-there is none, there is none. The kernel of Lean checks every proof,
-and Lean reports that the theorems depend only on its three standard
-axioms, namely propositional extensionality, choice and the soundness
-of quotients. No statement is assumed without proof, and no step is
-delegated to compiled code.\footnote{Finite checks are made by kernel
-reduction of decidable propositions. The alternative that evaluates
-such propositions by compiled code, and would add an axiom trusting
-the compiler, is not used.}
-
-The proofs of Lemmas~\ref{lem:three}, \ref{lem:Mtwo} and
-Corollary~\ref{cor:seven} need the first $1538$ primes congruent to $2$
-modulo $3$ from $5$ on, the first $32$ primes from $5$ on, and the
-odd primes up to $19$, and they need to know that no prime is missing
-from these lists. The formal proof walks through the arithmetic
-progression $5,11,17,\dots$ (respectively the odd numbers) and checks
-a prime divisor for each member left out of the list; it then
-evaluates the products of $p/(p-1)$ in exact arithmetic. For
-Theorem~\ref{thm:ext}(iii) it checks the factorisations of
-Table~\ref{tab:ext}, proves each prime that occurs there prime, by
-trial division below $10^7$ and above $10^7$ by Lucas's converse of
-Fermat's theorem,\footnote{If $a^{p-1}\equiv1\pmod p$ and
-$a^{(p-1)/\ell}\not\equiv1\pmod p$ for every prime $\ell\mid p-1$, then
-$a$ has order $p-1$ modulo $p$, and so $p$ is prime. The certificate
-for $p$ consists of $a$ and the factorisation of $p-1$, whose prime
-factors are certified in the same way. The seven primes certified like
-this range from $22253377$ to $2^{64}-2^{32}+1$.} and proves each
-composite candidate composite by exhibiting a divisor.
-
-For the case of eight prime factors the formal proofs cover the
-reduction to $n+1=2\varphi(n)$ and $p_1=3$, which takes
-Theorem~\ref{thm:coprime} as its hypothesis $3\mid n$; the identity
-$c(A'p+\varepsilon)=A't+N$ and the equivalence of the two divisibility
-tests in step (i); equation \eqref{eq:sigma}, the class and the range
-of $\sigma$, and the converse that turns a square value of
-$\sigma^2-4\pi$ back into a pair $p,q$ in step (ii); and step (iii) in
-the form that the sieve keeps every value coming from integers $p$ and
-$q$ at no excluded residue. The two facts that supply this hypothesis
-are proved as well: integers without prime factors up to $61$ avoid
-the excluded residues of the eight-prime search, and every completion
-in odd integers prime to $3$ avoids those of the search for $k=13$ in
-Theorem~\ref{thm:pseudo3}. The kernel checks each of the $21$
-completions $s<p<q$: it verifies the equation and a proper divisor of
-$p$ or of $q$. The
-exhaustive searches of Sections~\ref{sec:first} and~\ref{sec:second}
-and the completeness statements Theorems~\ref{thm:complete}
-and~\ref{thm:three}, which concern the programs, are not formalised,
-and neither are the searches behind Theorem~\ref{thm:pseudo3}. The
-proof of Theorem~\ref{thm:pseudo25} is formalised in full: the kernel
-checks the tuple with $25$ entries, and the two extension steps are
-proved for arbitrary tuples.
-
-\begin{table}[ht]
-\centering
-\caption{The statements verified in Lean.}
-\label{tab:lean}
-\smallskip
-\small
-\begin{tabular}{@{}ll@{}}
-\toprule
-statement & extent \\
-\midrule
-Lemmas~\ref{lem:basic}, \ref{lem:three}, \ref{lem:Mtwo}, Corollary~\ref{cor:seven} & in full, with the thresholds $1540$, $32$, $7$ \\
-Theorem~\ref{thm:quotient} & in full \\
-Propositions~\ref{prop:below2}, \ref{prop:bounds} & in full \\
-Proposition~\ref{prop:last} & in full, with its converse \\
-Proposition~\ref{prop:class} & in full, with $\gcd(r,c)=1$ from the prune \\
-Lemmas~\ref{lem:box}, \ref{lem:firsthit} & in full \\
-Section~\ref{sec:sum} & identity \eqref{eq:sum}, its converse, the bound $c^3<N+2c^2$ \\
-Theorem~\ref{thm:ext} & (i), (ii) and (iii) in full \\
-Remark~\ref{rem:three} & both identities \\
-Proposition~\ref{prop:pseudo} & in full \\
-Lemma~\ref{lem:parity} & in full, with $\gcd(x_i,x_j-1)=1$ from \eqref{eq:product} \\
-Proposition~\ref{prop:local} & in full \\
-Theorem~\ref{thm:pseudo25} & in full, the tuple checked by the kernel \\
-Proposition~\ref{prop:lehmerext} & in full, quadratic reciprocity from Mathlib \\
-Section~\ref{sec:eight} & reduction, steps (i)--(iii), the $21$ completions \\
-Theorem~\ref{thm:pseudo3}, $k=13$ & the sieve keeps every completion \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 %%==================================================================
 \section{The next cases}\label{sec:walls}
 %%==================================================================
@@ -2157,8 +2047,8 @@ After $24$ entries the defect $2B-A$ equals $29$, and $29$ divides
 $2B+1$; the last entry is $(2B+1)/29$. The entries are deposited with
 the data. The equation, the order of the entries, their residues
 modulo $2$ and $3$, and all $625$ conditions $\gcd(x_i,x_j-1)=1$ are
-checked by two independent programs, one in Python and one in
-PARI/GP \cite{PARI}, and by the Lean kernel.
+checked by two independent programs, one of them written in
+PARI/GP \cite{PARI}.
 \end{proof}
 
 The tuple was found by a search along the tree of
@@ -2316,13 +2206,12 @@ logs of the three-prime searches of Section~\ref{sec:fifteen}, the
 program and the journal of the eight-prime search of
 Section~\ref{sec:eight}, the programs and logs of
 Section~\ref{sec:walls}, the entries of the tuple of
-Theorem~\ref{thm:pseudo25}, the Lean formalisation of
-Section~\ref{sec:lean} and the sources of this paper are archived at
+Theorem~\ref{thm:pseudo25} and the sources of this paper are archived at
 Zenodo, \href{https://doi.org/\zenododoi}{doi:\zenododoi}. The
-programs and the formal proofs were written by D.~Bhattacharjee with
-the assistance of Claude, an AI system developed by Anthropic, which
-helped with the coding; the authors checked the programs, the proofs and their output
-and take full responsibility for them.
+programs were written by D.~Bhattacharjee with the assistance of
+Claude, an AI system developed by Anthropic, which helped with the
+coding; the authors checked the programs and their output and take
+full responsibility for them.
 
 \begin{thebibliography}{99}
 
@@ -2413,31 +2302,11 @@ H.~W. Lenstra, Jr.,
 Math. Comp. \textbf{42} (1984), no.~165, 331--340.
 \href{https://doi.org/10.1090/S0025-5718-1984-0726007-1}{doi:10.1090/S0025-5718-1984-0726007-1}
 
-\bibitem{Mathlib}
-The mathlib Community,
-\emph{The Lean mathematical library},
-in: Proceedings of the 9th ACM SIGPLAN International Conference on
-Certified Programs and Proofs (CPP 2020), ACM, New York, 2020, 367--381.
-\href{https://doi.org/10.1145/3372885.3373824}{doi:10.1145/3372885.3373824}
-
-\bibitem{SymPy}
-A.~Meurer, C.~P. Smith, M.~Paprocki, O.~\v{C}ert\'{\i}k, S.~Kirpichev,
-et al., \emph{SymPy: symbolic computing in Python},
-PeerJ Comput. Sci. \textbf{3} (2017), e103.
-\href{https://doi.org/10.7717/peerj-cs.103}{doi:10.7717/peerj-cs.103}
-
 \bibitem{MS25}
 G.~Molnar and G.~Singh,
 \emph{Positive spoof Lehmer factorizations},
 preprint, 2025, arXiv:2409.17076v2 [math.NT].
 \href{https://doi.org/10.48550/arXiv.2409.17076}{doi:10.48550/arXiv.2409.17076}
-
-\bibitem{Lean4}
-L.~de Moura and S.~Ullrich,
-\emph{The Lean~4 theorem prover and programming language},
-in: Automated Deduction -- CADE~28, Lecture Notes in Comput. Sci.
-\textbf{12699}, Springer, Cham, 2021, 625--635.
-\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}
 
 \bibitem{OEIS}
 OEIS Foundation Inc.,
