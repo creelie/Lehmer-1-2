@@ -4,7 +4,7 @@
  (1) 2^k (n - 1) = (2^k + m) phi(n), k = 4 (1 <= m <= 40) and k = 5 (1 <= m <= 85), p_1 >= 3: the search from
      depth k - 3 must return exactly the 56 solutions of data/known_solutions.json.
  (2) n + 1 = 2 phi(n), p_1 >= 3, k = 3..7: exactly 255; 65535; 83623935 and 4294967295; 6992962672132095; none.
- (3) n - 1 = 2 phi(n) and n + 1 = 2 phi(n), p_1 >= 5, k = 7..14: no solutions (Theorems 1.1 and 1.3 again,
+ (3) n - 1 = 2 phi(n) and n + 1 = 2 phi(n), p_1 >= 5, k = 7..14: no solutions (Theorems 1.1 and 1.4 again,
      by a third method)."""
 import json, sys, time
 sys.path.insert(0, ".")

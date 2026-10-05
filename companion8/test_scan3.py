@@ -7,7 +7,7 @@
    on completions by composite p or q that violate these conditions, which the filters are free to drop).
 2. Odd integers (mode 2), both signs, k = 3..7: the numbers of solutions of x_1...x_k + eps = 2 prod (x_i - 1) in
    odd integers 3 <= x_1 < ... < x_k must be 1, 1, 2, 8, 47 (eps = -1) and 1, 1, 2, 4, 18 (eps = +1), as found by
-   the PARI/GP program of pseudo/ (Theorem 8.3).
+   the PARI/GP program of pseudo/ (Theorem 9.3).
    In 1 and 2 the run is repeated with every divisor sent to the trial division, with every divisor sent to the
    sums, and with the arithmetic for quantities beyond 128 bits used throughout; the sets of completions (those
    found by scan3 plus those found by factoring the deferred cases) must coincide.

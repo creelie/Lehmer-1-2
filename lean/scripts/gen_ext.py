@@ -1,5 +1,5 @@
 import os
-# Generates lean/LehmerTotient/Ext.lean: Theorem 1.5 (iii) for the eight Fermat-type solutions.
+# Generates lean/LehmerTotient/Ext.lean: Theorem 1.6 (iii) for the eight Fermat-type solutions.
 from sympy import factorint, isprime
 L=[1,3,15,255,65535,83623935,4294967295,6992962672132095]
 def spf(x):
@@ -36,7 +36,7 @@ def subprods(ps):
 header='''import LehmerTotient.ExtBasic
 
 /-!
-# The Fermat-type solutions (Theorem 1.5 (iii))
+# The Fermat-type solutions (Theorem 1.6 (iii))
 
 `fermatList` holds the eight Fermat-type solutions in (1.3), `1, 3, 15, 255, 65535, 83623935,
 4294967295, 6992962672132095`.  `Reached` is the closure of `1` under one- and two-prime
@@ -61,7 +61,7 @@ body=[]
 body.append("""/-- The Fermat-type solutions in (1.3) other than `2`. -/
 def fermatList : List ℕ := [""" + ", ".join(map(str,L)) + """]
 
-/-- The closure of `1` under the extensions of Theorem 1.5 (i) and (ii). -/
+/-- The closure of `1` under the extensions of Theorem 1.6 (i) and (ii). -/
 inductive Reached : ℕ → Prop
   | one : Reached 1
   | ext1 {n0 q : ℕ} : Reached n0 → q.Prime → ¬ q ∣ n0 → FermatType (n0 * q) → Reached (n0 * q)
@@ -189,7 +189,7 @@ for n0 in L:
     rw [show subprods {ps} = {sp} by decide] at hd
     exact closed_two_{n0} d hd e (by norm_num [hde]) hdlt hp hq
 """)
-body.append("""/-- Theorem 1.5 (iii): the closure of `1` under one- and two-prime extensions consists of
+body.append("""/-- Theorem 1.6 (iii): the closure of `1` under one- and two-prime extensions consists of
 exactly the eight Fermat-type solutions in `fermatList`. -/
 theorem reached_iff (n : ℕ) : Reached n ↔ n ∈ fermatList := by
   constructor

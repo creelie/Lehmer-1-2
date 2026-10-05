@@ -2,7 +2,7 @@
 """The companion equation with eight prime factors.
 
 Every solution of phi(n) | n + 1 with omega(n) = 8 satisfies n + 1 = 2 phi(n) and 3 | n (Lemmas 2.2 and 2.3 and
-Theorem 1.3), so n = p_1 ... p_8 with p_1 = 3.  This program runs the search of Section 3 with p_min = 3 down to
+Theorem 1.4), so n = p_1 ... p_8 with p_1 = 3.  This program runs the search of Section 3 with p_min = 3 down to
 depth 5 (lastthree.frontier), keeps the prefixes that contain 3, and treats the last three primes s < p < q of each
 prefix as follows.
 

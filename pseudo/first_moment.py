@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""First-moment count of Section 8.6: the expected number of solutions of  x_1 ... x_k + eps = 2 prod(x_i - 1)  in odd
+"""First-moment count of Section 9.6: the expected number of solutions of  x_1 ... x_k + eps = 2 prod(x_i - 1)  in odd
 integers 5 <= x_1 < ... < x_k prime to 3 (with --with3: odd integers 3 <= x_1 < ... < x_k), under the heuristic that
 the divisors of N = 2AB + eps c at a node with two entries left fall into the class -2B (mod c) at random.
 

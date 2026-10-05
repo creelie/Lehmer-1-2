@@ -2,16 +2,16 @@ import LehmerTotient.Imports
 import Mathlib.Data.Nat.Prime.Int
 
 /-!
-# Pseudo-solutions prime to 3 and congruences (Lemma 8.2, Proposition 8.4)
+# Pseudo-solutions prime to 3 and congruences (Lemma 9.2, Proposition 9.4)
 
 The product equation `x₁ ⋯ x_k + ε = M ∏ (xᵢ - 1)` over the integers, with `ε = ±1`.
 
 * `gcd_of_product_eq`: the conditions `gcd(xᵢ, xⱼ - 1) = 1` follow from the equation.
-* `three_parity`: Lemma 8.2. If `3` divides exactly `s ≥ 1` entries, then `ε ≡ M (-1)^s (mod 3)`.
+* `three_parity`: Lemma 9.2. If `3` divides exactly `s ≥ 1` entries, then `ε ≡ M (-1)^s (mod 3)`.
 * `three_parity_lehmer`, `three_parity_companion`: for `M = 2`, `s` is even when `ε = -1`, and odd when `ε = +1`
   and `s ≥ 1`.
 * `lehmer_coprime_three_free`: a solution with `ε = -1` and pairwise coprime entries has no entry divisible by `3`.
-* `local_witness`: Proposition 8.4 for prime-power moduli. With `gcd(A, 2B) = 1`, at least two entries left and any
+* `local_witness`: Proposition 9.4 for prime-power moduli. With `gcd(A, 2B) = 1`, at least two entries left and any
   prime power `l^e`, the congruence `A y₁ ⋯ y_m + ε ≡ 2B ∏ (yᵢ - 1) (mod l^e)` has a solution with no `yᵢ`
   divisible by `l` and, if `l ∣ A`, no `yᵢ ≡ 1 (mod l)`, except when `l = 3`, `3 ∣ A` and `2B ≢ ε (mod 3)`.
 * `three_obstruction`: in that excluded case there is no such solution.
@@ -111,7 +111,7 @@ theorem lehmer_coprime_three_free {k : ℕ} (x : Fin k → ℤ)
   rw [hsub, card_singleton] at he
   exact absurd he (by decide)
 
-/-- The smallest pseudo-solution of Proposition 8.1 has two entries divisible by 3. -/
+/-- The smallest pseudo-solution of Proposition 9.1 has two entries divisible by 3. -/
 example : (univ.filter fun i : Fin 3 => (3 : ℤ) ∣ ![3, 5, 15] i).card = 2 := by decide
 
 /-! ### Local solvability: Lemma 2.2 is the only congruence obstruction -/

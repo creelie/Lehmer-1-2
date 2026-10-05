@@ -2,7 +2,7 @@ import LehmerTotient.PseudoExtend
 import Mathlib.NumberTheory.LegendreSymbol.QuadraticReciprocity
 
 /-!
-# Two-entry extensions from the companion sign to Lehmer's sign (Proposition 8.6)
+# Two-entry extensions from the companion sign to Lehmer's sign (Proposition 9.6)
 
 Let `l` solve `x₁ ⋯ x_k + 1 = 2 ∏ (xᵢ - 1)`, let `A = ∏ xᵢ`, and let `d e = A² + A - 1`. Then
 `l ++ [A + 1 + d, A + 1 + e]` solves `x₁ ⋯ x_{k+2} - 1 = 2 ∏ (xᵢ - 1)`.

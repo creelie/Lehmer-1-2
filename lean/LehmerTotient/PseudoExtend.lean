@@ -2,7 +2,7 @@ import LehmerTotient.Imports
 import Mathlib.Data.Nat.GCD.BigOperators
 
 /-!
-# Pseudo-solutions prime to 3: extension to every larger length (Section 8.6)
+# Pseudo-solutions prime to 3: extension to every larger length (Section 9.6)
 
 A list `l` of natural numbers is a *pseudo-solution prime to 3* of the product equation
 `x₁ ⋯ x_k + ε = 2 ∏ (xᵢ - 1)` if its entries are strictly increasing, at least `5`, odd and not divisible by `3`,

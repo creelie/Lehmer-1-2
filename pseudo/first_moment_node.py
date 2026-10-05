@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""First-moment count of Section 8.6 below one node, for solutions prime to 3 of Lehmer's product equation
+"""First-moment count of Section 9.6 below one node, for solutions prime to 3 of Lehmer's product equation
 (eps = -1), with the heuristic of first_moment.py.  For m = 3, 4, 5 entries left below the prefix
 (5, 7, 13, 17, 19, 23, 25, 37, 119), which has the smallest C_9 = 2B - A among the prefixes of length nine, the
 last level is summed exactly over the first T0 admissible t and by quadrature beyond, and each level above over the

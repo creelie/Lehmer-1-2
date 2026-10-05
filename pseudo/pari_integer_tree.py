@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Theorem 8.3 (i), second program: all odd integers 5 <= x_1 < ... < x_k, none divisible by 3 (with --with3:
+"""Theorem 9.3 (i), second program: all odd integers 5 <= x_1 < ... < x_k, none divisible by 3 (with --with3:
 3 <= x_1 < ... < x_k, any odd entries), with
     x_1 ... x_k + eps = 2 (x_1 - 1) ... (x_k - 1).
 Bounds derived here from the equation alone: with A, B the products over a prefix, c = 2B - A, and m >= 2 entries

@@ -11,14 +11,14 @@
   flow/.style={->, line width=0.75pt, draw=black!70}]
 
 \node[seq]  (S)  at (0,0)    {sequence\\ $S=(p_1,\dots,p_j)$\\[1pt] {\footnotesize no $p_i\mid p_l-1$}};
-\node[test] (R1) at (3.75,0) {\textbf{R1} ratio test\\[1pt] $r_j\,B_j(q_1)>\mu(S)$\,?};
-\node[test] (R2) at (7.55,0) {\textbf{R2} deficit test\\[1pt] $V_j(\mu(S))\ge t_{j+1}$\,?};
-\node[act]  (R3) at (12.15,1.25)  {\textbf{R3} last prime\\[1pt] {\footnotesize $\mu\le M<r_j\frac{p_j+2}{p_j+1}$}};
+\node[test] (R1) at (3.75,0) {\textbf{R1} ratio test\\[1pt] $P_j\,\Gamma_j(q_1)>\mu(S)$\,?};
+\node[test] (R2) at (7.55,0) {\textbf{R2} deficit test\\[1pt] $V_j(\mu(S))\ge\theta_{j+1}$\,?};
+\node[act]  (R3) at (12.15,1.25)  {\textbf{R3} last prime\\[1pt] {\footnotesize $\mu\le M<P_j\frac{p_j+2}{p_j+1}$}};
 \node[act]  (R4) at (12.15,-1.25) {\textbf{R4} children $q>p_j$\\[1pt] {\footnotesize omit by (i), (ii), (iii)}};
 
 \node[res] (D1) at (3.75,-2.55) {discard $S$};
 \node[res] (D2) at (7.55,-2.55) {discard $S$};
-\node[res, text width=2.6cm] (N) at (12.15,3.05) {record $n=P_j\,p_k$\\ (no case occurs)};
+\node[res, text width=2.6cm] (N) at (12.15,3.05) {record $n=A_j\,p_k$\\ (no case occurs)};
 
 \draw[flow] (S) -- (R1);
 \draw[flow] (R1) -- node[lab, above=1pt] {yes} (R2);

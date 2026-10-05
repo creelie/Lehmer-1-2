@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One- and two-prime extensions of the known solutions of n + 1 = 2 phi(n) (Theorem 1.5 of the paper).
+"""One- and two-prime extensions of the known solutions of n + 1 = 2 phi(n) (Theorem 1.6 of the paper).
 A one-prime extension of n0 is n0*q with q = n0 + 2 prime; a two-prime extension is n0*p*q with
 (p - n0 - 1)(q - n0 - 1) = n0^2 + n0 + 1.  Runtime: seconds."""
 from sympy import factorint, isprime, divisors, primefactors

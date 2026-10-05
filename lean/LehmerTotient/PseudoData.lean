@@ -1,7 +1,7 @@
 import LehmerTotient.PseudoExtend
 
 /-!
-# A pseudo-solution prime to 3 with 25 entries (Section 8.6)
+# A pseudo-solution prime to 3 with 25 entries (Section 9.6)
 
 `pseudoXs` has 25 entries. The kernel checks (`decide +kernel`) that it is a companion pseudo-solution prime to 3 and
 that `3 ∣ ∏ (xᵢ - 1)`. With `companion_all` and `lehmer_all` this gives pseudo-solutions prime to 3 of
@@ -10,7 +10,7 @@ that `3 ∣ ∏ (xᵢ - 1)`. With `companion_all` and `lehmer_all` this gives ps
 
 namespace LehmerTotient
 
-/-- The 25 entries; the first nine are the prefix `(5, 7, 13, 17, 19, 23, 25, 37, 119)` of Section 8.6. -/
+/-- The 25 entries; the first nine are the prefix `(5, 7, 13, 17, 19, 23, 25, 37, 119)` of Section 9.6. -/
 def pseudoXs : List ℕ := [
   5,
   7,

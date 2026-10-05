@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Statistics for the paper (Sections 5 and 8).
+"""Statistics for the paper (Sections 5 and 9).
 
 (a) For every one of the 33,865,004 pairs (prefix of 12 primes, admissible p_13 = s) of the case k = 15:
     the modulus c = 2B' - A' and N = 2A'B' - c of the two-prime problem, and a histogram of log10(c^3/N).

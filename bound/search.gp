@@ -1,4 +1,4 @@
-\\ Second implementation of the search of Section 5 of the note (tree T_s, rules R1-R4),
+\\ Second implementation of the search of Section 6.3 of the paper (tree T_s, rules R1-R4),
 \\ behind the bound n < 2^(2^(k-s)) for Lehmer numbers.
 \\ Iterative (explicit stack), exact rationals, primes from nextprime().
 \\ Written independently of search.py; rule R4(iii) is applied by bisection.

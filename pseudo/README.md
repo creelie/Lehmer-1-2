@@ -1,13 +1,13 @@
 # Pseudo-solutions prime to 3
 
-Programs and logs for Section 8 of the paper: Theorems 8.3 and 8.5 and the first-moment count of Section 8.6. The Lean
-proofs of Lemma 8.2 and Proposition 8.4 are in `lean/LehmerTotient/Barrier.lean`.
+Programs and logs for Section 9 of the paper: Theorems 9.3 and 9.5 and the first-moment count of Section 9.6. The Lean
+proofs of Lemma 9.2 and Proposition 9.4 are in `lean/LehmerTotient/Barrier.lean`.
 
 The equation is
 
     x_1 x_2 ... x_k + eps = 2 (x_1 - 1)(x_2 - 1) ... (x_k - 1),        eps = -1 (Lehmer) or +1 (companion),
 
-in odd integers 5 <= x_1 < ... < x_k, none divisible by 3, prime or not. Theorem 8.3 states that there is no solution
+in odd integers 5 <= x_1 < ... < x_k, none divisible by 3, prime or not. Theorem 9.3 states that there is no solution
 with k <= 13, and none with k <= 15 in which x_1, ..., x_{k-3} are prime. Each part is checked by two programs for
 k <= 12; the case k = 13 of the first part is carried out by `integer_tree_scan.py`.
 
@@ -24,19 +24,19 @@ PATH) for the two `pari_*` programs. Build the C program first, in this director
 |---|---|---|
 | `tail3.c` | the last three entries for a whole interval of x_{k-2} (prime or integer), by the sum route of Section 4.5 | – |
 | `tail3lib.py` | driver for `tail3`; problems where the sum route would be long are solved by a complete factorisation, with every prime factor proved prime | – |
-| `integer_tree.py` | Theorem 8.3 (i), first program: the tree with integer entries prime to 3, k <= 12, both signs | seconds |
-| `prime_prefixes.py` | Theorem 8.3 (ii), first program: the prime prefixes of the search of Theorems 1.1 and 1.3, then three integer entries | about 4 min of CPU time per sign for k = 15 |
-| `integer_tree_scan.py` | Theorem 8.3 (i) for k = 13, both signs: the tree of `integer_tree.py`, and at depth 10 the program `scan3` of `../companion8` in its mode for odd integers prime to 3, with PARI/GP for the values where the sums would be slow; resumable through `../data/pseudo/integer_tree_k13_*.jsonl` | about 15 h of CPU time per sign, 3.8 h on 4 cores |
-| `pari_integer_tree.py` | Theorem 8.3 (i), second program: its own bounds and tree, and at every node with two entries left a complete factorisation with PARI/GP, every factor proved prime; no code shared with the rest of the repository | about 10 min for k = 12 |
-| `pari_prime_prefixes.py` | Theorem 8.3 (ii), second program, for k <= 14: the same prime prefixes, its own range for x_{k-2}, and a complete factorisation for every value | about 15 min per sign for k = 14 |
+| `integer_tree.py` | Theorem 9.3 (i), first program: the tree with integer entries prime to 3, k <= 12, both signs | seconds |
+| `prime_prefixes.py` | Theorem 9.3 (ii), first program: the prime prefixes of the search of Theorems 1.1 and 1.4, then three integer entries | about 4 min of CPU time per sign for k = 15 |
+| `integer_tree_scan.py` | Theorem 9.3 (i) for k = 13, both signs: the tree of `integer_tree.py`, and at depth 10 the program `scan3` of `../companion8` in its mode for odd integers prime to 3, with PARI/GP for the values where the sums would be slow; resumable through `../data/pseudo/integer_tree_k13_*.jsonl` | about 15 h of CPU time per sign, 3.8 h on 4 cores |
+| `pari_integer_tree.py` | Theorem 9.3 (i), second program: its own bounds and tree, and at every node with two entries left a complete factorisation with PARI/GP, every factor proved prime; no code shared with the rest of the repository | about 10 min for k = 12 |
+| `pari_prime_prefixes.py` | Theorem 9.3 (ii), second program, for k <= 14: the same prime prefixes, its own range for x_{k-2}, and a complete factorisation for every value | about 15 min per sign for k = 14 |
 | `validate_with3.py` | with the entry 3 allowed, `tail3` finds exactly the solutions listed by `pari_integer_tree.py --with3` whose first k - 3 entries are prime (k <= 7, both signs) | minutes |
 | `validate_prime_mode.py` | `tail3` in prime mode treats the 33,865,004 values of p_13 of the case k = 15 (`logs/k15_run_*.log`) and finds no completion | 1 min per sign |
-| `first_moment.py` | the first-moment count of Section 8.6; the calibration with the entry 3 allowed | seconds (k <= 6), minutes (k = 7) |
+| `first_moment.py` | the first-moment count of Section 9.6; the calibration with the entry 3 allowed | seconds (k <= 6), minutes (k = 7) |
 | `first_moment_node.py` | the count for solutions prime to 3 over the tree for k = 12, and below the prefix (5, 7, 13, 17, 19, 23, 25, 37, 119) for k = 12, 13, 14 | about 5 min |
 | `make_seeds.py` | the seeds of `descent.py`: every prefix of length 6 or more of the tree for k = 13, with its defect | seconds |
 | `descent.py` | the search that found `companion_k25.txt`: descent through the defects with selection, testing every node for a last entry | 2.2 h on 4 cores |
-| `coprime_tree.py` | the tree of `integer_tree.py` restricted to pairwise coprime entries, down to depth k - 3; collects every prefix with 0 < c x_j < 2B, which one more entry can complete (Section 8) | 1 s for k = 15 |
-| `descent_coprime.py` | `descent.py` restricted to pairwise coprime entries: every child must also be prime to every earlier entry and completable by one more entry, and the threshold keeps the beam full; started from the 13190 prefixes of `coprime_tree.py 15`, the sum of 1/c falls by about a factor 0.8 per step and no completion occurs in twelve steps (Section 8) | 3 min on 3 cores |
+| `coprime_tree.py` | the tree of `integer_tree.py` restricted to pairwise coprime entries, down to depth k - 3; collects every prefix with 0 < c x_j < 2B, which one more entry can complete (Section 9) | 1 s for k = 15 |
+| `descent_coprime.py` | `descent.py` restricted to pairwise coprime entries: every child must also be prime to every earlier entry and completable by one more entry, and the threshold keeps the beam full; started from the 13190 prefixes of `coprime_tree.py 15`, the sum of 1/c falls by about a factor 0.8 per step and no completion occurs in twelve steps (Section 9) | 3 min on 3 cores |
 | `companion_k25.txt` | a pseudo-solution prime to 3 with 25 entries and eps = +1, one entry per line | – |
 | `check_tuple.py`, `check_gp.sh` | independent checks of a pseudo-solution in Python and in PARI/GP: equation, order, oddness, 3 divides no entry, all gcd(x_i, x_j - 1) = 1 | seconds |
 | `logs/` | recorded output | |
@@ -66,7 +66,7 @@ Run from this directory.
 
 The first-moment counts are heuristic: they estimate how many solutions to expect, and prove nothing.
 
-## Pseudo-solutions prime to 3 for every k >= 25 (Theorem 8.5)
+## Pseudo-solutions prime to 3 for every k >= 25 (Theorem 9.5)
 
 Write A = x_1 ... x_j, B = (x_1 - 1) ... (x_j - 1) and c = 2B - A for a prefix. Appending x gives the defect
 cx - 2B, so the children of a prefix have defects r0 + ic with r0 = (-2B) mod c. A prefix with 0 < c x_j < 2B and 3 | B is

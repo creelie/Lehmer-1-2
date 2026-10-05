@@ -28,7 +28,7 @@ print("  product over the 6 smallest primes >= 5 =", float(prod(Fr(p, p - 1) for
 print("n + 1 = M phi(n), 3 not dividing n:  M >= 3 needs omega(n) >=", first_k(r, 3))
 print("  product over the 32 smallest primes >= 5 =", float(prod(Fr(p, p - 1) for p in r[:32])))
 
-# Theorem 1.4, 3 | n: M = 2 (mod 3), so M >= 5, and 5 - 1/phi(n) < n/phi(n) <= (3/2) prod_{i<=k-1} q_i/(q_i-1);
+# Theorem 1.5, 3 | n: M = 2 (mod 3), so M >= 5, and 5 - 1/phi(n) < n/phi(n) <= (3/2) prod_{i<=k-1} q_i/(q_i-1);
 # since 5 - 1/phi(n) > 4, the threshold computed above for n - 1 = M phi(n) applies verbatim.
 print("n + 1 = M phi(n), 3 | n, M >= 3:  omega(n) >=", k)
 

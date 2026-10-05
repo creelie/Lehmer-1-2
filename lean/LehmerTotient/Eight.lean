@@ -3,7 +3,7 @@ import LehmerTotient.Thresholds
 import LehmerTotient.Barrier
 
 /-!
-# Eight prime factors (Section 6.4 of the paper)
+# Eight prime factors (Section 7.4 of the paper)
 
 * `eight_reduction`: a solution of `φ n ∣ n + 1` with eight prime factors and `3 ∣ n` satisfies
   `n + 1 = 2 φ n`, and its least prime factor is `3`.
@@ -13,7 +13,7 @@ import LehmerTotient.Barrier
   `σ` modulo `c`, the range of `c σ`, and the converse that turns a square `σ ^ 2 - 4 π` into a completion.
 * `sieve_keeps`, `eight_kept`, `int_kept`: step (iii). The sieve keeps every value that comes from integers
   `p, q` avoiding the excluded residues; for eight primes this holds when `p` and `q` have no prime factor up
-  to `61`, and in the mode for odd integers prime to `3` (Theorem 8.3) for every completion.
+  to `61`, and in the mode for odd integers prime to `3` (Theorem 9.3) for every completion.
 * `fermat_prefix`: for the prefix `3, 5, 17, 257, 65537` the modulus is `c = s - 2 ^ 32`.
 
 All statements are in `ℤ`, with `c = 2 B' - A'`, `t = c p - 2 B'` and `N = 2 A' B' + ε c`.
@@ -25,7 +25,7 @@ namespace LehmerTotient
 
 /-! ### The reduction to `n + 1 = 2 φ n` and `p₁ = 3` -/
 
-/-- Section 6.4: a solution of `φ n ∣ n + 1` with eight prime factors and `3 ∣ n` has quotient `2`, and
+/-- Section 7.4: a solution of `φ n ∣ n + 1` with eight prime factors and `3 ∣ n` has quotient `2`, and
 `3` is its least prime factor. -/
 theorem eight_reduction {n : ℕ} {M : ℤ} (hn : 3 < n) (hM : (n : ℤ) + 1 = M * φ n)
     (h8 : n.primeFactors.card = 8) (h3 : 3 ∣ n) :
@@ -244,7 +244,7 @@ theorem int_not_excluded {k : ℕ} (x : Fin k → ℤ) (M ε : ℤ) (hε : ε = 
   exact ⟨fun h1 h2 => hpr.not_isUnit (g1.isUnit_of_dvd' h2 h1),
     fun h1 h2 => hpr.not_isUnit (g2.isUnit_of_dvd' h1 h2)⟩
 
-/-- Step (iii) in the mode for odd integers prime to `3` (Theorem 8.3): if the entries satisfy the product
+/-- Step (iii) in the mode for odd integers prime to `3` (Theorem 9.3): if the entries satisfy the product
 equation, are odd and prime to `3`, the residue `0` is excluded only modulo `2`, `3` and primes dividing
 `∏ (x_i - 1)`, and the residue `1` only modulo primes dividing `∏ x_i`, then every entry is kept by the sieve
 of the trial division, and the sum of any two entries by the sieve of the sum. -/

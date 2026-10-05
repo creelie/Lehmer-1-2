@@ -2,7 +2,7 @@ import LehmerTotient.Search
 import LehmerTotient.Data
 
 /-!
-# The thresholds of Section 2 and Theorem 1.4
+# The thresholds of Section 2 and Theorem 1.5
 
 * `walk_sound`: a certified list of primes contains every prime of an arithmetic progression up
   to its last entry.
@@ -11,7 +11,7 @@ import LehmerTotient.Data
 * `quotient_ge_four_imp`: Lemma 2.2, the bound `ω(n) ≥ 1540`.
 * `quotient_eq_two_of_not_three_dvd`: Lemma 2.3.
 * `quotient_eq_two_of_card_le_seven`: Corollary 2.4.
-* `theorem_quotient`: Theorem 1.4.
+* `theorem_quotient`: Theorem 1.5.
 -/
 
 namespace LehmerTotient
@@ -508,9 +508,9 @@ theorem three_dvd_consequences {n : ℕ} {ε M : ℤ} (hε : IsSign ε) (hn : 1 
     rw [neg_div, sub_neg_eq_add]
     linarith
 
-/-! ### Theorem 1.4 -/
+/-! ### Theorem 1.5 -/
 
-/-- Theorem 1.4: a solution of `φ(n) ∣ n + 1` with `n > 3` and `(n + 1) / φ(n) ≥ 3` has
+/-- Theorem 1.5: a solution of `φ(n) ∣ n + 1` with `n > 3` and `(n + 1) / φ(n) ≥ 3` has
 `ω(n) ≥ 33`, and `ω(n) ≥ 1540` if `3 ∣ n`. -/
 theorem theorem_quotient {n : ℕ} {M : ℤ} (hn : 3 < n) (hM : (n : ℤ) + 1 = M * φ n)
     (h3M : 3 ≤ M) : 33 ≤ n.primeFactors.card ∧ (3 ∣ n → 1540 ≤ n.primeFactors.card) := by

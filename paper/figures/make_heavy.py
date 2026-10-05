@@ -1,9 +1,9 @@
-"""Writes fig_profile.tex and fig_sizes.tex from the search records in ../../logs."""
+"""Writes fig_margins.tex and fig_trees.tex (Section 6 of the paper) from the search records in bound/logs."""
 import json, os
 here = os.path.dirname(os.path.abspath(__file__))
-logs = os.path.join(here, '..', '..', 'logs')
+logs = os.path.join(here, '..', '..', 'bound', 'logs')
 
-# fig_profile: per depth, the range of log2 log2 P_j and of log2 log2 V_j(mu) over the nodes of T_7
+# fig_margins: per depth, the range of log2 log2 A_j and of log2 log2 V_j(mu) over the nodes of T_7
 prof = json.load(open(os.path.join(logs, 'prof_s7.json')))
 bars = []
 for j in range(6, 14):
@@ -29,7 +29,7 @@ tex = r'''\begin{tikzpicture}
 \addlegendimage{line width=3.2pt, orange!80!black}
 \addlegendentry{$V_j(\mu)$ over the nodes}
 \addlegendimage{line width=3.2pt, blue!65!black}
-\addlegendentry{$P_j$ over the nodes}
+\addlegendentry{$A_j$ over the nodes}
 \addlegendimage{line width=1.3pt, orange!55!white}
 \addlegendentry{threshold of (H2): $j+1-7$}
 \addlegendimage{line width=1.3pt, blue!40!white}
@@ -40,9 +40,9 @@ tex = r'''\begin{tikzpicture}
 \end{axis}
 \end{tikzpicture}
 '''
-open(os.path.join(here, 'fig_profile.tex'), 'w').write(tex)
+open(os.path.join(here, 'fig_margins.tex'), 'w').write(tex)
 
-# fig_sizes: nodes per depth for s = 4..7 on a log scale
+# fig_trees: nodes per depth for s = 4..7 on a log scale
 styles = {4: 'teal!70!black, mark=square*', 5: 'blue!65!black, mark=triangle*',
           6: 'violet!75!black, mark=diamond*', 7: 'orange!85!black, mark=*'}
 plots = []
@@ -64,5 +64,5 @@ tex = r'''\begin{tikzpicture}
 \end{semilogyaxis}
 \end{tikzpicture}
 '''
-open(os.path.join(here, 'fig_sizes.tex'), 'w').write(tex)
-print('fig_profile.tex fig_sizes.tex')
+open(os.path.join(here, 'fig_trees.tex'), 'w').write(tex)
+print('fig_margins.tex fig_trees.tex')
