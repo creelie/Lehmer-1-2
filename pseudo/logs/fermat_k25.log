@@ -21,3 +21,6 @@ x_19   6815 bits  composite       2^(A+1) = 1 mod x: no
 x_20  13620 bits  composite       2^(A+1) = 1 mod x: no
 x_21  27234 bits  composite       2^(A+1) = 1 mod x: no
 x_22  54465 bits  composite       2^(A+1) = 1 mod x: no
+x_23 108937 bits  composite       2^(A+1) = 1 mod x: no
+x_24 217868 bits  composite       2^(A+1) = 1 mod x: no
+x_25 435757 bits  composite       2^(A+1) = 1 mod x: no
