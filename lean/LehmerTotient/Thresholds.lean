@@ -2,7 +2,7 @@ import LehmerTotient.Search
 import LehmerTotient.Data
 
 /-!
-# The thresholds of Section 2 and Theorem 1.5
+# The thresholds of Section 2
 
 * `walk_sound`: a certified list of primes contains every prime of an arithmetic progression up
   to its last entry.
@@ -11,7 +11,7 @@ import LehmerTotient.Data
 * `quotient_ge_four_imp`: Lemma 2.2, the bound `ω(n) ≥ 1540`.
 * `quotient_eq_two_of_not_three_dvd`: Lemma 2.3.
 * `quotient_eq_two_of_card_le_seven`: Corollary 2.4.
-* `theorem_quotient`: Theorem 1.5.
+* `theorem_quotient`: the product bounds 33 and 1540 for a quotient at least 3.
 -/
 
 namespace LehmerTotient
@@ -508,10 +508,11 @@ theorem three_dvd_consequences {n : ℕ} {ε M : ℤ} (hε : IsSign ε) (hn : 1 
     rw [neg_div, sub_neg_eq_add]
     linarith
 
-/-! ### Theorem 1.5 -/
+/-! ### Quotient at least 3 -/
 
-/-- Theorem 1.5: a solution of `φ(n) ∣ n + 1` with `n > 3` and `(n + 1) / φ(n) ≥ 3` has
-`ω(n) ≥ 33`, and `ω(n) ≥ 1540` if `3 ∣ n`. -/
+/-- The product bounds for a quotient at least 3: a solution of `φ(n) ∣ n + 1` with `n > 3` and
+`(n + 1) / φ(n) ≥ 3` has `ω(n) ≥ 33`, and `ω(n) ≥ 1540` if `3 ∣ n`.  Theorem 1.5 of the paper improves
+both bounds with the search of Proposition 2.5, which is not formalised. -/
 theorem theorem_quotient {n : ℕ} {M : ℤ} (hn : 3 < n) (hM : (n : ℤ) + 1 = M * φ n)
     (h3M : 3 ≤ M) : 33 ≤ n.primeFactors.card ∧ (3 ∣ n → 1540 ≤ n.primeFactors.card) := by
   have hdvd : (φ n : ℤ) ∣ n + 1 := ⟨M, by rw [hM]; ring⟩

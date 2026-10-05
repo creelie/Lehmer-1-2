@@ -28,7 +28,7 @@ lake env lean Check.lean
 | `Three.lean` | Proposition 4.1 and its converse; Lemma 4.2; Section 4.5 (the sum identity, its converse, `c³ < N + 2c²`); `gcd(r, c) = 1` from the congruence prune |
 | `FirstHit.lean` | Lemma 4.3 for the recursive function: termination, the least solution, and completeness of `none` |
 | `Data.lean` | generated lists of primes in progressions, with a prime divisor of every skipped member |
-| `Thresholds.lean` | Lemma 2.1 (iii); the thresholds 1540, 32 and 7: Lemmas 2.2, 2.3, Corollary 2.4, Theorem 1.5 |
+| `Thresholds.lean` | Lemma 2.1 (iii); the thresholds 1540, 32 and 7: Lemmas 2.2, 2.3, Corollary 2.4; the bounds 33 and 1540 for a quotient at least 3 that the products give (Theorem 1.5 improves them with the search of Proposition 2.5) |
 | `ExtBasic.lean` | Theorem 1.6 (i), (ii); equation (7.1); Remark 7.1; Proposition 9.1 (pseudo-solutions); Lucas certificates |
 | `Ext.lean` | Theorem 1.6 (iii): the closure of 1 under the two extensions is exactly the eight Fermat-type solutions |
 | `Barrier.lean` | Lemma 9.2 (the number of entries divisible by 3) and the fact that `gcd(x_i, x_j − 1) = 1` follows from the product equation; Proposition 9.4 for prime-power moduli (Lemma 2.2 is the only congruence obstruction) |
