@@ -98,9 +98,9 @@ for $83623935=3\cdot5\cdot17\cdot353\cdot929$.}
 \begin{equation}\label{eq:second}
   \varphi(n)\mid n+1 .
 \end{equation}
-The two equations look alike and behave differently.
-Equation~\eqref{eq:first} has no known composite solution. Equation
-\eqref{eq:second} has the solutions
+The two equations differ only in a sign. Equation~\eqref{eq:first}
+has no known composite solution, whereas \eqref{eq:second} has the
+solutions
 \begin{equation}\label{eq:known}
   1,\ 2,\ 3,\ 15,\ 255,\ 65535,\ 83623935,\ 4294967295,\
   6992962672132095,
@@ -125,7 +125,12 @@ factors satisfies $n<k^{2^k}$, so that for each $k$ the question is a
 finite one, and Burek and \.Zmija \cite{BZ19} sharpened this to
 $n\le2^{2^k}-2^{2^{k-1}}$, using a lemma that goes back to
 Heath-Brown's work on odd perfect numbers \cite{HB94} and was
-sharpened by Cook \cite{Coo99} and Nielsen \cite{Nie03}. In binary,
+sharpened by Cook \cite{Coo99} and Nielsen \cite{Nie03}.\footnote{Heath-Brown
+proved that an odd perfect number with $k$ distinct prime factors is
+less than $4^{4^k}$, and Nielsen lowered this to $2^{4^k}$. The lemma
+of Cook and Nielsen concerns integers $x_1\le\dots\le x_m$ for which
+$\prod(1-1/x_i)$ lies just below a given fraction; we state and
+sharpen it in Section~\ref{sec:product}.} In binary,
 their bound allows $n$ one digit for each subset of the set of its
 prime factors. Cohen and Hagis \cite{CH80} settled all $k\le13$ and
 obtained $\omega(n)\ge14$. When $3\mid n$ much more is true: Hagis
@@ -141,9 +146,14 @@ composite $n$ satisfies $a^{n-1}\equiv1\pmod n$ for every $a$ prime to
 $n$ exactly when $n$ is squarefree and $p-1\mid n-1$ for every prime
 $p\mid n$. A solution of \eqref{eq:first} is squarefree by
 Lemma~\ref{lem:basic}, and $p-1\mid\varphi(n)\mid n-1$.} Banks, Nevans and Pomerance \cite{BNP09}
-discuss this and the connection with Giuga's conjecture.
+discuss this and the connection with Giuga's conjecture.\footnote{Giuga
+conjectured in 1950 that an integer $n>1$ with
+$1^{n-1}+2^{n-1}+\dots+(n-1)^{n-1}\equiv-1\pmod n$ is prime. He showed
+that a composite $n$ satisfies this congruence exactly when
+$p\mid n/p-1$ and $p-1\mid n/p-1$ for every prime $p\mid n$; the second
+condition makes $n$ a Carmichael number.}
 
-For \eqref{eq:second} the literature is thinner. The comments to
+Less is known about \eqref{eq:second}. The comments to
 sequences A050474 and A203966 of the OEIS \cite{OEIS} report that the
 M.Sc.\ thesis of Wong \cite{Won97} shows that a further solution of
 $n+1=2\varphi(n)$ would need at least eight prime factors, that there
@@ -156,8 +166,8 @@ on $\omega(n)$ for \eqref{eq:second}.
 \subsection{Results}
 We write $\omega(n)$ for the number of distinct prime factors of $n$.
 Our first theorem goes one prime further than the bound announced by
-Renze and by Pinch, and its proof contains a complete proof of that
-bound, with every step stated and checked.
+Renze and by Pinch, and its proof includes a complete proof of that
+bound.
 
 \begin{theorem}\label{thm:first}
 Every composite $n$ with $\varphi(n)\mid n-1$ has $\omega(n)\ge16$.
@@ -236,12 +246,13 @@ Theorems~\ref{thm:first}--\ref{thm:ext} bound the number of prime
 factors and the size of a new solution and describe the known ones; they do not
 decide whether \eqref{eq:first} has a composite solution or whether
 \eqref{eq:second} has solutions beyond \eqref{eq:known}. Section~\ref{sec:walls}
-measures the next cases. For \eqref{eq:first} with sixteen prime
+estimates the cost of the next cases. For \eqref{eq:first} with sixteen prime
 factors the number of two-prime problems of the kind solved here grows
 from $3.4\cdot10^7$ to about $9\cdot10^{13}$, and for \eqref{eq:second}
 with nine prime factors and $3\mid n$ the Fermat primes alone leave
-some $10^{17}$ of them. In both cases the cost comes from a few
-prefixes whose product $\prod p/(p-1)$ lies extremely close to $2$. Section~\ref{sec:walls} also shows that the
+some $10^{17}$ of them. In both cases most of the cost comes from a few
+prefixes whose product $\prod p/(p-1)$ differs from $2$ by less than
+$10^{-7}$. Section~\ref{sec:walls} also shows that the
 product equation, the interval bounds and the congruence conditions used
 by the search are satisfied by tuples of integers that are not all
 prime (Proposition~\ref{prop:pseudo}), so a proof for all $k$ has to
@@ -269,9 +280,9 @@ primes already chosen, and determines the last prime from the others
 through a divisibility condition. The search was implemented twice, in
 different ways, and the two implementations traverse the same tree
 node for node. One of them never factors an integer, and its
-correctness does not depend on any primality proof. The bounds are
-the same for both signs of $\varepsilon$ apart from terms of size
-$1/\varphi(n)$, and for $p_1\ge5$ they produce identical trees for all
+correctness does not depend on any primality proof. The bounds for
+the two signs of $\varepsilon$ differ only by terms of size
+$1/\varphi(n)$. For $p_1\ge5$ they give identical trees for every
 $k\le14$, and for $k=15$ the same nodes down to depth $13$
 (Figure~\ref{fig:profile}). For fifteen primes the last three
 are handled together (Section~\ref{sec:three}): once $p_{13}$ is
@@ -300,8 +311,8 @@ completely, with every prime factor proved prime
 elementary, and Theorem~\ref{thm:ext} rests on a short identity
 together with the factorisation of eight integers.
 
-Theorem~\ref{thm:size} has a proof of its own
-(Section~\ref{sec:size}). Its first ingredient is a sharp form of the
+Theorem~\ref{thm:size} is proved in Section~\ref{sec:size} by a
+different method. Its first ingredient is a sharp form of the
 lemma of Cook and Nielsen (Theorem~\ref{thm:deficit}), in which the
 bound for the product of the remaining prime factors depends on how
 far the product $\prod p/(p-1)$ over the prime factors already chosen
@@ -364,7 +375,8 @@ $p\nmid q-1$; similarly $p\nmid M\varphi(n)=n+\varepsilon$. Finally
 $n/\varphi(n)=(n+\varepsilon)/\varphi(n)-\varepsilon/\varphi(n)$.
 \end{proof}
 
-The prime $3$ separates the two equations.
+The next lemma shows how the prime $3$ enters, and that it does so
+differently for the two equations.
 
 \begin{lemma}\label{lem:three}
 In the situation of Lemma~\ref{lem:basic}, suppose $3\mid n$. Then
@@ -393,8 +405,9 @@ primes congruent to $2$ modulo $3$ from $5$ on, then
   \le\frac32\prod_{i=1}^{k-1}\frac{q_i}{q_i-1},
 \]
 since $p/(p-1)$ decreases in $p$. An exact computation in rational
-arithmetic shows that the right-hand side first exceeds $4$ at
-$k=1540$.
+arithmetic shows that the right-hand side is $3.99986\ldots$ for
+$k=1539$ and first exceeds $4$ at $k=1540$, where the last prime in the
+product is $q_{1539}=27947$.
 \end{proof}
 
 For $\varepsilon=-1$ this is a weak form of the bounds of Hagis and of
@@ -430,12 +443,15 @@ $n+1=2\varphi(n)$.
 \end{corollary}
 
 \begin{proof}
-With $k=\omega(n)\ge2$ and $s_1<s_2<\cdots$ the odd primes,
-Lemma~\ref{lem:basic}(iii) gives, as in the proof of
-Lemma~\ref{lem:Mtwo},
-$M\le\prod_{i\le k}s_i/(s_i-1)+1/\prod_{i\le k}(s_i-1)$, and the maximum
-of the right-hand side over $2\le k\le7$ is $2.92357\ldots<3$. Hence
-$M=2$.
+Let $k=\omega(n)\ge2$. The prime factors of $n$, in increasing order,
+are at least $3,r_1,\dots,r_{k-1}$, and Lemma~\ref{lem:basic}(iii)
+gives, as in the proof of Lemma~\ref{lem:Mtwo},
+\[
+  M\le\frac32\prod_{i<k}\frac{r_i}{r_i-1}
+  +\frac{1}{2\prod_{i<k}(r_i-1)} .
+\]
+The maximum of the right-hand side over $2\le k\le7$ is
+$2.92357\ldots<3$, attained at $k=7$, and so $M=2$.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:quotient}]
@@ -451,9 +467,26 @@ An exact computation shows that this inequality fails for every
 $k\le32$ and first holds at $k=33$.
 \end{proof}
 
-The case $M\ge3$ of \eqref{eq:second} is therefore far out of reach of
-any search, in the same way as the case $3\mid n$ of \eqref{eq:first}.
-What remains are the Fermat-type solutions, $n+1=2\varphi(n)$.
+A solution of \eqref{eq:second} with $M\ge3$ therefore has at least
+$33$ prime factors, too many for any search, just as a solution of
+\eqref{eq:first} with $3\mid n$ has at least $1540$
+(Figure~\ref{fig:products}). The searches below concern the remaining
+case $n+\varepsilon=2\varphi(n)$.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/fig_products.png}
+\caption{The product of $p/(p-1)$ over the first $k$ primes of three
+sets, with $k$ on a logarithmic scale. For the primes from $5$ on the
+product passes $2$ at $k=7$, so a solution of \eqref{eq:M2} prime to
+$3$ has at least seven prime factors (Section~\ref{sec:first}), and it
+passes $3$ at $k=33$ (Lemma~\ref{lem:Mtwo} and
+Theorem~\ref{thm:quotient}). For the odd primes it passes $3$ at
+$k=8$, where the argument of Corollary~\ref{cor:seven} stops. For $3$
+and the primes $p\equiv2\pmod3$ it passes $4$ only at $k=1540$
+(Lemma~\ref{lem:three}).}
+\label{fig:products}
+\end{figure}
 
 %%==================================================================
 \section{A branch-and-bound for \texorpdfstring{$n+\varepsilon=2\varphi(n)$}{n+e=2phi(n)}}\label{sec:search}
@@ -525,6 +558,22 @@ $\varepsilon=+1$ the quantity $T-1/(A_jW)$ exceeds $1$, since
 $T-1=C_j/A_j\ge1/A_j$.
 \end{proof}
 
+Apart from the correction terms, \eqref{eq:bounds} says $x<T\le x^m$,
+that is $1/(T-1)<p_{j+1}-1\le1/(T^{1/m}-1)$. Since
+$T^{1/m}-1$ is close to $(T-1)/m$, the interval has length about
+$(m-1)/(T-1)=(m-1)A_j/C_j$ (Figure~\ref{fig:interval}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{figures/fig_interval.png}
+\caption{The interval of Proposition~\ref{prop:bounds} for $T=1.04$
+and $m=3$, with the correction terms $1/(A_jW)$ left out. The
+candidate $p$ must satisfy $x<T$, because the other $m-1$ factors of
+$\rho$ exceed $1$, and $x^m\ge T$, because none of them exceeds $x$.
+Here the two conditions give $26<p<77$.}
+\label{fig:interval}
+\end{figure}
+
 The inequalities \eqref{eq:bounds} are tested in integers: for instance
 $x^m>T$ reads $p^mA_j>2B_j(p-1)^m$. A floating-point estimate is used
 only to find a starting point, which is then corrected by exact
@@ -536,9 +585,12 @@ $n$.
 \end{lemma}
 
 This is Lemma~\ref{lem:basic}(ii). A candidate $p$ for $p_{j+1}$ is
-discarded if $p\mid p_i-1$ or $p_i\mid p-1$ for some $i\le j$.
+discarded if $p\mid p_i-1$ or $p_i\mid p-1$ for some $i\le j$. The
+primes of the interval $[L_j,U_j]$ that are not discarded are called
+\emph{admissible}.
 
-The last two primes need not be searched separately.
+The last two primes are determined together by a divisibility
+condition.
 
 \begin{proposition}\label{prop:last}
 Let $A=A_{k-2}$, $B=B_{k-2}$, $C=2B-A$, $p=p_{k-1}$ and $q=p_k$. Then
@@ -616,7 +668,8 @@ never declares a prime to be composite, so $q$ is accepted, and the
 final check of \eqref{eq:M2} succeeds.
 \end{proof}
 
-Two points concern rigour. First, all arithmetic is exact:
+The search is rigorous for two reasons. First, all arithmetic is
+exact:
 $A_j$, $B_j$, $C_j$, the interval endpoints and the quantities in
 \eqref{eq:last} are integers or ratios of integers compared by cross
 multiplication. Second, the probabilistic primality tests used by the
@@ -726,14 +779,16 @@ So the two-prime problem at depth $k-2$ becomes the following question:
 given $N$, a modulus $c$ and a class $r$ prime to $c$, list the
 divisors of $N$ up to $\sqrt N$ that are congruent to $r$ modulo $c$.
 Lenstra \cite{Len84} proved that there are at most $11$ such divisors
-when $c>N^{1/3}$, and gave a polynomial-time algorithm to find them;
+when $c>N^{1/3}$,\footnote{In the form used here: if $0\le r<c<N$, $\gcd(r,c)=1$ and
+$c>N^{1/3}$, then at most $11$ positive divisors of $N$ are congruent
+to $r$ modulo $c$. The bound counts all divisors in the class, not only
+those up to $\sqrt N$.} and gave a polynomial-time algorithm to find them;
 Coppersmith, Howgrave-Graham and Nagaraj \cite{CHN08} extended the
-algorithmic side down to $c>N^{1/4+\delta}$. We use a simpler device
-which is well suited to our range and whose correctness is elementary,
-and in Section~\ref{sec:sum} an even simpler one that exploits the
-fact that $t$ and $N/t$ lie in the same class.
+algorithmic side down to $c>N^{1/4+\delta}$. We use a more elementary method suited to our range, and in
+Section~\ref{sec:sum} a still simpler one based on the fact that $t$
+and $N/t$ lie in the same class.
 
-\subsection{Lattice points near a hyperbola}
+\subsection{Lattice points near a hyperbola}\label{sec:lattice}
 Let $r'$ be the residue of $Nr^{-1}$ modulo $c$, so that $r'=r$ in the
 situation of Proposition~\ref{prop:class}, and put
 \[
@@ -752,8 +807,8 @@ so the pairs $(u,v)$ are the lattice points on a hyperbola. Reducing
   v\equiv\alpha-\beta u\pmod c .
 \end{equation}
 The coset has one point in every $c$ consecutive values of $v$ above a
-given $u$, so on its own it says little. Its use comes from
-combining it with the shape of the hyperbola.
+given $u$, so by itself it excludes little; combined with the shape of
+the hyperbola it leaves only a few points to test.
 
 \begin{lemma}\label{lem:box}
 Let $0\le u_0\le u_1$ and put
@@ -790,44 +845,45 @@ looking at the others, at a cost of $O(\log c)$ arithmetic operations
 each, by the following elementary recursion.
 
 \begin{lemma}\label{lem:firsthit}
-Let $0\le a<M$ and $0<L\le R<M$. The least $y\ge0$ with
-$L\le ay\bmod M\le R$ is found as follows. If $a=0$ there is no such
+Let $0\le a<g$ and $0<L\le R<g$. The least $y\ge0$ with
+$L\le ay\bmod g\le R$ is found as follows. If $a=0$ there is no such
 $y$. If $a\ge1$ and $a\lceil L/a\rceil\le R$, it is $\lceil L/a\rceil$.
-Otherwise it is $\lceil(L+Mz)/a\rceil$, where $z$ is the least integer
+Otherwise it is $\lceil(L+gz)/a\rceil$, where $z$ is the least integer
 $\ge0$ with
 \[
-  (-R)\bmod a\ \le\ (M\bmod a)\,z\bmod a\ \le\ (-L)\bmod a ,
+  (-R)\bmod a\ \le\ (g\bmod a)\,z\bmod a\ \le\ (-L)\bmod a ,
 \]
 and if no such $z$ exists there is no $y$. The last problem is of the
-same kind, with $(M,a,L,R)$ replaced by
-$(a,\,M\bmod a,\,(-R)\bmod a,\,(-L)\bmod a)$.
+same kind, with $(g,a,L,R)$ replaced by
+$(a,\,g\bmod a,\,(-R)\bmod a,\,(-L)\bmod a)$.
 \end{lemma}
 
 \begin{proof}
-If $a=0$ then $ay\bmod M=0<L$ for every $y$. In the second case
-$ay\le R<M$ for $y=\lceil L/a\rceil$, so $ay\bmod M=ay\in[L,R]$, while
+If $a=0$ then $ay\bmod g=0<L$ for every $y$. In the second case
+$ay\le R<g$ for $y=\lceil L/a\rceil$, so $ay\bmod g=ay\in[L,R]$, while
 $0\le ay<L$ for smaller $y\ge0$. Otherwise no multiple of $a$ lies in
 $[L,R]$. Since any $a$ consecutive integers contain a multiple of $a$,
 this gives $R-L\le a-2$; moreover $a\nmid R$, and no multiple of $a$
 lies in $[-R,-L]$, so the residues $(-R)\bmod a,\dots,(-L)\bmod a$ of
 $-R,\dots,-L$ increase without wrapping around and
-$0<(-R)\bmod a\le(-L)\bmod a<a$. A solution $y$ satisfies $ay=Mz+x$
-with $z=\lfloor ay/M\rfloor$ and $x=ay\bmod M\in[L,R]$, and $z\ge1$
+$0<(-R)\bmod a\le(-L)\bmod a<a$. A solution $y$ satisfies $ay=gz+x$
+with $z=\lfloor ay/g\rfloor$ and $x=ay\bmod g\in[L,R]$, and $z\ge1$
 because $z=0$ would make $x=ay$ a multiple of $a$ in $[L,R]$.
 Conversely, for a given $z\ge0$ a solution with this $z$ exists
-exactly when $[L+Mz,R+Mz]$ contains a multiple of $a$; that multiple
+exactly when $[L+gz,R+gz]$ contains a multiple of $a$; that multiple
 is unique, because $R-L<a$, and the solution is
-$y=\lceil(L+Mz)/a\rceil$. The
-interval contains a multiple of $a$ exactly when $Mz\equiv-x\pmod a$
-for some $x\in[L,R]$, that is, when $Mz\bmod a=(M\bmod a)z\bmod a$
-lies in the stated range. The intervals $[L+Mz,R+Mz]$ are disjoint
-and increase with $z$, since $R-L<M$, so the least $z$ gives the least
+$y=\lceil(L+gz)/a\rceil$. The
+interval contains a multiple of $a$ exactly when $gz\equiv-x\pmod a$
+for some $x\in[L,R]$, that is, when $gz\bmod a=(g\bmod a)z\bmod a$
+lies in the stated range. The intervals $[L+gz,R+gz]$ are disjoint
+and increase with $z$, since $R-L<g$, so the least $z$ gives the least
 $y$.
 \end{proof}
 
-The recursion replaces $(M,a)$ by $(a,M\bmod a)$, as in Euclid's
-algorithm, so it stops after $O(\log M)$ steps. It is applied with
-$M=c$ and $a=-\beta\bmod c$ as follows. Starting from $u=u_0$, let
+The recursion replaces $(g,a)$ by $(a,g\bmod a)$, as in Euclid's
+algorithm, so it stops after $O(\log g)$ steps; Figure~\ref{fig:firsthit}
+follows one step. It is applied with
+$g=c$ and $a=-\beta\bmod c$ as follows. Starting from $u=u_0$, let
 $b=(\alpha-\beta u-v^-)\bmod c$. If $b<H$, then $u$ is in
 \eqref{eq:window}. Otherwise the next element of \eqref{eq:window}, if it
 does not exceed $u_1$, is $u+y$, where $y$ is the least integer $\ge0$ with
@@ -835,6 +891,19 @@ $c-b\le ay\bmod c\le c-b+H-1$; this window lies inside $[1,c-1]$, so
 Lemma~\ref{lem:firsthit} applies. Every $u$ found in this way is
 tested by one exact division of $N$ by $r+cu$, and the search resumes
 at $u+1$.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_firsthit.png}
+\caption{One step of Lemma~\ref{lem:firsthit} with $g=97$, $a=30$ and
+$[L,R]=[40,47]$. Left: the residues $ay\bmod g$ rise in runs, one for
+each value of $z=\lfloor ay/g\rfloor$, and the first run misses the
+window because $a\lceil L/a\rceil=60>R$. Right: the reduced problem
+$(30,7,13,20)$ asks for the least $z$ with $7z\bmod30$ in $[13,20]$.
+It is $z=2$, and the lemma returns $y=\lceil(40+2\cdot97)/30\rceil=8$,
+for which $ay\bmod g=46$.}
+\label{fig:firsthit}
+\end{figure}
 
 \begin{figure}[t]
 \centering
@@ -858,8 +927,8 @@ done; the choice only affects the running time. Since
 $v\approx K/u$ with $K=N/c^2$, a box with $u_1-u_0=\lambda u_0$ has
 area close to $K\lambda^2/(1+\lambda)$, and as the coset has one point
 per area $c$ we choose $\lambda$ with $\lambda^2/(1+\lambda)=c^3/N$, so
-that each box holds about one point of \eqref{eq:coset}. Two regimes
-appear. If $c^3>N$, then $\lambda$ exceeds $1.6$ and grows like
+that each box holds about one point of \eqref{eq:coset}. There are two
+regimes. If $c^3>N$, then $\lambda$ exceeds $1.6$ and grows like
 $c^3/N$, so that $O\bigl(\log N/\log(2+c^3/N)\bigr)$ boxes cover the
 whole range: this is Lenstra's range, and the work is a handful of
 Euclidean recursions. If $c^3<N$,
@@ -890,9 +959,10 @@ $N$ is factored, $t$ is read off from its factorisation. The converse part of
 Proposition~\ref{prop:class} then recovers $p_{k-1}$ and $p_k$.
 \end{proof}
 
-In practice every divisor that is found yields integers $s<p<q$ with
-$A_{k-3}spq+\varepsilon=2B_{k-3}(s-1)(p-1)(q-1)$, and $n$ is a solution
-exactly when $p$ and $q$ are prime. As before, the correctness of a
+Every divisor that is found yields integers $p\le q$ with
+$A_{k-3}spq+\varepsilon=2B_{k-3}(s-1)(p-1)(q-1)$, by the converse part
+of Proposition~\ref{prop:class}, and $n=p_1\cdots p_{k-3}\,s\,pq$ is a
+solution exactly when $s<p<q$ and $p$ and $q$ are prime. As before, the correctness of a
 negative answer depends on no primality proof except in the factoring
 route, where every prime factor of $N$ is proved prime: below
 $\psi_{13}$ by the strong probable-prime test to the first thirteen
@@ -905,7 +975,7 @@ Pomerance and Rumely \cite{APR83} in the form given by Cohen and
 Lenstra \cite{CL84}.
 
 \subsection{A second implementation}
-We wrote the method twice. The first implementation follows the
+We implemented the method twice. The first implementation follows the
 description above: its boxes are intervals in $u$, and the candidates
 in a box come from Lemma~\ref{lem:firsthit}. The second takes its
 nodes at depth $k-3$ from the rational bounds of the first program of
@@ -930,21 +1000,21 @@ beyond the arithmetic libraries.
 The classes of Proposition~\ref{prop:class} are special: $t$ and $N/t$
 lie in the same class modulo $c$, because $N\equiv r^2$. This allows a
 third treatment which uses neither boxes nor factoring. Write $t=r+cu$
-and $N/t=r+cv$ with $0\le u\le v$, and put $m=(N-r^2)/c$. Then
+and $N/t=r+cv$ with $0\le u\le v$. Since $r'=r$, the integer $w$ of Section~\ref{sec:lattice} is $w=(N-r^2)/c$, and \eqref{eq:uv} becomes
 \begin{equation}\label{eq:sum}
-  c\,uv+r\,(u+v)=m ,
+  c\,uv+r\,(u+v)=w ,
 \end{equation}
-so the sum $S=u+v$ lies in the single class $S\equiv mr^{-1}\pmod c$,
-and $u$ and $v$ are the roots of $X^2-SX+(m-rS)/c$. Conversely, if
-$S\equiv mr^{-1}\pmod c$, then $(m-rS)/c$ is an integer, and if
-$S^2-4(m-rS)/c=e^2$ with an integer $e\ge0$ of the parity of $S$, then
+so the sum $S=u+v$ lies in the single class $S\equiv wr^{-1}\pmod c$,
+and $u$ and $v$ are the roots of $X^2-SX+(w-rS)/c$. Conversely, if
+$S\equiv wr^{-1}\pmod c$, then $(w-rS)/c$ is an integer, and if
+$S^2-4(w-rS)/c=e^2$ with an integer $e\ge0$ of the parity of $S$, then
 $u=(S-e)/2$ and $v=(S+e)/2$ are integers satisfying \eqref{eq:sum}, so
 that $(r+cu)(r+cv)=N$. Fix $u_d\ge1$ and put $t_d=r+cu_d$; if
 $t_d>\sqrt N$ there is no divisor with $u\ge u_d$ to look for. Since
 $x+N/x$ decreases on $(0,\sqrt N\,]$, every divisor $t\le\sqrt N$ with
 $u\ge u_d$ has $2r+cS=t+N/t\le t_d+N/t_d$, while $t+N/t\ge2\sqrt N$.
 So $S$ runs over at most $N/(c^3u_d)+1$ values of one residue class,
-and each value needs a single test whether $S^2-4(m-rS)/c$ is a
+and each value needs a single test whether $S^2-4(w-rS)/c$ is a
 perfect square. Every divisor with $u\ge u_d$ is found in this way,
 and by the converse every square found gives a factorisation
 $N=(r+cu)(r+cv)$. The divisors with $u<u_d$ are found by trial division. With $u_d$ close to $(N/c^3)^{1/2}$ the work
@@ -1019,8 +1089,8 @@ For $k=14$ the numbers of nodes at depths $0,1,\dots,12$ are
   1,\ 6,\ 16,\ 27,\ 29,\ 23,\ 22,\ 33,\ 58,\ 127,\ 335,\ 1654,\ 29631,
 \]
 as in the row $k=14$ of Figure~\ref{fig:profile}, and $82$ of the $29631$ nodes at depth $12$ have an empty interval for
-$p_{13}$. The largest prime occurring at depth $12$ is $77563$. All
-the work is concentrated in a handful of terminal nodes. Exactly
+$p_{13}$. The largest prime occurring at depth $12$ is $77563$. Most of
+the work lies in a few terminal nodes. Exactly
 fifteen have an interval for $p_{13}$ of width more than three million;
 they are listed in Table~\ref{tab:hard}. Each of these intervals was
 enumerated in full, and independently the integer $D=2AB-C$ was
@@ -1091,6 +1161,17 @@ method of Section~\ref{sec:three}.}
 \end{figure}
 
 \subsection{Fifteen primes}\label{sec:fifteen}
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/fig_k15.png}
+\caption{The $33865004$ two-prime problems of the case $k=15$, by the
+ratio $c^3/N$ on a logarithmic scale (bins of one decade). To the right
+of the dashed line is Lenstra's range, where $N$ has at most $11$
+divisors in the class and a few boxes find them. The left tail comes
+from the lower ends of the longest intervals for $p_{13}$.}
+\label{fig:k15}
+\end{figure}
+
 For $k=15$ the traversal of Section~\ref{sec:search} is stopped at
 depth $12$. The numbers of nodes at depths $0,1,\dots,12$ are
 \[
@@ -1152,17 +1233,6 @@ processor time & 19 min & 45 min & 13 min \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.92\textwidth]{figures/fig_k15.png}
-\caption{The $33865004$ two-prime problems of the case $k=15$, by the
-ratio $c^3/N$ on a logarithmic scale (bins of one decade). To the right
-of the dashed line is Lenstra's range, where $N$ has at most $11$
-divisors in the class and a few boxes find them. The left tail comes
-from the lower ends of the longest intervals for $p_{13}$.}
-\label{fig:k15}
-\end{figure}
 
 %%==================================================================
 \section{The size of a solution}\label{sec:size}
@@ -1249,7 +1319,7 @@ Divide \eqref{eq:hyp} by $\prod_{i\le u}(1-1/x_i)=Y_u/X_u$. Since
 $u\le m-1$, we have $Y_u/X_u\ge\prod_{i\le m-1}(1-1/x_i)>a/b$.
 \end{proof}
 
-The next lemma is a majorization inequality; only the sequence $x$
+The next lemma is a majorisation inequality; only the sequence $x$
 needs to be ordered.
 
 \begin{lemma}\label{lem:major}
@@ -1327,6 +1397,26 @@ $\prod(1-1/x_i)>a/(a+1)\ge a/b$, contrary to \eqref{eq:hyp}. Hence
 $X_m\le Z_m$ and $aX_m\le E_m(a+1)$.
 \end{proof}
 
+The proof compares $x_1,\dots,x_m$ with an extremal sequence
+$z_1,\dots,z_m$ through the partial products $X_u$ and $Z_u$, and
+splits according to whether $X_u\le Z_u$ for some $u\le m-1$
+(Figure~\ref{fig:dichotomy}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{figures/fig_dichotomy.png}
+\caption{The proof of Theorem~\ref{thm:deficit} for $a/b=5/8$ and
+$m=5$, on the scale $\log_2\log_2(aX_u+1)$. The extremal sequence
+$3,17,257,65537,2^{32}$ rises by exactly $1$ per step from $u=1$ on and
+ends at $aZ_5=E_4(16)$. The two other sequences satisfy \eqref{eq:hyp},
+start above it, and fall below it at $u=2$ and $u=3$. From that point
+Lemmas~\ref{lem:tail} and~\ref{lem:cn} give
+$aX_5<(aX_u+1)^{2^{5-u}}$, the dashed line of slope $1$, which ends
+below $E_4(16)$. A sequence that stayed above the extremal one up to
+$u=4$ would end below it at $u=5$, by Lemma~\ref{lem:major}.}
+\label{fig:dichotomy}
+\end{figure}
+
 \begin{proof}[Proof of Theorem~\ref{thm:deficit}]
 Put $G=b(a+1)/d$, so that $G-1=a(b+1)/d$, and define real numbers
 \[
@@ -1384,7 +1474,7 @@ coincide, and separate as $d$ grows.}
 Since $G=(a+1)/(1-a/b)$, the bound of Theorem~\ref{thm:deficit}
 depends on $b$ only through the distance of $a/b$ from $1$. Its base
 is smaller than the base $(a+1)^2$ of Lemma~\ref{lem:cn} by the factor
-$(a+1)d/b$, which is at least $1$ because $ad\ge a$;
+$(a+1)d/b$, which is at least $1$ because $(a+1)d-b=a(d-1)\ge0$;
 Figure~\ref{fig:bases} shows the two bases. Stone's bound
 $E_{m-1}(b^2/d)$ exceeds ours by the factor $b/(a+1)$ in the base. In
 the application below $a=A_j$ and $b=MB_j$, and then the base
@@ -1601,7 +1691,11 @@ in (ii) a solution extending $(p_1,\dots,p_j,q)$ has $P_{j+1}\ge\mu$
 and hence $M\ge\mu'(S)$. For $q>q_c$ we have $P_{j+1}<\mu$, so
 $V_{j+1}(\mu)$ is defined, and after multiplication by its positive
 denominator the inequality in (iii) becomes a quadratic inequality in
-$q$ with positive leading coefficient; the primes omitted by (iii)
+$q$ with positive leading coefficient;\footnote{With $D=\mu B_j-A_j$
+and $\theta=\theta_{j+2}$ one has $V_{j+1}(\mu)=\mu B_j(q-1)(A_jq+1)/(Dq-\mu
+B_j)$, and $V_{j+1}(\mu)<\theta$ reads
+$\mu A_jB_jq^2+\bigl(\mu B_j-\mu A_jB_j-\theta D\bigr)q+(\theta-1)\mu
+B_j<0$.} the primes omitted by (iii)
 therefore form an interval, which is computed once per node.
 
 \begin{figure}[t]
@@ -1767,9 +1861,14 @@ stronger bound.
 The exponents are the largest that this argument allows:
 $R_{25}=3.0208\ldots$ for the primes from $5$ on, and
 $R_{1525}=4.000002\ldots$ for $3$ and the primes $p\equiv2\pmod3$.
-The latter threshold reflects the slow growth of $\prod p/(p-1)$ over
-the primes $p\equiv2\pmod3$, which also lies behind the bound
-$\omega(n)\ge1540$ of Lemma~\ref{lem:three}.
+In both cases $w_i=\ell_i$ until $\rho_i$ overtakes $\ell_i$, and from
+there on $\rho_i$ grows doubly exponentially. For $s=24$ this
+happens at $i=32$, where $\rho_{32}=256$ and $\ell_{32}=139$. For
+$s=1524$ it happens at $i=1539$, where $\rho_{1539}=2567171$ and
+$\ell_{1539}=27941$, and $R_{1524}$ equals the product
+$3.99986\ldots$ of the proof of Lemma~\ref{lem:three} at $k=1539$.
+So part (iii) of Theorem~\ref{thm:size} is the size bound that
+accompanies the bound $\omega(n)\ge1540$ of that lemma.
 
 \subsection{Where the search is hard}\label{sec:hard}
 The nodes that survive longest are prefixes with $P_j$ just below $2$,
@@ -1915,8 +2014,8 @@ $1/(A_jW)$, which in this range are far smaller than the gaps between
 consecutive admissible values of $p/(p-1)$ near the endpoints, and the
 computation confirms that no endpoint moves. The tests
 \eqref{eq:last} at the last level do differ, but by then the tree is
-fixed. In this range, then, removing the prime $3$ makes
-the two equations of Lehmer equally hard.
+fixed. For $3\nmid n$ and $k\le15$ the two equations therefore lead to the
+same search.
 
 \subsection{Extensions of Fermat-type solutions}
 
@@ -2158,8 +2257,9 @@ primality.
 
 The computation was cut into $10897$ pieces, each a range of $s$
 under one prefix, and run on four processors. It examined $228260561$
-pairs, made $3.4\cdot10^{11}$ trial divisions, visited $6.7\cdot10^{13}$
-values of $\sigma$ and tested $2.1\cdot10^{8}$ of them exactly.
+pairs and made $3.4\cdot10^{11}$ trial divisions. The sums ranged
+over $6.7\cdot10^{13}$ values of $\sigma$, and the sieve (iii) passed
+$2.1\cdot10^{8}$ of them on to the exact test.
 In $1967265$ cases $N$ was factored, with up to $39$ digits. The
 whole run took $6.9$ hours of processor time, $3.2$ of them in
 PARI/GP. It found $21$ completions $s<p<q$ in integers and no
@@ -2234,7 +2334,7 @@ a short range of divisors.}
 
 A search that finds nothing has to be tested on problems where there
 is something to find, and it has to be implemented in more than one
-way. We describe the checks we applied.
+way.
 
 \subsection{Two implementations}
 The first implementation is recursive and works with exact rational
@@ -2267,10 +2367,10 @@ Both implementations accept a general equation
 with positive integers $a,b$, the bounds of
 Section~\ref{sec:search} holding with $2$ replaced by $a/b$ and
 \eqref{eq:hyperbola} becoming $(Cp-aB)(Cq-aB)=b(aAB+\varepsilon C)$
-with $C=aB-bA$. For $\varepsilon=-1$, $b=2^k$ and $a=2^k+m$, equation
-\eqref{eq:ab} says that $\prod_i(p_i-1)/2$ divides $n-1$ with quotient
-$2^k+m$, and it has solutions. We ran both implementations with
-$p_{\min}=3$ for $k=4$, $1\le m\le40$, and for $k=5$, $1\le m\le85$.
+with $C=aB-bA$. For $\varepsilon=-1$, $b=2^k$ and $a=2^k+h$, equation
+\eqref{eq:ab} says that $\varphi(n)/2^k=\prod_i\frac{p_i-1}{2}$
+divides $n-1$ with quotient $2^k+h$, and it has solutions. We ran both implementations with
+$p_{\min}=3$ for $k=4$, $1\le h\le40$, and for $k=5$, $1\le h\le85$.
 Both returned the same $56$ solutions, $20$ with $k=4$ and $36$ with
 $k=5$, listed in Appendix~\ref{app:known}; each was verified by direct
 arithmetic. The bounds and prunes exercised here are exactly those on
@@ -2452,9 +2552,8 @@ $c^3<N$, where the work grows like $(N/c^3)^{1/2}$, some $10^9$ have
 $c^3/N<10^{-12}$, and for the smallest $c$ the integer $N$ would have
 to be factored. With these the total is of the order of $10^{10}$
 processor seconds, some three centuries. The case $k=16$ is therefore
-far beyond a single machine. It would need a very large computation,
-or better a new idea, for instance a way of treating a whole
-range of $p_{13}$ at once.
+far beyond a single machine. It needs either a computation of that size or a
+method that treats a whole range of $p_{13}$ at once.
 
 \begin{figure}[t]
 \centering
@@ -2540,10 +2639,10 @@ Lehmer's equation is the prime $3$.
 \begin{lemma}\label{lem:parity}
 Let $x_1,\dots,x_k$ be integers with
 $x_1\cdots x_k+\varepsilon=M\prod_i(x_i-1)$, where
-$\varepsilon=\pm1$, and suppose that exactly $s\ge1$ of them are
-divisible by $3$. Then $\varepsilon\equiv(-1)^sM\pmod3$. In particular
-a solution of \eqref{eq:product} has $s$ even if $\varepsilon=-1$, and
-$s=0$ or $s$ odd if $\varepsilon=+1$.
+$\varepsilon=\pm1$, and suppose that exactly $\nu\ge1$ of them are
+divisible by $3$. Then $\varepsilon\equiv(-1)^{\nu}M\pmod3$. In particular
+a solution of \eqref{eq:product} has $\nu$ even if $\varepsilon=-1$, and
+$\nu=0$ or $\nu$ odd if $\varepsilon=+1$.
 \end{lemma}
 
 \begin{proof}
@@ -2552,17 +2651,17 @@ $M\prod_i(x_i-1)$, hence $\varepsilon$, so $\gcd(x_i,x_j-1)=1$ for all
 $i$ and $j$. Let $3\mid x_i$. Then no $x_j$ is congruent to $1$ modulo
 $3$. Hence $x_j-1\equiv-1\pmod3$ if $3\mid x_j$
 and $x_j-1\equiv1\pmod3$ otherwise, and the equation modulo $3$ reads
-$\varepsilon\equiv(-1)^sM$. For $M=2$ this is
-$\varepsilon\equiv(-1)^{s+1}$.
+$\varepsilon\equiv(-1)^{\nu}M$. For $M=2$ this is
+$\varepsilon\equiv(-1)^{\nu+1}$.
 \end{proof}
 
-For $s=1$ this is the congruence of Lemma~\ref{lem:three}. Each
-pseudo-solution of Proposition~\ref{prop:pseudo} has $s=2$, since $3$
+For $\nu=1$ this is the congruence of Lemma~\ref{lem:three}. Each
+pseudo-solution of Proposition~\ref{prop:pseudo} has $\nu=2$, since $3$
 divides both $p_1$ and $n_0$, whereas the prime factors of $n$ give
-$s\le1$. The fact that $3$ divides at most one prime factor therefore
+$\nu\le1$. The fact that $3$ divides at most one prime factor therefore
 removes all of them, and by Lemma~\ref{lem:parity} a pseudo-solution
-of Lehmer's equation with pairwise coprime entries has $s=0$. We call
-a pseudo-solution with $s=0$ \emph{prime to $3$}.
+of Lehmer's equation with pairwise coprime entries has $\nu=0$. We call
+a pseudo-solution with $\nu=0$ \emph{prime to $3$}.
 
 \begin{theorem}\label{thm:pseudo3}
 Let $\varepsilon=\pm1$.
@@ -2621,8 +2720,8 @@ program of Section~\ref{sec:eight} and its checks in
 Section~\ref{sec:checks8}. Allowed to use the entry $3$, the
 second program finds $1$, $1$, $2$, $8$ and $47$ solutions of
 \eqref{eq:product} in odd integers with $\varepsilon=-1$ for
-$k=3,\dots,7$, all with $s\in\{2,4\}$, and $1$, $1$, $2$, $4$ and $18$
-with $\varepsilon=+1$, all with $s$ odd; the first program, run on
+$k=3,\dots,7$, all with $\nu\in\{2,4\}$, and $1$, $1$, $2$, $4$ and $18$
+with $\varepsilon=+1$, all with $\nu$ odd; the first program, run on
 prime prefixes, finds exactly those whose first $k-3$ entries are
 prime.
 \end{proof}
@@ -2659,46 +2758,47 @@ obstruction to completing a prefix that a fixed modulus can detect.
 
 \begin{proposition}\label{prop:local}
 Let $x_1<\dots<x_j$ be odd integers such that $A=\prod x_i$ and
-$B=\prod(x_i-1)$ are coprime, let $m\ge2$, and let $l^e$ be a power of
-a prime $l$. Unless $l=3$, $3\mid A$ and $2B\not\equiv\varepsilon\pmod3$,
-there are integers $y_1,\dots,y_m$, none divisible by $l$ and, if
-$l\mid A$, none congruent to $1$ modulo $l$, such that
+$B=\prod(x_i-1)$ are coprime, let $m\ge2$, and let $\ell^e$ be a power of
+a prime $\ell$. Unless $\ell=3$, $3\mid A$ and $2B\not\equiv\varepsilon\pmod3$,
+there are integers $y_1,\dots,y_m$, none divisible by $\ell$ and, if
+$\ell\mid A$, none congruent to $1$ modulo $\ell$, such that
 \[
-  A\,y_1\cdots y_m+\varepsilon\equiv2B\prod_{i\le m}(y_i-1)\pmod{l^e}.
+  A\,y_1\cdots y_m+\varepsilon\equiv2B\prod_{i\le m}(y_i-1)\pmod{\ell^e}.
 \]
 In the excluded case no such integers exist.
 \end{proposition}
 
 \begin{proof}
-If $l\nmid A$, take $y_1=\dots=y_{m-1}=1$ and $y_m$ with
-$Ay_m\equiv-\varepsilon\pmod{l^e}$. If $l\mid A$, then $l\nmid2B$. Take
+If $\ell\nmid A$, take $y_1=\dots=y_{m-1}=1$ and $y_m$ with
+$Ay_m\equiv-\varepsilon\pmod{\ell^e}$. If $\ell\mid A$, then $\ell\nmid2B$. Take
 $y_3=\dots=y_m=2$ and $y_2=1+u$, where $u\in\{1,2\}$ and
-$l\nmid2Bu+\varepsilon$. Such a $u$ exists, since $l$ cannot divide
-both $2B+\varepsilon$ and $4B+\varepsilon$; for $l=3$ we take $u=1$,
+$\ell\nmid2Bu+\varepsilon$. Such a $u$ exists, since $\ell$ cannot divide
+both $2B+\varepsilon$ and $4B+\varepsilon$; for $\ell=3$ we take $u=1$,
 which is allowed because $2B+\varepsilon\equiv2\varepsilon\pmod3$ by
-hypothesis. Then $y_2,\dots,y_m$ are prime to $l$ and not congruent to
-$1$ modulo $l$. The congruence is then linear in
+hypothesis. Then $y_2,\dots,y_m$ are prime to $\ell$ and not congruent to
+$1$ modulo $\ell$. The congruence is then linear in
 $y_1$ with coefficient $K=2^{m-2}A(1+u)-2Bu\equiv-2Bu\not\equiv0\pmod
-l$, so it has a solution $y_1$. Reducing modulo $l$ gives
-$Ky_1\equiv-(2Bu+\varepsilon)$, so $l\nmid y_1$, and
+\ell$, so it has a solution $y_1$. Reducing modulo $\ell$ gives
+$Ky_1\equiv-(2Bu+\varepsilon)$, so $\ell\nmid y_1$, and
 $K(y_1-1)\equiv-\varepsilon$, so $y_1\not\equiv1$. In the excluded
 case every $y_i$ is congruent to $2$ modulo $3$, so $y_i-1\equiv1$,
 and the congruence modulo $3$ reads $\varepsilon\equiv2B$.
 \end{proof}
 
 By the Chinese remainder theorem the same holds for every modulus. The
-integers $y_i$ satisfy every condition modulo $l$ that the prune
+integers $y_i$ satisfy every condition modulo $\ell$ that the prune
 imposes on the remaining primes, namely $y\not\equiv0$ modulo the primes
 of $B$ and $y\not\equiv1$ modulo the primes of $A$. So no congruence
 condition removes a node with at least two primes left, except that of
-Lemma~\ref{lem:three}; with one prime left, Proposition~\ref{prop:last}
-imposes the condition $C\mid A+\varepsilon$, whose modulus is the
-prefix-dependent integer $C$.
+Lemma~\ref{lem:three}. With one prime $q$ left the situation changes:
+the equation $Aq+\varepsilon=2B(q-1)$ gives $q=(2B+\varepsilon)/C$
+with $C=2B-A$, so $C$ must divide $2B+\varepsilon$, or equivalently
+$A+\varepsilon$, and this modulus depends on the prefix.
 
 \subsection{What a proof for all \texorpdfstring{$k$}{k} has to use}
-The obstruction in both cases is arithmetic. A prefix whose product
-$\prod p/(p-1)$ comes very close to $2$ forces the remaining primes to
-be very large and leaves them very free. For \eqref{eq:second} the
+In both cases the obstruction comes from prefixes whose product
+$\prod p/(p-1)$ is very close to $2$. Such a prefix forces the next
+prime to be large and leaves it a long interval. For \eqref{eq:second} the
 Fermat primes give the extreme example, with a shortfall of $2^{-31}$
 after five primes, and every prefix near them inherits a shortfall of
 the same order. By Proposition~\ref{prop:local} no congruence condition
@@ -2706,7 +2806,7 @@ removes such a prefix.
 
 For the companion equation with $3\mid n$ the tuple
 $(3,5,17,257,65537,2^{32}+1)$ is a pseudo-solution with pairwise
-coprime entries and $s=1$. It is excluded only by the factorisation
+coprime entries and $\nu=1$. It is excluded only by the factorisation
 $2^{32}+1=641\cdot6700417$, since $641-1$ does not divide
 $n+1=2^{64}$, so a proof for all $k$ has to use the primality of the
 large entries.
@@ -2722,7 +2822,14 @@ or not, then neither equation has a solution with $M=2$ and
 $3\nmid n$. This hypothesis involves no primes at all.
 Theorem~\ref{thm:pseudo3} verifies it for $k\le13$. A first-moment count
 along the tree, weighting each two-entry problem by the expected number
-of divisors of $2AB+\varepsilon C$ in its class, predicts $0.8$, $1.7$,
+of divisors of $2AB+\varepsilon C$ in its class,\footnote{An integer
+$t$ in the class is counted as a divisor of $N=2AB+\varepsilon C$ with
+probability $1/t$, so that a problem contributes about
+$\rho\log(\sqrt N/t_0)/C$, where $t_0$ is the least value of $t$ that
+the order of the entries allows and the factor $\rho\le1$ corrects for
+the congruence conditions that both entries satisfy modulo small
+primes. Nodes
+with many children are sampled rather than enumerated.} predicts $0.8$, $1.7$,
 $5.2$ and about $25$ pseudo-solutions of Lehmer's equation with the
 entry $3$ allowed for $k=4,\dots,7$, against the true $1$, $2$, $8$
 and $47$. For pseudo-solutions prime to $3$ it gives $4.3\cdot10^{-6}$
@@ -2764,7 +2871,11 @@ By induction it suffices to give one pseudo-solution prime to $3$
 with $\varepsilon=+1$, $k=25$ and $3\mid B$. Its first nine entries
 are the prefix $5,7,13,17,19,23,25,37,119$ named above, so $3\mid B$
 and the entry $25$ is composite. The remaining sixteen entries have
-between $6$ and $131176$ digits, and the product has $262353$ digits.
+between $6$ and $131176$ digits,\footnote{The tenth and eleventh
+entries are $147563$ and $45571237$, the twelfth is
+$46357278045502805$, and from there on each entry has about twice as
+many digits as the one before (Figure~\ref{fig:descent}).} and the
+product has $262353$ digits.
 After $24$ entries the defect $2B-A$ equals $29$, and $29$ divides
 $2B+1$; the last entry is $(2B+1)/29$. The entries are deposited with
 the data. The equation, the order of the entries, their residues
@@ -2785,9 +2896,24 @@ with difference $c$. Starting from the prefixes of the tree for $k=13$,
 the search kept at each depth the $10^7$ admissible children with the
 smallest defect and tested each of them. The sum of $1/c$ over the
 prefixes kept at one step, which estimates the number of completions,
-grew by a factor of about $2.4$ per step, and its total over all steps
+grew by a factor of about $2.5$ per step, and its total over all steps
 first exceeded $1$ at the fourteenth step, where the completion above
-occurred.
+occurred (Figure~\ref{fig:descent}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_descent.png}
+\caption{Left: the search for pseudo-solutions prime to $3$. The sum of
+$1/c$ over the prefixes kept at each step estimates the number of
+completions at that step. With $10^7$ prefixes kept it grows from
+$1.4\cdot10^{-6}$ to $0.62$, its running total passes $1$ at step $14$,
+and the tuple of Theorem~\ref{thm:pseudo25} is completed there. With
+pairwise coprime entries and $10^6$ prefixes kept it falls from
+$7.7\cdot10^{-11}$ to $4.0\cdot10^{-12}$ in twelve steps. Right: the
+number of digits of the $25$ entries of that tuple, of which the first
+nine form the prefix $5,7,13,17,19,23,25,37,119$.}
+\label{fig:descent}
+\end{figure}
 
 None of these tuples has pairwise coprime entries, and the search
 does not reach such tuples. Among the $910$ prefixes of length $9$ of
@@ -2814,7 +2940,8 @@ $\varepsilon=+1$, let $A=x_1\cdots x_k$, and let $A^2+A-1=de$ with
 $1\le d<e$. Then $(x_1,\dots,x_k,A+1+d,A+1+e)$ satisfies
 \eqref{eq:product} with $\varepsilon=-1$. If $x_1,\dots,x_k$ are
 pairwise coprime, then so are all $k+2$ entries if and only if
-$\gcd(d^2-1,A)=\gcd(d-1,A+2)=1$, and this fails whenever $5\mid A$.
+$\gcd(d^2-1,A)=\gcd(d-1,A+2)=1$, and this fails whenever $3$ or $5$
+divides $A$.
 \end{proposition}
 
 \begin{proof}
@@ -2827,17 +2954,21 @@ $\gcd(X,A)=\gcd(d+1,A)$ and $\gcd(Y,A)=\gcd(d(e+1),A)=\gcd(d-1,A)$.
 A prime $r$ dividing $X$ and $Y$ has $d\equiv e\equiv-(A+1)$, hence
 $(A+1)^2\equiv A^2+A-1$, that is $A\equiv-2$ and $d\equiv1\pmod r$;
 conversely, if $r$ divides $A+2$ and $d-1$, then
-$e\equiv de=A^2+A-1\equiv1$, and $r$ divides $X$ and $Y$. Finally let
-$5\mid A$. Every prime factor $r$ of $A^2+A-1$ is odd and different
+$e\equiv de=A^2+A-1\equiv1$, and $r$ divides $X$ and $Y$. If $3\mid A$,
+then $A^2+A-1\equiv-1\pmod3$, so $3\nmid d$ and $3\mid d^2-1$. Finally
+let $5\mid A$. Every prime factor $r$ of $A^2+A-1$ is odd and different
 from $5$, and $(2A+1)^2\equiv5\pmod r$, so $5$ is a square modulo $r$
-and, by quadratic reciprocity, $r\equiv\pm1\pmod5$. Hence
+and, by quadratic reciprocity,\footnote{For an odd prime $r\ne5$ the
+law of quadratic reciprocity gives $\bigl(\frac5r\bigr)=\bigl(\frac
+r5\bigr)$, since $5\equiv1\pmod4$, and the nonzero squares modulo $5$
+are $1$ and $4$.} $r\equiv\pm1\pmod5$. Hence
 $d\equiv\pm1\pmod5$, and $5$ divides $\gcd(d^2-1,A)$.
 \end{proof}
 
 For the Fermat numbers $3,5,17,257,65537,2^{32}+1$,
 Proposition~\ref{prop:lehmerext} gives pseudo-solutions of Lehmer's
-equation with $s=2$, and none with pairwise coprime entries, because
-$3$ and $5$ divide $A$. Appending $2B+1=A+2$, as in the proof of
+equation with $\nu=2$, and none with pairwise coprime entries, because
+$3$ divides $A$. Appending $2B+1=A+2$, as in the proof of
 Theorem~\ref{thm:pseudo25}, keeps the entries pairwise coprime, so a
 single pairwise coprime pseudo-solution of the companion equation
 prime to $3$ with $3\mid B$ would give infinitely many, and
@@ -2858,20 +2989,20 @@ for $\varepsilon=-1$.
 %%==================================================================
 
 The following $56$ integers $n=p_1\cdots p_k$ satisfy
-$2^k(n-1)=(2^k+m)\varphi(n)$ for the indicated $m$. They are the
-complete output of both implementations for $k=4$, $1\le m\le40$, and
-$k=5$, $1\le m\le85$, with $p_1\ge3$, listed in increasing order of
+$2^k(n-1)=(2^k+h)\varphi(n)$ for the indicated $h$. They are the
+complete output of both implementations for $k=4$, $1\le h\le40$, and
+$k=5$, $1\le h\le85$, with $p_1\ge3$, listed in increasing order of
 $n$ down the columns. Each was verified by direct arithmetic.
 
 \begin{table}[ht]
 \centering
-\caption{Solutions with $k=4$, $1\le m\le40$.}
+\caption{Solutions with $k=4$, $1\le h\le40$.}
 \label{tab:S4}
 \smallskip
 \footnotesize
 \begin{tabular}{@{}lr@{\qquad}lr@{}}
 \toprule
-$p_1,\dots,p_4$ & $m$ & $p_1,\dots,p_4$ & $m$ \\
+$p_1,\dots,p_4$ & $h$ & $p_1,\dots,p_4$ & $h$ \\
 \midrule
 $3,\,5,\,47,\,89$ & 15 & $13,\,29,\,433,\,2969$ & 2 \\
 $5,\,19,\,29,\,163$ & 6 & $7,\,97,\,139,\,8581$ & 3 \\
@@ -2889,13 +3020,13 @@ $37,\,41,\,137,\,829$ & 1 & $19,\,157,\,8353,\,20887$ & 1 \\
 
 \begin{table}[ht]
 \centering
-\caption{Solutions with $k=5$, $1\le m\le85$.}
+\caption{Solutions with $k=5$, $1\le h\le85$.}
 \label{tab:S5}
 \smallskip
 \footnotesize
 \begin{tabular}{@{}lr@{\qquad}lr@{}}
 \toprule
-$p_1,\dots,p_5$ & $m$ & $p_1,\dots,p_5$ & $m$ \\
+$p_1,\dots,p_5$ & $h$ & $p_1,\dots,p_5$ & $h$ \\
 \midrule
 $5,\,7,\,13,\,139,\,653$ & 19 & $5,\,47,\,317,\,40253,\,499027$ & 9 \\
 $11,\,13,\,17,\,109,\,379$ & 9 & $19,\,269,\,443,\,1747,\,1852699$ & 2 \\

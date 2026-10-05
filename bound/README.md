@@ -18,10 +18,10 @@ P_j, F_j, r_j and t_i for the quantities A_j, B_j, P_j and θ_i of the paper.
 | `search.gp` | the same search written independently in PARI/GP, explicit stack, rule R4(iii) by bisection; `printf 's = 7\n\\r search.gp\n' \| gp -q` | 9 s for s = 7 |
 | `search_without_deficit.py` | the search with only the ratio test (no R2, no R4(iii)); `python3 search_without_deficit.py 6` gives 4,469 nodes | 18 s for s = 6 |
 | `ratio_bound.py` | the exact values R_24 = 2.99488… < 3 and R_1524 = 3.99986… < 4 of Section 6.5 | 4 s |
-| `tree_stats.py`, `tree_profile.py` | nodes and last-prime tests by depth (Table 4, Figure 9) and the ranges of Figure 8 | seconds |
+| `tree_stats.py`, `tree_profile.py` | nodes and last-prime tests by depth (Table 4, Figure 13) and the ranges of Figure 12 | seconds |
 | `logs/` | recorded output: `search_py_s*.log`, `search_gp_s*.log` (s = 4..7), `ratio_bound.log`, `search_without_deficit_s6.log`, `hist_s*.json`, `prof_s7.json` | |
 
-The four figures of Section 6 are drawn from TikZ sources in `../paper/figures` (`fig_bases`, `fig_rules`,
+The five figures of Section 6 are drawn from TikZ sources in `../paper/figures` (`fig_dichotomy`, `fig_bases`, `fig_rules`,
 `fig_margins`, `fig_trees`); `make_heavy.py` there writes the last two from `logs/`.
 
 Both programs report the same trees for s = 4, 5, 6, 7: 12, 24, 118 and 33,678 nodes, depth 13 for s = 7,

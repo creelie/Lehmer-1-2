@@ -2,7 +2,7 @@
 """Sections 5 and 9 of the paper.  (a) n - 1 = 2 phi(n), k = 15, p_1 >= 5: the nodes at depth 12 and the widths of
 the intervals for p_13.  (b) n + 1 = 2 phi(n), k = 8, p_1 >= 3: the nodes at depth 5 and the widths of the
 intervals for p_6, with the exact numbers of primes p_6 in these intervals and of those that pass the congruence
-prune (each leaves a two-prime problem).  Also the per-depth node counts for k = 7..14 used in Figure 4.
+prune (each leaves a two-prime problem).  Also the per-depth node counts for k = 7..14 used in Figure 7.
 Runtime: a few minutes."""
 import sys, time, math, collections
 sys.path.insert(0, ".")
