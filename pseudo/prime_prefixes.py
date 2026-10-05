@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Theorem 8.3 (ii), first program: for k <= 15 no odd integers 5 <= x_1 < ... < x_k, none divisible by 3, with
+"""Theorem 9.3 (ii), first program: for k <= 15 no odd integers 5 <= x_1 < ... < x_k, none divisible by 3, with
 x_1, ..., x_{k-3} prime, satisfy  x_1 ... x_k + eps = 2 (x_1 - 1) ... (x_k - 1).
 
 The prime prefixes x_1 < ... < x_{k-3} with their exact intervals for x_{k-2} are the nodes at depth k - 3 of the
-search of Theorems 1.1 and 1.3 (lastthree.frontier(k, 5, 2, 1, eps, 3)).  Below each of them tail3 (mode 3) takes every
+search of Theorems 1.1 and 1.4 (lastthree.frontier(k, 5, 2, 1, eps, 3)).  Below each of them tail3 (mode 3) takes every
 odd t = x_{k-2} of the interval with 3 not dividing t and gcd(t, x_i - 1) = gcd(x_i, t - 1) = 1, prime or not, and finds
 all integer completions (t, p, q).  Completions with 3 | p or 3 | q are listed separately.
 usage: prime_prefixes.py k eps [part nparts]      (for k = 15 run parts 0..3 of 4 in parallel)"""

@@ -2,7 +2,7 @@
 
 Let n = p_1 ... p_k (p_1 < ... < p_k odd primes) with n - 1 = M phi(n).
 Write P_j = p_1...p_j, F_j = (p_1-1)...(p_j-1), r_j = P_j/F_j.
-Known facts used (all proved in the note):
+Known facts used (Lemmas 2.1, 2.2 and 6.1 of the paper):
   (C) p does not divide q - 1 for p, q | n;
   (R) r_j < M for j < k, and r_k = M + 1/phi(n) > M;
   (T) if 3 | n then M = 1 (mod 3), so M >= 4; in all cases M >= 2;

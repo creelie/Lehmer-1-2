@@ -22,6 +22,8 @@ What the computations establish (see the paper for the proofs they complete):
 8. In odd integers prime to 3, with gcd(xᵢ, xⱼ − 1) = 1 for all i, j, the equation x₁⋯x_k + 1 = 2∏(xᵢ − 1) has a
    solution for every k ≥ 25, and x₁⋯x_k − 1 = 2∏(xᵢ − 1) has one for every k ≥ 26 (`pseudo/companion_k25.txt`).
    Some entries are composite, so the primality of the factors has to enter beyond the prime 3.
+9. A composite n with φ(n) | n−1 and k distinct prime factors satisfies n < 2^(2^(k−7)); moreover
+   n < 2^(2^(k−24)) if (n−1)/φ(n) ≥ 3, and n < 2^(2^(k−1524)) if 3 | n (`bound/`, Theorem 1.2 of the paper).
 
 The lemmas and propositions behind 1–3 and 7, and statements 4, 5, 6 and 8 in full, are proved in Lean 4 in `lean/`
 (see `lean/README.md`); for 2 and 7 this includes the reduction, the identities and the sieve of the eight-prime
@@ -55,18 +57,18 @@ factors nothing, so its negative answers rely on no primality test.
 | `tree_search.py` | Program 1: the same search, recursive, rational arithmetic, divisor route at long intervals | – |
 | `thresholds.py` | exact thresholds of Section 2 (1540, 33, M = 2 regions) | seconds |
 | `first_equation.py` | Theorem 1.1 for k ≤ 14: both programs, n − 1 = 2φ(n), p₁ ≥ 5, k = 7..14 | ~10 min |
-| `second_equation.py` | Theorem 1.2, and Theorem 1.3 for k ≤ 14: n + 1 = 2φ(n), k ≤ 7 with p₁ ≥ 3, and k = 7..14 with p₁ ≥ 5 | ~3 min |
+| `second_equation.py` | Theorem 1.3, and Theorem 1.4 for k ≤ 14: n + 1 = 2φ(n), k ≤ 7 with p₁ ≥ 3, and k = 7..14 with p₁ ≥ 5 | ~3 min |
 | `lastthree.py` | Section 4, first implementation: the last three primes through divisors in a residue class, boxes in u | – |
 | `lastthree_b.py` | Section 4, second implementation: boxes in v, Lagrange-reduced lattice bases, own frontier and prime generation | – |
 | `lastthree_c.py` | Section 4.5, third implementation: the sum t + N/t is fixed modulo C'², found by a short scan with one square test per value; no boxes, no factoring, no primality proof | – |
 | `k15_run.py` | the case k = 15 of Theorems 1.1 (`--eps -1`) and 1.3 (`--eps 1`) with any of the three implementations (`--program A`, `B` or `C`); resumable, multi-core | 15–45 min of CPU time per run |
-| `k15_stats.py` | Figure 4 (the ratio c³/N over the k = 15 search), the run totals of Table 3, and the k = 16 statistics of Section 8 | a few minutes |
-| `extensions.py` | Theorem 1.5: one- and two-prime extensions of the known solutions | seconds |
+| `k15_stats.py` | Figure 5 (the ratio c³/N over the k = 15 search), the run totals of Table 3, and the k = 16 statistics of Section 9 | a few minutes |
+| `extensions.py` | Theorem 1.6: one- and two-prime extensions of the known solutions | seconds |
 | `check_certificates.py` | re-derives the fifteen long terminal nodes of k = 14 and checks the stored factorisations | seconds |
 | `validate.py` | both programs on 2^k(n−1) = (2^k+m)φ(n), k = 4, 5: must return the 56 listed solutions | ~10 min |
 | `sieve_check.py` | independent totient sieve to 10^8 | ~3 min |
-| `walls.py` | the k = 15 frontier of Section 5, the k = 8 frontier of Section 6.4, and the depth profiles of Figure 3 | ~1 min |
-| `companion8/` | Theorem 1.2 for eight prime factors (Section 6.4): the C program `scan3.c` for the last three primes (trial division and the sum of the two factors, sieved by congruences), the PARI/GP fallback `factor_class.gp`, the driver `companion8.py` (resumable, multi-core), the tests `test_scan3.py` and the partial repetition `recheck.py`; see `companion8/README.md` | 6.9 h of CPU time, 2.0 h on 4 cores |
+| `walls.py` | the k = 15 frontier of Section 5, the k = 8 frontier of Section 7.4, and the depth profiles of Figure 4 | ~1 min |
+| `companion8/` | Theorem 1.3 for eight prime factors (Section 7.4): the C program `scan3.c` for the last three primes (trial division and the sum of the two factors, sieved by congruences), the PARI/GP fallback `factor_class.gp`, the driver `companion8.py` (resumable, multi-core), the tests `test_scan3.py` and the partial repetition `recheck.py`; see `companion8/README.md` | 6.9 h of CPU time, 2.0 h on 4 cores |
 | `data/companion8/journal.jsonl` | one line per batch of the eight-prime run: pieces, counts, timings and completions | |
 | `paper/` | LaTeX source of the paper, the TikZ sources of the figures with their PNG exports (`figures/build.sh`) | |
 | `tests/test_divisors.py`, `tests/test_divisors_b.py`, `tests/test_divisors_c.py` | the three divisor routines against brute force on random integers with known factorisation (the recorded run of `test_divisors_b.py` used a box limit of 200000, given as its argument) | minutes |
@@ -80,9 +82,9 @@ factors nothing, so its negative answers rely on no primality test.
 | `data/k15/frontier.json` | the 54,985 prefixes of twelve primes for k = 15 with their intervals for p₁₃ | |
 | `data/k15/run_*.jsonl.gz` | one line per task of each k = 15 run (A, B, C, and `_plus` for n + 1 = 2φ(n)), gzipped | |
 | `data/k15/stats.json` | output of `k15_stats.py` | |
-| `pseudo/` | Section 8: pseudo-solutions prime to 3 (Theorem 8.3) and the first-moment count; see `pseudo/README.md` | |
+| `pseudo/` | Section 9: pseudo-solutions prime to 3 (Theorem 9.3) and the first-moment count; see `pseudo/README.md` | |
 | `logs/` | recorded output of every script | |
-| `bound/` | the companion note *Sharper bounds in Lehmer's totient problem* (n < 2^(2^(k−7))): two independent search programs, logs and LaTeX source; see `bound/README.md` | under a minute |
+| `bound/` | Section 6 and Theorem 1.2 (n < 2^(2^(k−7))): two independent programs for the search of Section 6.3, the computation of Section 6.5, and their logs; see `bound/README.md` | under a minute |
 | `lean/` | Lean 4 formalisation (Lean and Mathlib v4.34.1); `lake build`, then `lake env lean Check.lean` for the axiom audit | ~1 min with the Mathlib cache |
 
 Run any script from the repository root, for example `python3 first_equation.py` or

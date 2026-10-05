@@ -11,6 +11,3 @@ companion8/scan3
 paper/build/
 paper/figures/build/
 paper/*.tar.gz
-bound/paper/build/
-bound/paper/figures/build/
-bound/paper/*.tar.gz

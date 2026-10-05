@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Theorems 1.2 and 1.3 for n + 1 = 2 phi(n).
-Part 1 (Theorem 1.2): p_1 >= 3, 2 <= k <= 7.  Program 1 with divisor enumeration; every integer factored has
+"""Theorems 1.3 and 1.4 for n + 1 = 2 phi(n).
+Part 1 (Theorem 1.3): p_1 >= 3, 2 <= k <= 7.  Program 1 with divisor enumeration; every integer factored has
 fewer than 25 digits, so every factorisation is certified (deterministic primality below 3.3e24).
 Program 2 (enumeration only) is also run for k <= 6 and must agree node for node.
-Part 2 (Theorem 1.3): p_1 >= 5, 7 <= k <= 14, both programs; nothing may be found and node counts must agree.
+Part 2 (Theorem 1.4): p_1 >= 5, 7 <= k <= 14, both programs; nothing may be found and node counts must agree.
 Runtime: a few minutes on one core."""
 import sys, time
 sys.path.insert(0, ".")
@@ -26,5 +26,5 @@ for k in range(7, 15):
     print(f"Part 2  k={k:2d}: program 1 nodes={S.nodes:6d} sols={S.sols} ({t1-t0:.1f}s) | program 2 nodes={n2:6d} "
           f"leaves={l2} maxwidth={mr2} sols={s2} ({t2-t1:.1f}s)", flush=True)
     assert S.nodes == n2 and not S.sols and not s2
-print("Theorem 1.2: the solutions with omega(n) <= 7 are exactly the known ones.  "
-      "Theorem 1.3: no solution with 3 not dividing n and omega(n) <= 14.")
+print("Theorem 1.3: the solutions with omega(n) <= 7 are exactly the known ones.  "
+      "Theorem 1.4: no solution with 3 not dividing n and omega(n) <= 14.")

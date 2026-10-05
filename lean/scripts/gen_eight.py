@@ -1,5 +1,5 @@
 import json, os, sys
-# Generates lean/LehmerTotient/EightData.lean from the journal data/companion8/journal.jsonl (Section 6.4): the
+# Generates lean/LehmerTotient/EightData.lean from the journal data/companion8/journal.jsonl (Section 7.4): the
 # completions s < p < q in integers of the eight-prime search, each with the least divisor d > 1 of p or of q.
 here = os.path.dirname(os.path.abspath(__file__))
 journal = sys.argv[1] if len(sys.argv) > 1 else os.path.join(here, '..', '..', 'data', 'companion8', 'journal.jsonl')
@@ -25,7 +25,7 @@ for c in cs:
 head = '''import LehmerTotient.Imports
 
 /-!
-# The completions of the eight-prime search (Section 6.4)
+# The completions of the eight-prime search (Section 7.4)
 
 The search finds 21 completions `s < p < q` in integers, that is, prefixes `p₁, …, p₅` and integers `s < p < q`
 with `A' p q + 1 = 2 B' (p - 1)(q - 1)`, where `A' = p₁ ⋯ p₅ s` and `B' = (p₁ - 1) ⋯ (p₅ - 1)(s - 1)`. Each is

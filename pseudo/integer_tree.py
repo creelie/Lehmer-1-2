@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Theorem 8.3 (i), first program: no odd integers 5 <= x_1 < ... < x_k, none divisible by 3, prime or not, satisfy
+"""Theorem 9.3 (i), first program: no odd integers 5 <= x_1 < ... < x_k, none divisible by 3, prime or not, satisfy
     x_1 ... x_k + eps = 2 (x_1 - 1) ... (x_k - 1)
 for 3 <= k <= KMAX (default 12), for eps = -1 and eps = +1.
 

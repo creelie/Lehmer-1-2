@@ -1,7 +1,7 @@
 import LehmerTotient.Imports
 
 /-!
-# The completions of the eight-prime search (Section 6.4)
+# The completions of the eight-prime search (Section 7.4)
 
 The search finds 21 completions `s < p < q` in integers, that is, prefixes `p₁, …, p₅` and integers `s < p < q`
 with `A' p q + 1 = 2 B' (p - 1)(q - 1)`, where `A' = p₁ ⋯ p₅ s` and `B' = (p₁ - 1) ⋯ (p₅ - 1)(s - 1)`. Each is

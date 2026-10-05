@@ -1,19 +1,19 @@
 import LehmerTotient.Basic
 
 /-!
-# Extensions of Fermat-type solutions (Theorem 1.5 (i), (ii))
+# Extensions of Fermat-type solutions (Theorem 1.6 (i), (ii))
 
 A Fermat-type solution is an `n` with `n + 1 = 2 φ(n)`.
 
-* `fermatType_mul_iff`: equation (6.1).
-* `one_prime_ext`: Theorem 1.5 (i).
-* `two_prime_ext`, `two_prime_ext_pos`, `two_prime_ext_of_factor`: Theorem 1.5 (ii).
+* `fermatType_mul_iff`: equation (7.1).
+* `one_prime_ext`: Theorem 1.6 (i).
+* `two_prime_ext`, `two_prime_ext_pos`, `two_prime_ext_of_factor`: Theorem 1.6 (ii).
 * `lucas_cert`: a Lucas primality certificate whose hypotheses the kernel checks by `decide`.
 * `mem_subprods_of_dvd`: the divisors of a product of primes are its subproducts.
-* `pseudo_solution`, `pseudo_solution_prune`: Proposition 8.1. Every Fermat-type `n₀` with prime
+* `pseudo_solution`, `pseudo_solution_prune`: Proposition 9.1. Every Fermat-type `n₀` with prime
   factors `p₁, …, p_m` gives the tuple `(p₁, …, p_m, n₀)` of integers with
   `x₁ ⋯ x_{m+1} - 1 = 2 ∏ (xᵢ - 1)` that passes the congruence prune.
-* `three_prime_ext`, `three_prime_identity`: Remark 6.1.
+* `three_prime_ext`, `three_prime_identity`: Remark 7.1.
 -/
 
 namespace LehmerTotient
@@ -44,7 +44,7 @@ theorem fermatType_mul_iff {n0 Q : ℕ} (h0 : FermatType n0) (hcop : Coprime n0 
       linear_combination -h + (φ Q : ℤ) * h0'
     exact_mod_cast this
 
-/-- Theorem 1.5 (i). -/
+/-- Theorem 1.6 (i). -/
 theorem one_prime_ext {n0 q : ℕ} (h0 : FermatType n0) (hq : q.Prime) (hqn : ¬ q ∣ n0) :
     FermatType (n0 * q) ↔ q = n0 + 2 := by
   have hcop : Coprime n0 q := ((Nat.Prime.coprime_iff_not_dvd hq).mpr hqn).symm
@@ -60,7 +60,7 @@ theorem one_prime_ext {n0 q : ℕ} (h0 : FermatType n0) (hq : q.Prime) (hqn : ¬
     push_cast
     ring
 
-/-- Theorem 1.5 (ii): the equation for two new primes. -/
+/-- Theorem 1.6 (ii): the equation for two new primes. -/
 theorem two_prime_ext {n0 p q : ℕ} (h0 : FermatType n0) (hp : p.Prime) (hq : q.Prime)
     (hpq : p < q) (hpn : ¬ p ∣ n0) (hqn : ¬ q ∣ n0) :
     FermatType (n0 * p * q) ↔ ((p : ℤ) - n0 - 1) * ((q : ℤ) - n0 - 1) = n0 ^ 2 + n0 + 1 := by
@@ -75,7 +75,7 @@ theorem two_prime_ext {n0 p q : ℕ} (h0 : FermatType n0) (hp : p.Prime) (hq : q
   push_cast [h1, h2]
   constructor <;> intro h <;> linear_combination -h
 
-/-- Both factors in Theorem 1.5 (ii) are positive. -/
+/-- Both factors in Theorem 1.6 (ii) are positive. -/
 theorem two_prime_ext_pos {n0 p q : ℕ} (hn0 : 1 ≤ n0) (hp : 2 ≤ p) (hpq : p < q)
     (h : ((p : ℤ) - n0 - 1) * ((q : ℤ) - n0 - 1) = n0 ^ 2 + n0 + 1) :
     n0 + 1 < p ∧ n0 + 1 < q := by
@@ -96,7 +96,7 @@ theorem two_prime_ext_pos {n0 p q : ℕ} (hn0 : 1 ≤ n0) (hp : 2 ≤ p) (hpq : 
   · have : (n0 : ℤ) + 1 < q := by linarith
     exact_mod_cast this
 
-/-- The converse of Theorem 1.5 (ii): a factorisation `n₀² + n₀ + 1 = d e` with both
+/-- The converse of Theorem 1.6 (ii): a factorisation `n₀² + n₀ + 1 = d e` with both
 `n₀ + 1 + d` and `n₀ + 1 + e` prime gives a Fermat-type solution. -/
 theorem two_prime_ext_of_factor {n0 d e : ℕ} (h0 : FermatType n0) (hde : d * e = n0 ^ 2 + n0 + 1)
     (hlt : d < e) (hp : (n0 + 1 + d).Prime) (hq : (n0 + 1 + e).Prime) :
@@ -207,10 +207,10 @@ theorem mem_subprods_of_dvd {d : ℕ} : ∀ ps : List ℕ, (∀ p ∈ ps, p.Prim
     · simp only [subprods, List.mem_append, List.mem_map]
       exact Or.inr ⟨d2, ih, rfl⟩
 
-/-! ### Pseudo-solutions (Proposition 8.1) -/
+/-! ### Pseudo-solutions (Proposition 9.1) -/
 
-/-- Proposition 8.1: every Fermat-type `n₀ = p₁ ⋯ p_m` gives the integers `(p₁, …, p_m, n₀)`,
-which satisfy Lehmer's product equation (8.1), `x₁ ⋯ x_{m+1} - 1 = 2 ∏ (xᵢ - 1)`, although `n₀` is
+/-- Proposition 9.1: every Fermat-type `n₀ = p₁ ⋯ p_m` gives the integers `(p₁, …, p_m, n₀)`,
+which satisfy Lehmer's product equation (9.1), `x₁ ⋯ x_{m+1} - 1 = 2 ∏ (xᵢ - 1)`, although `n₀` is
 not prime. -/
 theorem pseudo_solution {n0 : ℕ} (h0 : FermatType n0) (hsq : Squarefree n0) :
     ((n0 * n0 : ℕ) : ℤ) - 1 = 2 * (∏ p ∈ n0.primeFactors, ((p : ℤ) - 1)) * ((n0 : ℤ) - 1) := by
@@ -248,9 +248,9 @@ theorem pseudo_solution_prune {n0 p : ℕ} (h0 : FermatType n0) (hp : p ∈ n0.p
   · exact Nat.coprime_of_dvd fun r hr hrn =>
       prime_not_dvd_sub_one (ε := 1) (Or.inl rfl) hdvd hr hpp hrn hpn
 
-/-! ### Three new primes (Remark 6.1) -/
+/-! ### Three new primes (Remark 7.1) -/
 
-/-- For three new primes `s < p < q`, with `x = s - 1`, `y = p - 1`, `z = q - 1`, equation (6.1)
+/-- For three new primes `s < p < q`, with `x = s - 1`, `y = p - 1`, `z = q - 1`, equation (7.1)
 reads `x y z = n₀ (x y + y z + z x) + n₀ (x + y + z) + n₀ + 1`. -/
 theorem three_prime_ext {n0 s p q : ℕ} (h0 : FermatType n0) (hs : s.Prime) (hp : p.Prime)
     (hq : q.Prime) (hsp : s < p) (hpq : p < q) (hsn : ¬ s ∣ n0) (hpn : ¬ p ∣ n0)
@@ -274,7 +274,7 @@ theorem three_prime_ext {n0 s p q : ℕ} (h0 : FermatType n0) (hs : s.Prime) (hp
   push_cast [h1, h2, h3]
   constructor <;> intro h <;> linear_combination -h
 
-/-- Remark 6.1: for fixed `x` the equation is bilinear in `y` and `z`. -/
+/-- Remark 7.1: for fixed `x` the equation is bilinear in `y` and `z`. -/
 theorem three_prime_identity {n0 x y z : ℤ}
     (h : x * y * z = n0 * (x * y + y * z + z * x) + n0 * (x + y + z) + n0 + 1) :
     ((x - n0) * y - n0 * (x + 1)) * ((x - n0) * z - n0 * (x + 1)) =

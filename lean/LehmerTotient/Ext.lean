@@ -1,7 +1,7 @@
 import LehmerTotient.ExtBasic
 
 /-!
-# The Fermat-type solutions (Theorem 1.5 (iii))
+# The Fermat-type solutions (Theorem 1.6 (iii))
 
 `fermatList` holds the eight Fermat-type solutions in (1.3), `1, 3, 15, 255, 65535, 83623935,
 4294967295, 6992962672132095`.  `Reached` is the closure of `1` under one- and two-prime
@@ -53,7 +53,7 @@ theorem prime_83623937 : (83623937 : ℕ).Prime :=
 /-- The Fermat-type solutions in (1.3) other than `2`. -/
 def fermatList : List ℕ := [1, 3, 15, 255, 65535, 83623935, 4294967295, 6992962672132095]
 
-/-- The closure of `1` under the extensions of Theorem 1.5 (i) and (ii). -/
+/-- The closure of `1` under the extensions of Theorem 1.6 (i) and (ii). -/
 inductive Reached : ℕ → Prop
   | one : Reached 1
   | ext1 {n0 q : ℕ} : Reached n0 → q.Prime → ¬ q ∣ n0 → FermatType (n0 * q) → Reached (n0 * q)
@@ -417,7 +417,7 @@ theorem closed_two : ∀ n0 ∈ fermatList, ∀ p q, p.Prime → q.Prime → p <
     rw [show subprods [13, 37, 109, 30802180789, 30280941915943441] = [1, 30280941915943441, 30802180789, 932719047356097911180754949, 109, 3300622668837835069, 3357437706001, 101666376161814672318702289441, 37, 1120394850889907317, 1139680689193, 34510604752175622713687933113, 4033, 122123038746999897553, 124225195122037, 3761655917987142875791984709317, 13, 393652244907264733, 400428350257, 12125347615629272845349814337, 1417, 42908094694891855897, 43646690178013, 1321662890103590740143129762733, 481, 14565133061568795121, 14815848959509, 448637861778283095277943130469, 52429, 1587599503710998668189, 1614927536586481, 48901526933832857385295801221121] by decide] at hd
     exact closed_two_6992962672132095 d hd e (by norm_num [hde]) hdlt hp hq
 
-/-- Theorem 1.5 (iii): the closure of `1` under one- and two-prime extensions consists of
+/-- Theorem 1.6 (iii): the closure of `1` under one- and two-prime extensions consists of
 exactly the eight Fermat-type solutions in `fermatList`. -/
 theorem reached_iff (n : ℕ) : Reached n ↔ n ∈ fermatList := by
   constructor

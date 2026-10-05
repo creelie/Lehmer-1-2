@@ -12,11 +12,11 @@
   colormap={warm}{rgb255=(253,226,190) rgb255=(232,120,60) rgb255=(170,40,40)},
   legend image post style={line width=0.8pt}, legend style={at={(0.5,1.02)}, anchor=south, legend columns=2, draw=none, font=\small,
     /tikz/every even column/.append style={column sep=14pt}}]
-% Theorem 1.2 base b(a+1)/d
+% base b(a+1)/d of the sharp product lemma
 \addplot3[surf, domain=0:3, y domain=0:3, samples=25, samples y=25,
   shader=faceted interp, faceted color=black!25, line width=0.1pt, point meta=z]
   {ln((10^x+10^y)*(10^x+1)/10^y)/ln(2)};
-\addlegendentry{Theorem~1.2, $b(a+1)/d$}
+\addlegendentry{sharp form, $b(a+1)/d$}
 % Cook--Nielsen base (a+1)^2: drawn as a wire mesh above the solid sheet
 \addplot3[mesh, domain=0:3, y domain=0:3, samples=19, samples y=19,
   draw=blue!60!black, line width=0.35pt, draw opacity=0.75]

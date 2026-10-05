@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Theorem 8.3 (ii), second program: an independent check of the entries below the prime prefixes.
+"""Theorem 9.3 (ii), second program: an independent check of the entries below the prime prefixes.
 
 For each prime prefix x_1 < ... < x_j (j = k-3, p_1 >= 5; with --with3, p_1 >= 3) of the search of Theorems 1.1 and
-1.3 (lastthree.frontier), every odd t with 3 not dividing t (any t with --with3) and
+1.4 (lastthree.frontier), every odd t with 3 not dividing t (any t with --with3) and
     t > x_j,  c t - 2B >= 1,  t^3 A >= 2B (t-1)^3
 (these follow from the equation for x_j < t < p < q, and do not use the paper's interval)
 and gcd(t, x_i - 1) = gcd(x_i, t - 1) = 1, we FACTOR  N = 2 A_t B_t + eps c_t  completely with PARI/GP, prove every

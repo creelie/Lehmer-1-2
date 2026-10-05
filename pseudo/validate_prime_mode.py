@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validation of tail3 against the recorded case k = 15 of Theorems 1.1 and 1.3: in prime mode (mode 0) on the 54,985
+"""Validation of tail3 against the recorded case k = 15 of Theorems 1.1 and 1.4: in prime mode (mode 0) on the 54,985
 prefixes of data/k15/frontier.json it must treat the same 33,865,004 values of p_13 as the three programs of the
 repository (logs/k15_run_*.log) and find no completion.
 usage: validate_prime_mode.py eps"""

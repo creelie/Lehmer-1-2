@@ -1,16 +1,17 @@
-"""Exact search of Section 5 of the note (the tree T_s, rules R1-R4), behind the
-bound n < 2^(2^(k-s)) for Lehmer numbers.  Usage: python3 search.py 7
+"""Exact search of Section 6.3 of the paper (the tree T_s, rules R1-R4), behind the
+bound n < 2^(2^(k-s)) for Lehmer numbers (Theorem 1.2).  Usage: python3 search.py 7
 
 Let n = p_1 ... p_k (p_1 < ... < p_k odd primes) with n - 1 = M phi(n).
 Write P_j = p_1...p_j, F_j = (p_1-1)...(p_j-1) = phi(P_j), r_j = P_j/F_j, and
-t_i = 2^(2^(i-s)) for i >= s, t_i = 1 for i < s.  Facts used (Lemma 2.1):
+t_i = 2^(2^(i-s)) for i >= s, t_i = 1 for i < s.  (In the paper these are A_j, B_j, P_j
+and theta_i, and B_j(q) below is Gamma_j(q).)  Facts used (Lemmas 2.1, 2.2 and 6.1):
   (C) p does not divide q - 1 for p, q | n;
   (R) r_j < M for j < k, and r_k = M + 1/phi(n) > M;
   (T) if 3 | n then M = 1 (mod 3), so M >= 4; in all cases M >= 2;
   (L) p_k = (M F_{k-1} - 1)/(M F_{k-1} - P_{k-1}).
 A Lehmer number is s-heavy if P_j >= t_j (H1) and V_j >= t_{j+1} (H2) for all
 j <= k-1, where V_j = M F_j (P_j + 1)/(M F_j - P_j).  The search visits every
-prefix of an s-heavy Lehmer number (Proposition 5.1):
+prefix of an s-heavy Lehmer number (Proposition 6.13):
   R1  ratio test: discard the prefix if r_j * B_j(q_1) <= mu, the least admissible M;
   R2  deficit test: discard the prefix if V_j(mu) < t_{j+1};
   R3  last prime: test (L) for every admissible M in [mu, r_j (p_j+2)/(p_j+1));
