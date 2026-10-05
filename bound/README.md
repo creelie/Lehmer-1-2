@@ -23,7 +23,7 @@ programs write P_j, F_j, r_j and t_i for the quantities A_j, B_j, P_j and θ_i o
 | file | purpose | runtime |
 |---|---|---|
 | `independent.py` | Proposition 2.5(i), table of primes in memory, floating-point bounds with an exact rational fallback; `python3 independent.py 2999999/1000000 16000` (90,320 nodes, depth 46) | 10 min |
-| `independent.gp` | the same search written separately in PARI/GP; `printf 'K = 16000; V = 2999999/1000000; LIM = 3*10^6\n\\r independent.gp\n' \| gp -q` | see `logs/` |
+| `independent.gp` | the same search written separately in PARI/GP; `printf 'K = 16000; V = 2999999/1000000; LIM = 3*10^6\n\\r independent.gp\n' \| gp -q` | 78 min |
 | `independent_stream.py` | Proposition 2.5(ii) and (iii): each node streams once through a table of the primes p ≡ 2 (mod 3) up to 2·10^10; `python3 independent_stream.py 2e10 333333/125000 100000000 --cache table.npz` for (ii), `333333/100000` for (iii) (9 and 2 nodes) | 11 min to build the table, then 1.5 min and 15 s |
 | `independent_stream.gp` | the same searches written separately in PARI/GP with `forprime`; `printf 'K = 10^8; V = 333333/125000; X = 2*10^10\n\\r independent_stream.gp\n' \| gp -q` | 40 min for (ii), 8.5 min for (iii) |
 | `search.py` | the search of Section 6.3 (tree T_s, rules R1–R4), exact rationals; `python3 search.py 7` | 25 s for s = 7 |
