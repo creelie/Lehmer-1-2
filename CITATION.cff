@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "Code, data and Lean proofs for Lehmer's totient problem with fewer than sixteen prime factors"
-version: 2.3.2
+version: 2.4.0
 authors:
   - family-names: Mandal
     given-names: Priyabrata
