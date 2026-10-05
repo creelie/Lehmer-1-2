@@ -70,8 +70,8 @@ hundred million if it is divisible by three, and at most one binary
 digit for every 128 subsets of its prime factors. For the
 companion problem, in which the totient divides one more than the
 number, we find every solution with at most eight prime factors and
-show that a solution prime to three has at least sixteen. Except for
-two, the known solutions of the companion problem are exactly the
+show that a solution prime to three has at least sixteen. The known
+solutions of the companion problem other than 2 are exactly the
 numbers obtained from one by adjoining one or two primes at a time.
 \end{abstract}
 
@@ -106,15 +106,16 @@ solutions
   1,\ 2,\ 3,\ 15,\ 255,\ 65535,\ 83623935,\ 4294967295,\
   6992962672132095,
 \end{equation}
-and no others are known. Apart from $1$, $2$ and $3$, each of them
-satisfies $n+1=2\varphi(n)$. Four of them are products of consecutive
-Fermat primes\footnote{The Fermat numbers $F_i=2^{2^i}+1$ are prime
-for $0\le i\le4$, and $F_0F_1\cdots F_{r-1}=2^{2^r}-1$. For $r\le5$
+and no others are known. Except for $2$, each of them satisfies
+$n+1=2\varphi(n)$. Five of them are products of the first Fermat
+primes\footnote{The Fermat numbers $F_i=2^{2^i}+1$ are prime
+for $0\le i\le4$, and $F_0F_1\cdots F_{r-1}=2^{2^r}-1$. For $1\le r\le5$
 the number $n=2^{2^r}-1$ is therefore a product of primes $F_i$, and
 $\varphi(n)=2^{1+2+\dots+2^{r-1}}=2^{2^r-1}=(n+1)/2$. The chain breaks
-at $r=6$ because $F_5=641\cdot6700417$, as Euler found.}, namely $15=3\cdot5$,
+at $r=6$ because $F_5=641\cdot6700417$, as Euler found.}, namely $3$, $15=3\cdot5$,
 $255=3\cdot5\cdot17$, $65535=3\cdot5\cdot17\cdot257$ and
-$4294967295=3\cdot5\cdot17\cdot257\cdot65537$. The other two are
+$4294967295=3\cdot5\cdot17\cdot257\cdot65537$. Apart from $1$ and
+$2$, the other two are
 $83623935=3\cdot5\cdot17\cdot353\cdot929$ and
 $6992962672132095=83623935\cdot83623937$. These numbers form sequence
 A203966 of the OEIS \cite{OEIS}.
@@ -484,8 +485,8 @@ factors of a solution form an independent set, whereas the proofs above
 used only that the $i$-th smallest of them is at least the $i$-th prime
 of a given list. Independence is a much stronger condition. Each prime
 $q$ of the set excludes the primes congruent to $1$ modulo $q$, which
-by the prime number theorem for arithmetic progressions form a
-proportion $1/(q-1)$ of the larger primes, and so the product of
+make up the proportion $1/(q-1)$ of all primes by the prime number
+theorem for arithmetic progressions, and so the product of
 $p/(p-1)$ over an independent set grows far more slowly with its size
 than the product over the first primes. Choosing at each step the
 least prime from $5$ on that the primes already chosen allow gives the
@@ -558,16 +559,23 @@ written independently, one of them in PARI/GP \cite{PARI}, carry out
 the three searches and create the same sets. For (ii) and (iii), which
 involve primes up to $2\cdot10^{10}$, they run through the primes once
 for each set created. The products are handled through their
-logarithms. In double precision each term $\log\bigl(q/(q-1)\bigr)$ is
-computed with an absolute error below $3\cdot10^{-16}$, and a sum of
-$N$ terms with total below $\log4$ adds at most $N\cdot2^{-53}\log4$
-in rounding; for the at most $2\cdot10^8$ terms of any sum here the
-error is therefore below $10^{-7}$. The PARI/GP programs work with at
-least $38$ significant digits. A set is discarded, or a candidate
-passed over, only when exact rational arithmetic confirms it or when
-the logarithm of its bound lies below $\log V$ by more than $10^{-7}$
-in double precision, or by more than $10^{-20}$ in PARI/GP. Rounding
-can therefore add sets to the search, but never remove one.
+logarithms, and every bound is a sum of a few terms
+$\log\bigl(q/(q-1)\bigr)$ and a difference of two running sums of
+such terms. Every running sum here stays below $4$; it has fewer than
+$2\cdot10^6$ terms in case (i), where the primes below $3\cdot10^7$
+suffice, and fewer than $1.1\cdot10^8$ in cases (ii) and (iii). In
+double precision each term is computed with an absolute error below
+$3\cdot10^{-16}$ and each addition with one below $2^{-52}$, so a
+bound carries an error below $10^{-8}$ in case (i) and below
+$2\cdot10^{-7}$ in cases (ii) and (iii). The PARI/GP programs work
+with $57$ significant digits in case (i) and $38$ in cases (ii) and
+(iii), and their errors are below $10^{-45}$ and $10^{-25}$. A set is
+discarded, or a candidate passed over, only when exact rational
+arithmetic confirms it or when the logarithm of its bound lies below
+$\log V$ by more than a margin that exceeds these errors: $10^{-7}$
+in case (i) and $10^{-6}$ in cases (ii) and (iii) in double
+precision, and $10^{-40}$ and $10^{-20}$ in PARI/GP. Rounding can
+therefore add sets to the search, but never remove one.
 \end{proof}
 
 The search for (i) grows quickly with $K$: it creates $2567$ sets for
@@ -2174,7 +2182,9 @@ Let $n>3$ satisfy \eqref{eq:second} with $3\nmid n$ and
 $\omega(n)\le15$. Then $n=p_1\cdots p_k$ with $5\le p_1$, and
 $n+1=2\varphi(n)$ by Lemma~\ref{lem:Mtwo}. For $k\le6$ the product
 $\prod p_i/(p_i-1)$ is at most $1.9490\ldots$, whereas
-\eqref{eq:excess} requires it to be $2-1/\varphi(n)>1.99$. For
+\eqref{eq:excess} requires it to be $2-1/\varphi(n)$. For $k\ge2$
+this is at least $2-\frac1{24}>1.95$, as $\varphi(n)\ge4\cdot6$, and
+for $k=1$ it is at least $\frac74$, whereas $p_1/(p_1-1)\le\frac54$. For
 $7\le k\le14$ we ran both implementations with $\varepsilon=+1$ and
 $p_{\min}=5$. Neither found a solution, and the node counts, the
 numbers of terminal nodes and the largest widths coincide with those
@@ -2834,9 +2844,10 @@ $\varepsilon\equiv(-1)^{\nu}M$. For $M=2$ this is
 $\varepsilon\equiv(-1)^{\nu+1}$.
 \end{proof}
 
-For $\nu=1$ this is the congruence of Lemma~\ref{lem:three}. Each
-pseudo-solution of Proposition~\ref{prop:pseudo} has $\nu=2$, since $3$
-divides both $p_1$ and $n_0$, whereas the prime factors of $n$ give
+For $\nu=1$ this is the congruence of Lemma~\ref{lem:three}. The
+pseudo-solutions that Proposition~\ref{prop:pseudo} builds from the
+solutions in \eqref{eq:known} have $\nu=2$, since $3$ divides both
+$p_1$ and $n_0$, whereas the prime factors of $n$ give
 $\nu\le1$. The fact that $3$ divides at most one prime factor therefore
 removes all of them, and by Lemma~\ref{lem:parity} a pseudo-solution
 of Lehmer's equation with pairwise coprime entries has $\nu=0$. We call
@@ -2927,7 +2938,9 @@ are the six-entry tuples
   (3,5,17,395,1059,2303),\quad (3,5,33,53,69,8343),
 \end{gather*}
 each of which satisfies $x_1\cdots x_6-1=2(x_1-1)\cdots(x_6-1)$, as
-direct multiplication shows. Together with $(3,3)$, $(3,3,3,3)$ and
+direct multiplication shows. None of these six appears in \cite{MS25},
+so the count of ten in \cite[Theorem~1.2]{MS25} is incomplete.
+Together with $(3,3)$, $(3,3,3,3)$ and
 $(5,5,9,9,89)$, which have repeated entries, there are at least fifteen
 odd spoof Lehmer factorisations with at most six entries.
 
@@ -3230,14 +3243,10 @@ $43,\,317,\,331,\,953,\,166357$ & 1 & $43,\,139,\,47819,\,1145259251,\,653813324
 \end{table}
 
 
-\section*{Acknowledgment}
-The authors used Claude, an AI system developed by Anthropic, for
-assistance with the proofs, the programs and the manuscript. The
-authors checked all of it and take full responsibility for the
-contents of this paper.
-
 \section*{Data availability}
-The programs that carry out the searches, the threshold computations
+Deep Bhattacharjee wrote and ran the programs of this paper, in
+Python, C, PARI/GP and shell, with the assistance of Claude Code
+(Anthropic). The programs that carry out the searches, the threshold computations
 and the checks of Section~\ref{sec:checks}, their recorded output, the
 factorisations of the fifteen integers of Table~\ref{tab:hard}, the
 logs of the three-prime searches of Section~\ref{sec:fifteen}, the
