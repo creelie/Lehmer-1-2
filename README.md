@@ -5,6 +5,13 @@ Code, data and Lean proofs for the paper
 > P. Mandal, D. Bhattacharjee, U. Bhattacharya,
 > *Lehmer's totient problem with fewer than sixteen prime factors*.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23171399.svg)](https://doi.org/10.5281/zenodo.23171399)
+
+Archived at Zenodo. The latest release, v2.5.2, is
+[doi:10.5281/zenodo.23171399](https://doi.org/10.5281/zenodo.23171399). The concept DOI
+[doi:10.5281/zenodo.23072268](https://doi.org/10.5281/zenodo.23072268), which the paper cites, covers every version and
+resolves to the newest.
+
 What the computations establish (see the paper for the proofs they complete):
 
 1. Every composite n with φ(n) | n−1 has at least 16 distinct prime factors; at least 16001 if (n−1)/φ(n) ≥ 3,
