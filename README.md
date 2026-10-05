@@ -26,10 +26,16 @@ What the computations establish (see the paper for the proofs they complete):
    Some entries are composite, so the primality of the factors has to enter beyond the prime 3.
 9. A composite n with φ(n) | n−1 and k distinct prime factors satisfies n < 2^(2^(k−7)); moreover
    n < 2^(2^(k−15981)) if (n−1)/φ(n) ≥ 3, and n < 2^(2^(k−10^8)) if 3 | n (`bound/`, Theorem 1.2 of the paper).
+10. With three entries left, x₁⋯x_k ± 1 = 2∏(xᵢ − 1) is never a product of linear forms plus a constant, as it is
+   with two. An entry x with a^(A±1) ≡ 1 (mod x) for every a prime to x, where A = x₁⋯x_k, is squarefree and
+   q − 1 | A ± 1 for every prime q | x; for pairwise coprime entries and the sign −1, A is then a Carmichael number
+   (Section 9.7). The tuples of statement 8 all contain the entry 25 and fail this test.
 
-The lemmas and propositions behind 1–4 and 7, and statements 5, 6 and 8 in full, are proved in Lean 4 in `lean/`
-(see `lean/README.md`); for 2 and 7 this includes the reduction, the identities and the sieve of the eight-prime
-program, and the 21 completions it finds; for 4 it includes the bounds 33 and 1540 that the products alone give.
+The lemmas and propositions behind 1–4, 7 and 9, and statements 5, 6, 8 and 10 in full, are proved in Lean 4 in
+`lean/` (see `lean/README.md`); for 2 and 7 this includes the reduction, the identities and the sieve of the
+eight-prime program, and the 21 completions it finds; for 4 it includes the bounds 33 and 1540 that the products
+alone give; for 9 it includes Theorem 6.2 with its equality case, the lemma of Cook and Nielsen, and the step from
+the product lemma to the size of a solution (a solution that is not s-heavy has n < 2^(2^(k−s)), Corollary 6.10).
 The exhaustive searches are checked by independent programs, not formalised.
 
 Neither Lehmer's totient conjecture nor the question whether φ(n) | n+1 has further solutions is settled.

@@ -12,3 +12,5 @@ import LehmerTotient.PseudoData
 import LehmerTotient.LehmerExt
 import LehmerTotient.Eight
 import LehmerTotient.EightData
+import LehmerTotient.Product
+import LehmerTotient.Structure
