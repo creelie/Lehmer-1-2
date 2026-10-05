@@ -273,7 +273,13 @@ than that of Lemma~\ref{lem:three} can exclude them
 with the sign $+1$ and every $k\ge26$ with the sign $-1$
 (Theorem~\ref{thm:pseudo25}), so for Lehmer's equation, and for the
 companion equation with $3\nmid n$, a proof for all $k$ has to use the
-primality of entries other than $3$.
+primality of entries other than $3$. The section ends with two facts
+about the structure of the problem: the last three primes, unlike the
+last two, cannot be read off from the divisors of a single integer
+(Proposition~\ref{prop:threeentries}), and an entry that passes
+Fermat's test for the exponent $n+\varepsilon$ is squarefree and
+satisfies Korselt's condition (Lemma~\ref{lem:korselt}), which the
+tuples of Theorem~\ref{thm:pseudo25} violate.
 
 \subsection{Method}
 The bound $\omega(n)\ge16$ of Theorem~\ref{thm:first} and
@@ -2710,7 +2716,7 @@ of the companion equation in $6.9$ hours. This section explains why
 they do not reach the next cases, and which properties of the primes
 any further progress has to use.
 
-\subsection{Lehmer's equation with sixteen primes}
+\subsection{Lehmer's equation with sixteen primes}\label{sec:sixteen}
 By Theorem~\ref{thm:size}(i) a solution with sixteen prime factors
 would lie below $2^{512}$. For $k=16$ the traversal down to depth $12$ is again a matter of
 seconds. It produces $90092$ prefixes with four primes still to
@@ -2987,7 +2993,7 @@ the equation $Aq+\varepsilon=2B(q-1)$ gives $q=(2B+\varepsilon)/C$
 with $C=2B-A$, so $C$ must divide $2B+\varepsilon$, or equivalently
 $A+\varepsilon$, and this modulus depends on the prefix.
 
-\subsection{What a proof for all \texorpdfstring{$k$}{k} has to use}
+\subsection{What a proof for all \texorpdfstring{$k$}{k} has to use}\label{sec:allk}
 In both cases the obstruction comes from prefixes whose product
 $\prod p/(p-1)$ is very close to $2$. Such a prefix forces the next
 prime to be large and leaves it a long interval. For \eqref{eq:second} the
@@ -3173,6 +3179,139 @@ one exists. The smallest $k$ with a pseudo-solution prime to $3$ lies
 between $14$ and $25$ for $\varepsilon=+1$, and between $14$ and $26$
 for $\varepsilon=-1$.
 
+\subsection{Descent, three entries and Korselt's criterion}\label{sec:structure}
+Equation~\eqref{eq:product} has degree one in each entry. If all
+entries but $x$ are fixed, and $A'$ and $B'$ are the products of the
+other entries and of the numbers $x_j-1$ for them, then the equation
+reads
+\[
+  x\,(2B'-A')=2B'+\varepsilon ,
+\]
+so the remaining entry is determined by the others, and it exists
+exactly when $2B'-A'$ is positive and divides $2B'+\varepsilon$. This
+is the step that completes a prefix in the search above. It also means
+that the equation has no counterpart of the involution behind descent
+arguments for equations of degree two in each variable.\footnote{For
+Markov's equation $x^2+y^2+z^2=3xyz$, fixing $y$ and $z$ leaves a
+quadratic equation in $x$ with the roots $x$ and $3yz-x$. Replacing the
+largest entry of a solution by the other root gives a smaller
+solution, and every solution descends in this way to $(1,1,1)$.}
+Fixing $k-1$ entries leaves at most one solution, so there is no
+second root to replace an entry with, and a descent of this kind has
+nothing to act on.
+
+The last two entries are easier to find than the last three for a
+structural reason. By Proposition~\ref{prop:last}, the equation for the
+last two entries after a prefix with products $A$ and $B$ is a product
+of two linear forms set equal to the constant $2AB+\varepsilon C$, and
+its solutions come from the divisors of that integer. With three
+entries left this never happens.
+
+\begin{proposition}\label{prop:threeentries}
+Let $A$ and $B$ be positive integers with $C=2B-A>0$, and let
+\[
+  F(x,y,z)=Axyz+\varepsilon-2B(x-1)(y-1)(z-1),
+\]
+so that $x,y,z$ complete a prefix with products $A$ and $B$ exactly
+when $F(x,y,z)=0$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item With $u=Cx-2B$, $v=Cy-2B$ and $w=Cz-2B$,
+\[
+  uvw-2AB(u+v+w)=12AB^2-8B^3+(2B+\varepsilon)C^2-C^2F(x,y,z).
+\]
+\item There are no linear polynomials $L_1,L_2,L_3$ in $x,y,z$ with
+rational coefficients and no rational number $\kappa$ with
+$F=L_1L_2L_3+\kappa$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Write $e_1=x+y+z$ and $e_2=xy+yz+zx$. Expanding,
+$F=-Cxyz+2Be_2-2Be_1+2B+\varepsilon$, and
+\[
+  uvw=C^3xyz-2BC^2e_2+4B^2Ce_1-8B^3,\qquad u+v+w=Ce_1-6B .
+\]
+Since $4B^2C-2ABC=2BC^2$, the left side of (i) equals
+$C^2(Cxyz-2Be_2+2Be_1)-8B^3+12AB^2$, and
+$Cxyz-2Be_2+2Be_1=2B+\varepsilon-F$. This proves (i).
+
+For (ii), suppose that $F=L_1L_2L_3+\kappa$. The terms of degree three
+give $\ell_1\ell_2\ell_3=-Cxyz$ for the homogeneous linear parts
+$\ell_i$ of the $L_i$, and by unique factorisation each $\ell_i$ is a
+rational multiple of one of $x$, $y$, $z$, a different one for each
+$i$. So $F=\alpha(x+r)(y+s)(z+t)+\kappa$ with rational $\alpha,r,s,t$.
+Comparing the coefficients of $xyz$, of $xy$, $yz$, $zx$, and of $x$
+gives $\alpha=-C$, then $\alpha t=\alpha r=\alpha s=2B$, and finally
+$\alpha st=-2B$. Hence $s=t=-2B/C$ and $-4B^2/C=-2B$, that is,
+$C=2B$ and $A=0$, which is impossible.
+\end{proof}
+
+Part (i) shows what takes the place of the hyperbola
+\eqref{eq:hyperbola}: the product $uvw$ is no longer a fixed integer but
+moves with $u+v+w$, and by (ii) no choice of linear forms turns it into
+one. The divisors of a single integer therefore do not give the last
+three primes. This is why, for $k=16$, every admissible $p_{14}$ has to
+be enumerated in Section~\ref{sec:sixteen}, and why a method that
+treats a whole range of primes at once has to rest on something other
+than divisors.
+
+Primality enters the search only through its primality tests. Let
+$(x_1,\dots,x_k)$ satisfy \eqref{eq:product} and put
+$A=x_1\cdots x_k$. Every $x_i-1$ divides
+$2\prod_j(x_j-1)=A+\varepsilon$, so by Fermat's little theorem a prime
+entry $x_i$ satisfies $a^{A+\varepsilon}\equiv1\pmod{x_i}$ for every
+integer $a$ prime to $x_i$. For a composite entry this is a real
+condition.
+
+\begin{lemma}\label{lem:korselt}
+Let $(x_1,\dots,x_k)$ satisfy \eqref{eq:product}, put
+$A=x_1\cdots x_k$, and let $x$ be an entry with
+$a^{A+\varepsilon}\equiv1\pmod x$ for every integer $a$ prime to $x$.
+Then $x$ is squarefree, and $q-1\mid A+\varepsilon$ for every prime
+$q\mid x$. If the entries are pairwise coprime and each of them has
+this property, then $A$ is squarefree and $q-1\mid A+\varepsilon$ for
+every prime $q\mid A$; for $\varepsilon=-1$ and $k\ge2$ this says, by
+Korselt's criterion, that $A$ is a Carmichael number.
+\end{lemma}
+
+\begin{proof}
+Since $x\mid A$ and $\gcd(A,A+\varepsilon)=1$, no prime factor of $x$
+divides $A+\varepsilon$. Let $q$ be a prime factor of $x$. If
+$q^2\mid x$, the Chinese remainder theorem gives an integer $a$ prime
+to $x$ with $a\equiv1+q\pmod{q^2}$, and then
+$1\equiv a^{A+\varepsilon}\equiv1+(A+\varepsilon)q\pmod{q^2}$, so
+$q\mid A+\varepsilon$, which is impossible. Hence $x$ is squarefree.
+Taking instead for $a$ an integer prime to $x$ that is a primitive root
+modulo $q$ gives $q-1\mid A+\varepsilon$. For pairwise coprime entries
+the prime factors of $A$ are those of the entries, each to the first
+power, which gives the last statement.
+\end{proof}
+
+The tuples of Theorem~\ref{thm:pseudo25} lack the property. In the
+tuple with $25$ entries the entry $25$ is not squarefree, the
+entries $147563=13\cdot11351$ and $45571237=17\cdot2680661$ have the
+prime factors $11351$ and $2680661$, for which $q-1$ does not divide
+$A+1$, and each of the fourteen larger entries, all of them composite,
+has $2^{A+1}\not\equiv1\pmod{x_i}$. Of the composite entries only
+$119=7\cdot17$ has the property, as $6$ and $16$ divide $A+1$. For the
+pseudo-solution $(3,5,17,257,65537,2^{32}+1)$ of the companion
+equation, where $A+1=2^{64}$, the property fails at the last entry,
+since $2^{32}+1=641\cdot6700417$ and $640\nmid2^{64}$; this is the
+factorisation that excludes it in Section~\ref{sec:allk}.
+
+Lemma~\ref{lem:korselt} therefore suggests a weaker hypothesis than the
+one of Section~\ref{sec:allk}: that \eqref{eq:product} has no solution
+in pairwise coprime odd integers prime to $3$, each of which satisfies
+$a^{A+\varepsilon}\equiv1\pmod{x_i}$ for every $a$ prime to $x_i$.
+Prime entries have both properties, so this hypothesis still implies
+that neither \eqref{eq:first} nor \eqref{eq:second} has a solution
+with $M=2$ and $3\nmid n$. Unlike the hypothesis of
+Section~\ref{sec:allk}, no tuple in this section contradicts it:
+those of Propositions~\ref{prop:pseudo} and~\ref{prop:lehmerext} and
+of Theorem~\ref{thm:pseudo25}, and the spoof factorisations above, all
+have two entries with a common factor or contain the entry $3$. For $k\le13$ it holds by
+Theorem~\ref{thm:pseudo3}; for larger $k$ it is open.
+
 
 
 \appendix
@@ -3254,7 +3393,8 @@ program and the journal of the eight-prime search of
 Section~\ref{sec:eight}, the programs of Sections~\ref{sec:indep}
 and~\ref{sec:sizesearch} and their output, the programs and logs
 of Section~\ref{sec:walls}, the entries of the tuple of
-Theorem~\ref{thm:pseudo25} and the sources of this paper are archived
+Theorem~\ref{thm:pseudo25} with the check of Lemma~\ref{lem:korselt}
+on them, and the sources of this paper are archived
 at Zenodo, \href{https://doi.org/\zenododoi}{doi:\zenododoi}.
 
 \begin{thebibliography}{99}

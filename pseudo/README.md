@@ -1,6 +1,6 @@
 # Pseudo-solutions prime to 3
 
-Programs and logs for Section 9 of the paper: Theorems 9.3 and 9.5 and the first-moment count of Section 9.6. The Lean
+Programs and logs for Section 9 of the paper: Theorems 9.3 and 9.5, the first-moment count of Section 9.6 and the check of Lemma 9.8 in Section 9.7. The Lean
 proofs of Lemma 9.2 and Proposition 9.4 are in `lean/LehmerTotient/Barrier.lean`.
 
 The equation is
@@ -39,6 +39,7 @@ PATH) for the two `pari_*` programs. Build the C program first, in this director
 | `descent_coprime.py` | `descent.py` restricted to pairwise coprime entries: every child must also be prime to every earlier entry and completable by one more entry, and the threshold keeps the beam full; started from the 13190 prefixes of `coprime_tree.py 15`, the sum of 1/c falls by about a factor 0.8 per step and no completion occurs in twelve steps (Section 9) | 3 min on 3 cores |
 | `companion_k25.txt` | a pseudo-solution prime to 3 with 25 entries and eps = +1, one entry per line | – |
 | `check_tuple.py`, `check_gp.sh` | independent checks of a pseudo-solution in Python and in PARI/GP: equation, order, oddness, 3 divides no entry, all gcd(x_i, x_j - 1) = 1 | seconds |
+| `fermat_k25.py` | for every entry x of `companion_k25.txt`, whether 2^(A+1) = 1 (mod x), with A the product of the entries; for the entries below 10^13 also the factorisation, squarefreeness and the primes q with q - 1 not dividing A + 1 (Lemma 9.8) | 20 min |
 | `logs/` | recorded output | |
 
 ## Commands of the recorded runs
@@ -63,6 +64,7 @@ Run from this directory.
                                                        (the log is kept up to step 14, where the tuple was found)
     python3 coprime_tree.py 15 > logs/coprime_tree_k15.log; python3 descent_coprime.py --N 1000000 --gens 12 --workers 3   > logs/descent_coprime.log
     python3 check_tuple.py companion_k25.txt 1; ./check_gp.sh companion_k25.txt 1
+    python3 fermat_k25.py companion_k25.txt > logs/fermat_k25.log
 
 The first-moment counts are heuristic: they estimate how many solutions to expect, and prove nothing.
 
@@ -78,3 +80,8 @@ The Lean files `PseudoExtend.lean` and `PseudoData.lean` check this tuple in the
 appending 2B + 1 keeps eps = +1, and appending A gives eps = -1. So there are pseudo-solutions prime to 3 with
 eps = +1 for every k >= 25 and with eps = -1 for every k >= 26. Some entries are composite (25, 119 = 7 * 17), so
 none of these is a solution of Lehmer's problem or of the companion problem.
+
+By Lemma 9.8, an entry x with a^(A+eps) = 1 (mod x) for every a prime to x, which every prime entry satisfies, is squarefree
+with q - 1 dividing A + eps for each prime q | x. `logs/fermat_k25.log` shows that this fails for every composite entry of
+`companion_k25.txt` except 119: 25 is not squarefree, 147563 = 13 * 11351 and 45571237 = 17 * 2680661 fail at 11351 and
+2680661, and the fourteen larger entries have 2^(A+1) != 1 (mod x).
