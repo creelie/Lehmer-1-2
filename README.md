@@ -82,6 +82,7 @@ factors nothing, so its negative answers rely on no primality test.
 | `data/k15/stats.json` | output of `k15_stats.py` | |
 | `pseudo/` | Section 8: pseudo-solutions prime to 3 (Theorem 8.3) and the first-moment count; see `pseudo/README.md` | |
 | `logs/` | recorded output of every script | |
+| `bound/` | the companion note *Sharper bounds in Lehmer's totient problem* (n < 2^(2^(k−7))): two independent search programs, logs and LaTeX source; see `bound/README.md` | under a minute |
 | `lean/` | Lean 4 formalisation (Lean and Mathlib v4.34.1); `lake build`, then `lake env lean Check.lean` for the axiom audit | ~1 min with the Mathlib cache |
 
 Run any script from the repository root, for example `python3 first_equation.py` or
