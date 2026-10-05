@@ -7,11 +7,13 @@ Code, data and Lean proofs for the paper
 
 What the computations establish (see the paper for the proofs they complete):
 
-1. Every composite n with φ(n) | n−1 has at least 16 distinct prime factors.
+1. Every composite n with φ(n) | n−1 has at least 16 distinct prime factors; at least 16001 if (n−1)/φ(n) ≥ 3,
+   and more than 10^8 if 3 | n (`bound/`, Proposition 2.5 of the paper).
 2. The solutions of φ(n) | n+1 with at most 8 prime factors are exactly
    1, 2, 3, 15, 255, 65535, 83623935, 4294967295, 6992962672132095 (`companion8/` for eight prime factors).
 3. Every solution of φ(n) | n+1 with n > 3 and 3 ∤ n has at least 16 distinct prime factors.
-4. Every solution of φ(n) | n+1 with n > 3 and (n+1)/φ(n) ≥ 3 has at least 33 prime factors (1540 if 3 | n).
+4. Every solution of φ(n) | n+1 with n > 3 and (n+1)/φ(n) ≥ 3 has at least 16001 prime factors (more than 10^8
+   if 3 | n).
 5. The Fermat-type solutions (n+1 = 2φ(n)) are exactly the closure of 1 under one- and two-prime extensions.
 6. Every Fermat-type n₀ = p₁⋯p_m gives a pseudo-solution (p₁, …, p_m, n₀) of x₁⋯x_k − 1 = 2∏(xᵢ − 1) that passes
    the congruence prune, so a proof for all k has to use the primality of the factors.
@@ -23,11 +25,12 @@ What the computations establish (see the paper for the proofs they complete):
    solution for every k ≥ 25, and x₁⋯x_k − 1 = 2∏(xᵢ − 1) has one for every k ≥ 26 (`pseudo/companion_k25.txt`).
    Some entries are composite, so the primality of the factors has to enter beyond the prime 3.
 9. A composite n with φ(n) | n−1 and k distinct prime factors satisfies n < 2^(2^(k−7)); moreover
-   n < 2^(2^(k−24)) if (n−1)/φ(n) ≥ 3, and n < 2^(2^(k−1524)) if 3 | n (`bound/`, Theorem 1.2 of the paper).
+   n < 2^(2^(k−15981)) if (n−1)/φ(n) ≥ 3, and n < 2^(2^(k−10^8)) if 3 | n (`bound/`, Theorem 1.2 of the paper).
 
-The lemmas and propositions behind 1–3 and 7, and statements 4, 5, 6 and 8 in full, are proved in Lean 4 in `lean/`
+The lemmas and propositions behind 1–4 and 7, and statements 5, 6 and 8 in full, are proved in Lean 4 in `lean/`
 (see `lean/README.md`); for 2 and 7 this includes the reduction, the identities and the sieve of the eight-prime
-program, and the 21 completions it finds. The exhaustive searches are checked by independent programs, not formalised.
+program, and the 21 completions it finds; for 4 it includes the bounds 33 and 1540 that the products alone give.
+The exhaustive searches are checked by independent programs, not formalised.
 
 Neither Lehmer's totient conjecture nor the question whether φ(n) | n+1 has further solutions is settled.
 
@@ -62,12 +65,12 @@ factors nothing, so its negative answers rely on no primality test.
 | `lastthree_b.py` | Section 4, second implementation: boxes in v, Lagrange-reduced lattice bases, own frontier and prime generation | – |
 | `lastthree_c.py` | Section 4.5, third implementation: the sum t + N/t is fixed modulo C'², found by a short scan with one square test per value; no boxes, no factoring, no primality proof | – |
 | `k15_run.py` | the case k = 15 of Theorems 1.1 (`--eps -1`) and 1.4 (`--eps 1`) with any of the three implementations (`--program A`, `B` or `C`); resumable, multi-core | 15–45 min of CPU time per run |
-| `k15_stats.py` | Figure 8 (the ratio c³/N over the k = 15 search), the run totals of Table 3, and the k = 16 statistics of Section 9 | a few minutes |
+| `k15_stats.py` | Figure 9 (the ratio c³/N over the k = 15 search), the run totals of Table 3, and the k = 16 statistics of Section 9 | a few minutes |
 | `extensions.py` | Theorem 1.6: one- and two-prime extensions of the known solutions | seconds |
 | `check_certificates.py` | re-derives the fifteen long terminal nodes of k = 14 and checks the stored factorisations | seconds |
 | `validate.py` | both programs on 2^k(n−1) = (2^k+m)φ(n), k = 4, 5: must return the 56 listed solutions | ~10 min |
 | `sieve_check.py` | independent totient sieve to 10^8 | ~3 min |
-| `walls.py` | the k = 15 frontier of Section 5, the k = 8 frontier of Section 7.4, and the depth profiles of Figure 7 | ~1 min |
+| `walls.py` | the k = 15 frontier of Section 5, the k = 8 frontier of Section 7.4, and the depth profiles of Figure 8 | ~1 min |
 | `companion8/` | Theorem 1.3 for eight prime factors (Section 7.4): the C program `scan3.c` for the last three primes (trial division and the sum of the two factors, sieved by congruences), the PARI/GP fallback `factor_class.gp`, the driver `companion8.py` (resumable, multi-core), the tests `test_scan3.py` and the partial repetition `recheck.py`; see `companion8/README.md` | 6.9 h of CPU time, 2.0 h on 4 cores |
 | `data/companion8/journal.jsonl` | one line per batch of the eight-prime run: pieces, counts, timings and completions | |
 | `paper/` | LaTeX source of the paper, the TikZ sources of the figures with their PNG exports (`figures/build.sh`) | |
@@ -84,7 +87,7 @@ factors nothing, so its negative answers rely on no primality test.
 | `data/k15/stats.json` | output of `k15_stats.py` | |
 | `pseudo/` | Section 9: pseudo-solutions prime to 3 (Theorem 9.3) and the first-moment count; see `pseudo/README.md` | |
 | `logs/` | recorded output of every script | |
-| `bound/` | Section 6 and Theorem 1.2 (n < 2^(2^(k−7))): two independent programs for the search of Section 6.3, the computation of Section 6.5, and their logs; see `bound/README.md` | under a minute |
+| `bound/` | Proposition 2.5 (independent sets of primes) and Section 6 (Theorem 1.2): two independent programs for each search, the computation of Section 6.5, and their logs; see `bound/README.md` | see `bound/README.md` |
 | `lean/` | Lean 4 formalisation (Lean and Mathlib v4.34.1); `lake build`, then `lake env lean Check.lean` for the axiom audit | ~1 min with the Mathlib cache |
 
 Run any script from the repository root, for example `python3 first_equation.py` or

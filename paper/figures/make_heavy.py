@@ -50,7 +50,7 @@ for s in (4, 5, 6, 7):
     h = json.load(open(os.path.join(logs, 'hist_s%d.json' % s)))
     coords = ' '.join('(%d,%d)' % (j, c) for j, c in h['by_depth'])
     plots.append(r'\addplot[thick, %s, mark size=1.9pt] coordinates {%s};' % (styles[s], coords))
-    plots.append(r'\addlegendentry{$s=%d$ \ (%s nodes)}' % (s, '{:,}'.format(h['nodes']).replace(',', '{,}')))
+    plots.append(r'\addlegendentry{$s=%d$ \ (%s nodes)}' % (s, str(h['nodes'])))
 tex = r'''\begin{tikzpicture}
 \begin{semilogyaxis}[width=0.86\textwidth, height=0.52\textwidth,
   xmin=-0.4, xmax=13.4, ymin=0.7, ymax=60000, xtick={0,1,...,13},

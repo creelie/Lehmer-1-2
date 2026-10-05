@@ -65,8 +65,9 @@ Fermat primes, Egyptian fractions, exhaustive search}
 
 \begin{abstract}
 We prove that a composite number whose totient divides one less than
-the number has at least sixteen distinct prime factors, and at most
-one binary digit for every 128 subsets of its prime factors. For the
+the number has at least sixteen distinct prime factors, more than a
+hundred million if it is divisible by three, and at most one binary
+digit for every 128 subsets of its prime factors. For the
 companion problem, in which the totient divides one more than the
 number, we find every solution with at most eight prime factors and
 show that a solution prime to three has at least sixteen. Except for
@@ -170,20 +171,25 @@ Renze and by Pinch, and its proof includes a complete proof of that
 bound.
 
 \begin{theorem}\label{thm:first}
-Every composite $n$ with $\varphi(n)\mid n-1$ has $\omega(n)\ge16$.
+Let $n$ be composite with $\varphi(n)\mid n-1$. Then $\omega(n)\ge16$.
+If $(n-1)/\varphi(n)\ge3$, then $\omega(n)\ge16001$, and if $3\mid n$,
+then $\omega(n)>10^8$.
 \end{theorem}
 
-We know of no earlier claim beyond fifteen prime factors. Our second
-theorem bounds the size of a solution in terms of the number of its
-prime factors.
+We know of no earlier claim beyond fifteen prime factors in general,
+or beyond the $33$ prime factors that the products alone give when
+$(n-1)/\varphi(n)\ge3$ (Lemma~\ref{lem:Mtwo}). For $3\mid n$ the third
+assertion raises the bound of Burcsi, Czirbusz and Farkas from
+$40000000$ to more than $10^8$. Our second theorem bounds the size of a solution in terms of the
+number of its prime factors.
 
 \begin{theorem}\label{thm:size}
 Let $n$ be composite with $\varphi(n)\mid n-1$, let $k=\omega(n)$, and
 put $M=(n-1)/\varphi(n)$.
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item $n<2^{2^{k-7}}$.
-\item If $M\ge3$, then $n<2^{2^{k-24}}$.
-\item If $3\mid n$, then $n<2^{2^{k-1524}}$.
+\item If $M\ge3$, then $n<2^{2^{k-15981}}$.
+\item If $3\mid n$, then $n<2^{2^{k-10^8}}$.
 \end{enumerate}
 \end{theorem}
 
@@ -206,7 +212,7 @@ $\omega(n)\ge16$.
 
 \begin{theorem}\label{thm:quotient}
 Let $n>3$ satisfy $\varphi(n)\mid n+1$ with $(n+1)/\varphi(n)\ge3$.
-Then $\omega(n)\ge33$, and $\omega(n)\ge1540$ if $3\mid n$.
+Then $\omega(n)\ge16001$, and $\omega(n)>10^8$ if $3\mid n$.
 \end{theorem}
 
 The last theorem explains the list \eqref{eq:known}. Say that $n$ is a
@@ -234,7 +240,8 @@ Theorem~\ref{thm:eight} contains the bound reported from Wong's
 thesis and goes one prime factor further: a solution of
 \eqref{eq:second} outside \eqref{eq:known} has at least nine prime
 factors, whatever the quotient $(n+1)/\varphi(n)$. Theorem~\ref{thm:quotient}
-contains the observation on the quotient $3$ recorded in the OEIS. Part (iii) of
+raises the $33$ prime factors of the observation on the quotient $3$
+recorded in the OEIS to $16001$. Part (iii) of
 Theorem~\ref{thm:ext} places $83623935$ in the same family as the
 products of Fermat primes: it is the two-prime extension of $255$
 coming from the factorisation $255^2+255+1=65281=97\cdot673$, just as
@@ -268,8 +275,9 @@ companion equation with $3\nmid n$, a proof for all $k$ has to use the
 primality of entries other than $3$.
 
 \subsection{Method}
-The proofs of Theorems~\ref{thm:first}, \ref{thm:eight} and~\ref{thm:coprime} combine an
-elementary reduction with an exhaustive search. The reduction
+The bound $\omega(n)\ge16$ of Theorem~\ref{thm:first} and
+Theorems~\ref{thm:eight} and~\ref{thm:coprime} are proved by an
+elementary reduction combined with an exhaustive search. The reduction
 (Section~\ref{sec:elem}) shows that in each case one may assume
 $n+\varepsilon=2\varphi(n)$, with $\varepsilon=-1$ for Lehmer's
 equation and $\varepsilon=+1$ for the companion, and, except in
@@ -307,9 +315,18 @@ Section~\ref{sec:sum}, combined with trial division for the small
 divisors and sieved by congruences that primes satisfy, and we settle
 the $1967265$ cases in which this would be slow by factoring the integer
 completely, with every prime factor proved prime
-(Section~\ref{sec:eight}). Theorem~\ref{thm:quotient} is
-elementary, and Theorem~\ref{thm:ext} rests on a short identity
-together with the factorisation of eight integers.
+(Section~\ref{sec:eight}). Theorem~\ref{thm:ext} rests on a short
+identity together with the factorisation of eight integers.
+
+The bounds for a quotient of at least $3$ and for $3\mid n$, in
+Theorems~\ref{thm:first} and~\ref{thm:quotient}, rest on a third search
+(Section~\ref{sec:indep}). The prime factors of a solution form a set
+in which no prime divides another minus one, and the search shows that
+such a set must be very large before the product of $p/(p-1)$ over it
+reaches $3$, as it must when the quotient is at least $3$ and
+$3\nmid n$, or reaches $\frac83$ with all its primes congruent to $2$
+modulo $3$, as it must for the prime factors other than $3$ when
+$3\mid n$.
 
 Theorem~\ref{thm:size} is proved in Section~\ref{sec:size} by a
 different method. Its first ingredient is a sharp form of the
@@ -321,13 +338,16 @@ a precise sense satisfies the bound of Theorem~\ref{thm:size}(i) by
 this lemma alone. In every other solution the prime factors grow
 rapidly, and an exhaustive search over their possible initial
 segments, which visits $33678$ of them, shows that there are none.
-Parts (ii) and (iii) need no search.
+Parts (ii) and (iii) combine the lemma of Cook and Nielsen with the
+search of Section~\ref{sec:indep}.
 
 The paper is organised as follows. Section~\ref{sec:elem} proves the
-reductions and Theorem~\ref{thm:quotient}. Section~\ref{sec:search}
+reductions, the bounds for large quotients and for $3\mid n$, and
+Theorem~\ref{thm:quotient}. Section~\ref{sec:search}
 sets up the search and proves that it is complete, and
 Section~\ref{sec:three} describes the treatment of the last three
-primes. Section~\ref{sec:first} proves Theorem~\ref{thm:first},
+primes. Section~\ref{sec:first} completes the proof of
+Theorem~\ref{thm:first},
 Section~\ref{sec:size} proves Theorem~\ref{thm:size}, and
 Section~\ref{sec:second} proves Theorems~\ref{thm:eight},
 \ref{thm:coprime} and \ref{thm:ext}. Section~\ref{sec:checks} describes
@@ -347,7 +367,7 @@ primes still to be chosen at depth $j$, and
 $r_1<r_2<\cdots$ for the primes from $5$ on.
 
 %%==================================================================
-\section{Elementary reductions}\label{sec:elem}
+\section{Reductions}\label{sec:elem}
 %%==================================================================
 
 \begin{lemma}\label{lem:basic}
@@ -405,13 +425,16 @@ primes congruent to $2$ modulo $3$ from $5$ on, then
   \le\frac32\prod_{i=1}^{k-1}\frac{q_i}{q_i-1},
 \]
 since $p/(p-1)$ decreases in $p$. An exact computation in rational
-arithmetic shows that the right-hand side is $3.99986\ldots$ for
+arithmetic shows that the right-hand side is $3.99985\ldots$ for
 $k=1539$ and first exceeds $4$ at $k=1540$, where the last prime in the
 product is $q_{1539}=27947$.
 \end{proof}
 
 For $\varepsilon=-1$ this is a weak form of the bounds of Hagis and of
-Burcsi, Czirbusz and Farkas mentioned in the introduction; it is short and suffices here. For $\varepsilon=+1$ it shows why $3$ cannot be
+Burcsi, Czirbusz and Farkas mentioned in the introduction, and
+Corollary~\ref{cor:indep} below goes much further, but the lemma needs
+no search and suffices wherever we use it. For $\varepsilon=+1$ it
+shows why $3$ cannot be
 removed in the same way: $M=2$ is compatible with $3\mid n$, and each
 Fermat prime $5,17,257,65537$ is congruent to $2$ modulo $3$, as are
 $353$ and $929$.
@@ -454,37 +477,182 @@ The maximum of the right-hand side over $2\le k\le7$ is
 $2.92357\ldots<3$, attained at $k=7$, and so $M=2$.
 \end{proof}
 
-\begin{proof}[Proof of Theorem~\ref{thm:quotient}]
-Let $n>3$ with $\varphi(n)\mid n+1$ and $M\ge3$, and let $k=\omega(n)$.
-If $3\mid n$, then $M\ge5$ by Lemma~\ref{lem:three}, and the same lemma
-gives $k\ge1540$. If $3\nmid n$, then Lemma~\ref{lem:basic}(iii) and
-$\varphi(n)\ge\prod_{i\le k}(r_i-1)$ give
+\subsection{Independent sets of primes}\label{sec:indep}
+Call a finite set of primes \emph{independent} if none of its elements
+divides another minus one. By Lemma~\ref{lem:basic}(ii) the prime
+factors of a solution form an independent set, whereas the proofs above
+used only that the $i$-th smallest of them is at least the $i$-th prime
+of a given list. Independence is a much stronger condition. Each prime
+$q$ of the set excludes the primes congruent to $1$ modulo $q$, which
+by the prime number theorem for arithmetic progressions form a
+proportion $1/(q-1)$ of the larger primes, and so the product of
+$p/(p-1)$ over an independent set grows far more slowly with its size
+than the product over the first primes. Choosing at each step the
+least prime from $5$ on that the primes already chosen allow gives the
+independent set
 \[
-  \prod_{i\le k}\frac{r_i}{r_i-1}\;\ge\;\frac{n}{\varphi(n)}
-  \;=\;M-\frac1{\varphi(n)}\;\ge\;3-\frac{1}{\prod_{i\le k}(r_i-1)} .
+  5,\ 7,\ 13,\ 17,\ 19,\ 23,\ 37,\ 59,\ 67,\ 73,\ 83,\ \dots
 \]
-An exact computation shows that this inequality fails for every
-$k\le32$ and first holds at $k=33$.
+(Figure~\ref{fig:indep}). Its product passes $2$ at the eleventh prime,
+where the first primes from $5$ on need only seven, and it passes $3$
+only at the $100470$-th prime, $5160959$, where they need $33$
+(Figure~\ref{fig:products}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_indep.png}
+\caption{The primes from $5$ to $89$, with an arc from $p$ to $q$
+whenever $p$ divides $q-1$; an independent set contains no two primes
+joined by an arc. The set $S$ of filled primes is chosen one prime at
+a time, each the least prime joined to none of those chosen before it.
+Below each prime of $S$ is the product of $p/(p-1)$ over the primes of
+$S$ up to it, which first exceeds $2$ at $83$, the eleventh.}
+\label{fig:indep}
+\end{figure}
+
+\begin{proposition}\label{prop:indep}
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item No independent set of at most $16000$ primes $p\ge5$ has
+  $\prod p/(p-1)\ge2.999999$.
+\item No independent set of at most $10^8$ primes $p\equiv2\pmod3$
+  with $p\ge5$ has $\prod p/(p-1)\ge\frac83\bigl(1-10^{-6}\bigr)$.
+\item No independent set of at most $10^8$ primes $p\equiv2\pmod3$
+  with $p\ge5$ has $\prod p/(p-1)\ge\frac{10}3\bigl(1-10^{-6}\bigr)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Let $Q$ be the set of primes allowed, $K$ the size and $V$ the target.
+For an independent set $S\subseteq Q$ whose largest element is $p$
+(with $p=3$ if $S$ is empty), call the primes $q\in Q$ with $q>p$ and
+$q\not\equiv1$ modulo every element of $S$ the \emph{candidates} for
+$S$. If $|S|<K$, let $B(S)$ be the product of $q/(q-1)$ over $S$ and
+over the $K-|S|$ smallest candidates for $S$. An independent set $T$
+of at most $K$ primes of $Q$ whose $|S|$ smallest elements form $S$
+has its other elements among the candidates for $S$, and there are at
+most $K-|S|$ of them; as $q/(q-1)$ decreases in $q$, the product over
+$T$ is at most $B(S)$.
+
+The search starts from the empty set and treats each set $S$ that it
+creates as follows. If the product over $S$ is at least $V$, it stops
+and reports $S$. If $|S|=K$ or $B(S)<V$, it discards $S$. Otherwise it
+creates the sets $S\cup\{q\}$ for the candidates $q$ with
+\begin{equation}\label{eq:childbound}
+  \prod_{p\in S}\frac{p}{p-1}\cdot\frac{q}{q-1}\cdot
+  \prod_{q'}\frac{q'}{q'-1}\ \ge\ V ,
+\end{equation}
+where $q'$ runs over the $K-|S|-1$ candidates for $S$ that follow $q$.
+The left-hand side of \eqref{eq:childbound} is at least
+$B(S\cup\{q\})$, because every candidate for $S\cup\{q\}$ is a
+candidate for $S$, and it decreases as $q$ increases, so the sets
+created from $S$ come from its first few candidates. Let $T$ be as
+above with product at least $V$. Every initial segment $S$ of $T$ has
+$B(S)\ge V$, and if $S\cup\{q\}$ is also an initial segment, then $q$
+satisfies \eqref{eq:childbound}; so the search creates the initial
+segments of $T$ one after another until it stops.
+
+In each of the three cases the search ends without reporting a set. It
+creates $90320$ sets in case (i), the largest of them with $46$
+elements, and $9$ sets in case (ii) and $2$ in case (iii). Two programs
+written independently, one of them in PARI/GP \cite{PARI}, carry out
+the three searches and create the same sets. For (ii) and (iii), which
+involve primes up to $2\cdot10^{10}$, they run through the primes once
+for each set created. The products are handled through their
+logarithms. In double precision each term $\log\bigl(q/(q-1)\bigr)$ is
+computed with an absolute error below $3\cdot10^{-16}$, and a sum of
+$N$ terms with total below $\log4$ adds at most $N\cdot2^{-53}\log4$
+in rounding; for the at most $2\cdot10^8$ terms of any sum here the
+error is therefore below $10^{-7}$. The PARI/GP programs work with at
+least $38$ significant digits. A set is discarded, or a candidate
+passed over, only when exact rational arithmetic confirms it or when
+the logarithm of its bound lies below $\log V$ by more than $10^{-7}$
+in double precision, or by more than $10^{-20}$ in PARI/GP. Rounding
+can therefore add sets to the search, but never remove one.
 \end{proof}
 
-A solution of \eqref{eq:second} with $M\ge3$ therefore has at least
-$33$ prime factors, too many for any search, just as a solution of
-\eqref{eq:first} with $3\mid n$ has at least $1540$
-(Figure~\ref{fig:products}). The searches below concern the remaining
-case $n+\varepsilon=2\varphi(n)$.
+The search for (i) grows quickly with $K$: it creates $2567$ sets for
+$K=10^4$ and $19711$ for $K=14000$. The least size of an independent
+set of primes from $5$ on with product at least $3$ therefore lies
+between $16001$ and $100470$, the length of the set chosen one prime
+at a time above. For the primes $p\equiv2\pmod3$ the products grow
+much more slowly: the independent set chosen from them in the same way
+has $2307386$ elements below $2\cdot10^8$, and its product is only
+$2.0703\ldots$, far below $\frac83$.
+
+\begin{corollary}\label{cor:indep}
+Let $n$ be as in Lemma~\ref{lem:basic}, with $M=(n+\varepsilon)/\varphi(n)$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item If $M\ge3$ and $3\nmid n$, then $\omega(n)\ge16001$.
+\item If $3\mid n$ and $\varepsilon=-1$, then $\omega(n)\ge10^8+2$.
+\item If $3\mid n$, $\varepsilon=+1$ and $M\ge3$, then
+  $\omega(n)\ge10^8+2$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Let $k=\omega(n)$. By Lemma~\ref{lem:basic} the prime factors of $n$
+form an independent set, and $n/\varphi(n)=M-\varepsilon/\varphi(n)$.
+
+(i) The prime factors are at least $5$, and
+$n/\varphi(n)\ge3-1/\varphi(n)>2$. The product of $p/(p-1)$ over the
+six smallest primes from $5$ on is $1.9490\ldots$, so $k\ge7$ and
+$\varphi(n)\ge4\cdot6\cdot10\cdot12\cdot16\cdot18\cdot22>10^6$. Hence
+$n/\varphi(n)>2.999999$, and Proposition~\ref{prop:indep}(i) gives
+$k>16000$.
+
+(ii) By Lemma~\ref{lem:three}, $M\ge4$, and the $k-1$ prime factors
+other than $3$ are congruent to $2$ modulo $3$. The product of
+$p/(p-1)$ over them is $\frac23\,n/\varphi(n)=\frac23(M+1/\varphi(n))>\frac83$,
+so $k-1>10^8$ by Proposition~\ref{prop:indep}(ii).
+
+(iii) By Lemma~\ref{lem:three}, $M\ge5$, and the prime factors other
+than $3$ are as in (ii). The product over them is
+$\frac23(M-1/\varphi(n))\ge\frac{10}3-\frac2{3\varphi(n)}\ge3$, while
+over the five smallest primes $p\equiv2\pmod3$ from $5$ on it is
+$1.5818\ldots$. So there are at least six of them,
+$\varphi(n)\ge2\cdot4\cdot10\cdot16\cdot22\cdot28\cdot40>10^6$, and the
+product exceeds $\frac{10}3(1-10^{-6})$. Proposition~\ref{prop:indep}(iii)
+gives $k-1>10^8$.
+\end{proof}
+
+For $\varepsilon=-1$, part (ii) improves the bound $\omega(n)\ge40000000$
+of Burcsi, Czirbusz and Farkas \cite{BCF11}, who completed sequences of
+primes $p\equiv2\pmod3$ in a similar way by the least primes allowed.
+Parts (i) and (iii) replace the bounds $33$ and $1540$ that the
+products over the first primes give.
+
+\begin{proof}[Proof of Theorem~\ref{thm:quotient} and of the last two
+assertions of Theorem~\ref{thm:first}]
+Let $n$ satisfy \eqref{eq:first} or \eqref{eq:second}, with $n$
+composite in the first case and $n>3$ in the second. If $3\nmid n$ and
+$M\ge3$, then $\omega(n)\ge16001$ by Corollary~\ref{cor:indep}(i). If
+$3\mid n$, then $\omega(n)>10^8$ by Corollary~\ref{cor:indep}(ii) for
+\eqref{eq:first}, where $M\ge4$ holds automatically, and by
+Corollary~\ref{cor:indep}(iii) for \eqref{eq:second} when $M\ge3$.
+\end{proof}
+
+By Corollary~\ref{cor:indep}, a solution with at most $16000$ prime
+factors has $M=2$, and if it solves \eqref{eq:first} it is prime to
+$3$. The searches below concern the case $n+\varepsilon=2\varphi(n)$.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/fig_products.png}
-\caption{The product of $p/(p-1)$ over the first $k$ primes of three
-sets, with $k$ on a logarithmic scale. For the primes from $5$ on the
-product passes $2$ at $k=7$, so a solution of \eqref{eq:M2} prime to
-$3$ has at least seven prime factors (Section~\ref{sec:first}), and it
-passes $3$ at $k=33$ (Lemma~\ref{lem:Mtwo} and
-Theorem~\ref{thm:quotient}). For the odd primes it passes $3$ at
-$k=8$, where the argument of Corollary~\ref{cor:seven} stops. For $3$
-and the primes $p\equiv2\pmod3$ it passes $4$ only at $k=1540$
-(Lemma~\ref{lem:three}).}
+\caption{The product of $p/(p-1)$ over the first $k$ primes of a list
+(solid) and over the independent set chosen from the same list one
+prime at a time (dashed), for the primes below $2\cdot10^8$, with $k$ on
+a logarithmic scale. Where a list has both curves, the largest product
+over an independent set of $k$ of its primes lies between them. (a)~For
+the primes from $5$ on the product passes $2$ at $k=7$, so a solution of
+\eqref{eq:M2} prime to $3$ has at least seven prime factors
+(Section~\ref{sec:first}), and $3$ at $k=33$ (Lemma~\ref{lem:Mtwo});
+for the odd primes it passes $3$ at $k=8$, where the argument of
+Corollary~\ref{cor:seven} stops. The independent set passes $3$ only at
+$k=100470$, and no independent set of primes from $5$ on reaches $3$
+before $k=16001$ (open circle). (b)~For $3$ and the primes
+$p\equiv2\pmod3$ the product passes $4$ at $k=1540$
+(Lemma~\ref{lem:three}), and no independent set formed by $3$ and such
+primes reaches $4$ before $k=10^8+2$ (open circle).}
 \label{fig:products}
 \end{figure}
 
@@ -1041,8 +1209,10 @@ test at all.
 \section{Lehmer's equation: proof of Theorem~\ref{thm:first}}\label{sec:first}
 %%==================================================================
 
-Let $n$ be composite with $\varphi(n)\mid n-1$ and suppose
-$\omega(n)\le15$. By Lemma~\ref{lem:three}, $3\nmid n$; by
+The last two assertions of Theorem~\ref{thm:first} were proved in
+Section~\ref{sec:indep}. For the first, let $n$ be composite with
+$\varphi(n)\mid n-1$ and suppose $\omega(n)\le15$. By
+Lemma~\ref{lem:three}, $3\nmid n$; by
 Lemma~\ref{lem:basic}(i), $n=p_1\cdots p_k$ with $5\le p_1<\dots<p_k$
 and $k\le15$; and by Lemma~\ref{lem:Mtwo}, $n-1=2\varphi(n)$. If
 $k\le6$ then $\prod p_i/(p_i-1)\le\prod_{i\le6}r_i/(r_i-1)=1.9490\ldots$,
@@ -1787,8 +1957,9 @@ Table~\ref{tab:heavy} lists the nodes by depth. Every node has
 $\mu(S)=2$, so every node has $p_1\ne3$ and $P_j<2$; in particular
 the sequence $(3)$, for which $\mu=4$, is discarded at once by the
 ratio test. The first branch of the tree is
-$5,7,13,17,19,23,37,59,67,73$, and the deepest nodes have thirteen
-entries.
+$5,7,13,17,19,23,37,59,67,73$, the beginning of the independent set
+of Section~\ref{sec:indep} chosen one prime at a time, and the deepest
+nodes have thirteen entries.
 
 \begin{proof}[Proof of Theorem~\textup{\ref{thm:size}(i)}]
 By Theorem~\ref{thm:sizesearch} no composite solution of
@@ -1815,60 +1986,69 @@ $\log_2\log_2 A_j$ (left of each depth) over the nodes of depth $j$,
 and the short marks below them are the thresholds $j+1-7$ of (H2) and
 $j-7$ of (H1). The deficit condition (H2) is the one that binds: at
 depth $13$ the smallest value of $\log_2\log_2V_{13}$ is
-$7.0000076\ldots$}
+$7.0000075\ldots$}
 \label{fig:margins}
 \end{figure}
 
 \subsection{Larger quotients}\label{sec:large}
-When $M\ge3$, condition (H1) for a suitable $s$ is already
-incompatible with Lemma~\ref{lem:sizefacts}(i), and no search is
-needed. Let $\ell_1<\ell_2<\cdots$ be primes that include every prime
-factor of $n$. If (H1) holds for all $j\le k-1$, then
-$A_i\le p_i^{\,i}$ gives $p_i\ge\rho_i$, the least positive integer
-$x$ with $x^i\ge\theta_i$, and also $p_i\ge\ell_i$. With
-$w_i=\max\{\ell_i,\rho_i\}$ we obtain, exactly as in
-Lemma~\ref{lem:ext} with $j=0$,
+When $M\ge3$, condition (H1) for a suitable $s$ is incompatible with
+Lemma~\ref{lem:sizefacts}(i) and the bounds of
+Section~\ref{sec:indep}, and no further search is needed. Let
+$\ell_1<\ell_2<\cdots$ be integers with $p_i\ge\ell_i$ for $i\le k$,
+let $J\ge1$, and let $V^*$ be a number with $P_{\min\{k,J\}}<V^*$. If
+(H1) holds for all $j\le k-1$, then $A_i\le p_i^{\,i}$ gives
+$p_i\ge\rho_i$ for $i\le k-1$, where $\rho_i$ is the least positive
+integer $x$ with $x^i\ge\theta_i$. With $w_i=\max\{\ell_i,\rho_i\}$
+we obtain, as in the proof of Lemma~\ref{lem:ext},
 \begin{equation}\label{eq:R}
-  P_k\le R_s=\max\Bigl\{\max_{1\le i<i_0}\,
-  \frac{w_i'+2}{w_i'+1}\prod_{l\le i}\frac{w_l}{w_l-1}
-  \ ,\ \Bigl(1+\frac{16}{\rho_{i_0}-2}\Bigr)\prod_{l<i_0}
+  P_k<R_s=V^*\max\Bigl\{1,\ \max_{J\le i<i_0}\,
+  \frac{w_i'+2}{w_i'+1}\prod_{l=J+1}^{i}\frac{w_l}{w_l-1}
+  \ ,\ \Bigl(1+\frac{16}{\rho_{i_0}-2}\Bigr)\prod_{l=J+1}^{i_0-1}
   \frac{w_l}{w_l-1}\Bigr\},
 \end{equation}
 where $w_i'=\max\{w_i,\ell_{i+1}-2\}$ accounts for
-$p_{i+1}\ge\max\{\ell_{i+1},w_i+2\}$, and $i_0$ is the least $i\ge s+4$
-with $\rho_i>10^{30}$. The tail estimate is that of
-Lemma~\ref{lem:ext}, applied to $y_i=\theta_i^{1/i}$, for which
+$p_{i+1}\ge\max\{\ell_{i+1},w_i+2\}$, and $i_0\ge\max\{J+1,s+4\}$ is
+an index with $\rho_{i_0}>10^{30}$. The three terms cover $k\le J$,
+then $J<k\le i_0$ with $k=i+1$, and $k>i_0$. The tail estimate is that
+of Lemma~\ref{lem:ext}, applied to $y_i=\theta_i^{1/i}$, for which
 $p_i\ge\rho_i\ge y_i>\rho_i-1$ when $\rho_i>1$, and
 $\log y_{i+1}=\frac{2i}{i+1}\log y_i\ge\frac43\log y_i$ when
-$i\ge\max\{s,2\}$.
+$i\ge\max\{s,2\}$. We evaluate $R_s$ in exact rational arithmetic, with
+integer lower bounds in place of the $\rho_i$, which can only enlarge
+it.
 
 \begin{proof}[Proof of Theorem~\textup{\ref{thm:size}(ii)} and
 \textup{(iii)}]
-Suppose $3\mid n$. Then $M\ge4$, and every prime factor other than
-$3$ is congruent to $2$ modulo $3$, by Lemma~\ref{lem:three}. Take
-$\ell_1,\ell_2,\dots$ to be $3$ followed by the primes $p\equiv2\pmod3$.
-An exact computation gives $R_{1524}=3.99986\ldots<4$. If (H1) held for
-all $j\le k-1$ with $s=1524$, then \eqref{eq:R} would give $P_k<4\le
-M$, contrary to Lemma~\ref{lem:sizefacts}(i). So $n$ is not
-$1524$-heavy, and Corollary~\ref{cor:light} gives (iii).
+Suppose $3\mid n$. Then $M\ge4$, every prime factor other than $3$ is
+congruent to $2$ modulo $3$, by Lemma~\ref{lem:three}, and
+$k\ge10^8+2$ by Corollary~\ref{cor:indep}(ii). Take $J=10^8+1$,
+$\ell_i=2i+1$, which is at most the $i$-th odd prime, and
+$V^*=4(1-10^{-6})$. The $J$ smallest prime factors are $3$ and an
+independent set of $10^8$ primes $p\equiv2\pmod3$, so
+$P_J<\frac32\cdot\frac83(1-10^{-6})=V^*$ by
+Proposition~\ref{prop:indep}(ii). The computation gives
+$R_{10^8}=3.9999966\ldots<4$. If (H1) held for all $j\le k-1$ with
+$s=10^8$, then \eqref{eq:R} would give $P_k<4\le M$, contrary to
+Lemma~\ref{lem:sizefacts}(i). So $n$ is not $10^8$-heavy, and
+Corollary~\ref{cor:light} gives (iii).
 
-Suppose $M\ge3$ and $3\nmid n$, and take $\ell_i=r_i$, the primes from
-$5$ on. Then $R_{24}=2.99488\ldots<3$, and the same argument gives
-$n<2^{2^{k-24}}$. If $M\ge3$ and $3\mid n$, part (iii) gives a
+Suppose $M\ge3$ and $3\nmid n$. Then $k\ge16001$ by
+Corollary~\ref{cor:indep}(i). Take $J=16000$, $\ell_i=r_i$, the primes
+from $5$ on, and $V^*=2.999999$; the $J$ smallest prime factors form an
+independent set, so $P_J<V^*$ by Proposition~\ref{prop:indep}(i).
+Then $R_{15981}=2.99999900041\ldots<3$, and the same argument gives
+$n<2^{2^{k-15981}}$. If $M\ge3$ and $3\mid n$, part (iii) gives a
 stronger bound.
 \end{proof}
 
-The exponents are the largest that this argument allows:
-$R_{25}=3.0208\ldots$ for the primes from $5$ on, and
-$R_{1525}=4.000002\ldots$ for $3$ and the primes $p\equiv2\pmod3$.
-In both cases $w_i=\ell_i$ until $\rho_i$ overtakes $\ell_i$, and from
-there on $\rho_i$ grows doubly exponentially. For $s=24$ this
-happens at $i=32$, where $\rho_{32}=256$ and $\ell_{32}=139$. For
-$s=1524$ it happens at $i=1539$, where $\rho_{1539}=2567171$ and
-$\ell_{1539}=27941$, and $R_{1524}$ equals the product
-$3.99986\ldots$ of the proof of Lemma~\ref{lem:three} at $k=1539$.
-So part (iii) of Theorem~\ref{thm:size} is the size bound that
-accompanies the bound $\omega(n)\ge1540$ of that lemma.
+The exponent $15981$ is the largest that this argument gives with
+$J=16000$, since $R_{15982}=3.000016\ldots$. Everything is decided by
+the prime factors around the $16000$-th. For $s=15981$, (H1) at
+$j=16000$ gives $p_{16000}\ge\rho_{16000}>7\cdot10^9$, so that the
+remaining prime factors raise $P_{16000}<2.999999$ by a factor less
+than $1+10^{-9}$. For $s=15982$ the corresponding bound
+$\rho_{16000}<10^5$ lies below $r_{16000}=176089$, and the next prime
+factor alone may raise the product by the factor $1+1/176122$.
 
 \subsection{Where the search is hard}\label{sec:hard}
 The nodes that survive longest are prefixes with $P_j$ just below $2$,
@@ -1885,10 +2065,8 @@ depth $13$, would raise $P_{j+1}$ to $2$ or more and force $M\ge3$, and
 rule (ii) removes these primes. Figure~\ref{fig:margins} shows how
 close to the threshold of (H2) the deepest nodes come.
 
-The size of the tree grows quickly with $s$: it has $12$, $24$, $118$
-and $33678$ nodes for $s=4,5,6,7$, as Figure~\ref{fig:trees} shows,
-and for $s=7$ more than nine tenths of the nodes lie at depths $12$
-and $13$. Each further unit of $s$ halves the number of binary digits
+The tree grows quickly with $s$ (Figure~\ref{fig:trees}), and for
+$s=7$ more than nine tenths of its nodes lie at depths $12$ and $13$. Each further unit of $s$ halves the number of binary digits
 allowed by Theorem~\ref{thm:size}(i). The method proves
 $n<2^{2^{k-s}}$ for every $s$ for which the tree $\mathcal T_s$ can be
 searched, and the cost of the search is dominated by the deep prefixes
@@ -2036,8 +2214,8 @@ $pq-(n_0+1)(p+q)+n_0=0$, and adding $(n_0+1)^2-n_0$ to both sides gives
 \[
   (p-n_0-1)(q-n_0-1)=n_0^2+n_0+1 .
 \]
-Both factors on the left are positive. If both were negative we would
-have $2\le p<q\le n_0$, and the left-hand side would be at most
+The two factors on the left have the same sign, and they are
+positive: if both were negative we would have $2\le p<q\le n_0$, and the left-hand side would be at most
 $(n_0-1)^2<n_0^2+n_0+1$. Conversely, a factorisation
 $n_0^2+n_0+1=de$ with $d<e$ gives $p=n_0+1+d$ and $q=n_0+1+e$, and if
 both are prime then $n_0pq$ is a Fermat-type solution; the conditions
@@ -2220,8 +2398,8 @@ $t_0\le t_d$.
   value is tested exactly. So the sieve keeps every value that comes
   from integers $p$ and $q$ without prime factors up to $61$, and in
   particular every value that comes from primes.
-\item If the estimated work of (i) and (ii) exceeds that of factoring
-  $N$, about four milliseconds, then $N$ is factored completely with
+\item If the estimated work of (i) and (ii) exceeds four milliseconds,
+  the time we allow for factoring $N$, then $N$ is factored completely with
   PARI/GP \cite{PARI}, every prime factor is proved
   prime,\footnote{With the option \texttt{factor\_proven} set, PARI/GP
   certifies every prime factor it returns. A factor below $2^{64}$ is
@@ -2321,7 +2499,7 @@ $p_6$, on logarithmic axes; the two in the last bar end in $65537$ and
 $65543$. Right: processor time per admissible $p_6$ under the prefix
 $3,5,17,257,65537$, one point for each piece of the run, against the
 modulus $c=p_6-2^{32}$. For $c$ below about $10^8$ the integer $N$ is
-factored, in about six milliseconds; above that the sums and the
+factored, and each $p_6$ costs about six milliseconds in all; above that the sums and the
 trial division are faster, and their cost falls as $c$ grows. Beyond
 $c=2^{32}$, that is for $p_6>2^{33}$, the condition $p>p_6$ leaves only
 a short range of divisors.}
@@ -2357,7 +2535,8 @@ corroborate it. The case $k=8$ of Theorem~\ref{thm:eight} rests on
 the program of Section~\ref{sec:eight}, whose checks are described in
 Section~\ref{sec:checks8}. The search behind Theorem~\ref{thm:size}
 was likewise carried out by two independent programs
-(Section~\ref{sec:sizecomp}).
+(Section~\ref{sec:sizecomp}), and so were the searches of
+Proposition~\ref{prop:indep}.
 
 \subsection{Equations with solutions}
 Both implementations accept a general equation
@@ -3063,8 +3242,8 @@ and the checks of Section~\ref{sec:checks}, their recorded output, the
 factorisations of the fifteen integers of Table~\ref{tab:hard}, the
 logs of the three-prime searches of Section~\ref{sec:fifteen}, the
 program and the journal of the eight-prime search of
-Section~\ref{sec:eight}, the two programs of
-Section~\ref{sec:sizesearch} and their output, the programs and logs
+Section~\ref{sec:eight}, the programs of Sections~\ref{sec:indep}
+and~\ref{sec:sizesearch} and their output, the programs and logs
 of Section~\ref{sec:walls}, the entries of the tuple of
 Theorem~\ref{thm:pseudo25} and the sources of this paper are archived
 at Zenodo, \href{https://doi.org/\zenododoi}{doi:\zenododoi}.
