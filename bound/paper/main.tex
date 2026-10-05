@@ -13,6 +13,7 @@
 \usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
 
 \numberwithin{equation}{section}
+\raggedbottom
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -63,10 +64,10 @@ Egyptian fractions, exhaustive search}
 
 \begin{abstract}
 We prove that a composite number whose totient divides one less than
-the number has at most one binary digit for every 128 sets of its
-prime factors, where Burek and \.Zmija allowed one digit for every set.
-The proof rests on a sharp form of the product lemma of Cook and
-Nielsen and on an exhaustive search over the smallest prime factors.
+the number has at most one binary digit for every 128 subsets of its
+prime factors, where Burek and \.Zmija allowed one digit per subset.
+The proof combines a sharp form of the product lemma of Cook and
+Nielsen with an exhaustive search over the smallest prime factors.
 \end{abstract}
 
 \maketitle
@@ -101,7 +102,7 @@ finite for each~$k$. Burek and \.Zmija \cite{BZ19} replaced this by
 using a lemma that goes back to Heath-Brown's work on odd perfect
 numbers \cite{HB94} and was sharpened by Cook \cite{Coo99} and Nielsen
 \cite{Nie03}. In binary, \eqref{eq:bz} says that $n$ has at most $2^k$
-digits, one for each set of prime factors of~$n$.
+digits, one for each subset of the set of prime factors of~$n$.
 
 \subsection{Results}
 Our main result divides the number of binary digits by $2^7=128$.
@@ -117,8 +118,11 @@ $M=(n-1)/\varphi(n)$. Then
 \end{theorem}
 
 Combined with $k\ge16$ from \cite{MBB}, part (a) says that a Lehmer
-number with sixteen prime factors, the smallest number not yet
-excluded, lies below $2^{512}<1.35\cdot10^{154}$.
+number with sixteen prime factors, the first case not yet excluded,
+lies below $2^{512}<1.35\cdot10^{154}$. For $k\le12$ the bound of
+part (a) is smaller than the product of the $k$ smallest odd primes,
+so part (a) alone shows that a Lehmer number has at least thirteen
+prime factors.
 
 The proof has two ingredients. The first is a sharp form of the
 product lemma. For positive integers $m$ and real $y\ge1$ put
@@ -128,7 +132,7 @@ product lemma. For positive integers $m$ and real $y\ge1$ put
 
 \begin{theorem}\label{thm:deficit}
 Let $a<b$ be positive integers, $d=b-a$, $r\ge2$, and let
-$x_1\le x_2\le\dots\le x_r$ be integers with
+$2\le x_1\le x_2\le\dots\le x_r$ be integers with
 \begin{equation}\label{eq:hyp}
   \prod_{i=1}^{r}\Bigl(1-\frac1{x_i}\Bigr)\le\frac ab
   <\prod_{i=1}^{r-1}\Bigl(1-\frac1{x_i}\Bigr).
@@ -146,19 +150,19 @@ the lemma of Cook and Nielsen (Lemma~\ref{lem:cn} below). For $d\ge2$
 it is smaller, and it improves the bound
 $E_{r-1}(b^2/d)$ of Stone \cite[Corollary~1]{Sto24}, since
 $b(a+1)<b^2$. Applied to the prime factors of a Lehmer number that
-follow the first $j$, Theorem~\ref{thm:deficit} gives a strong bound
-whenever the product of $p/(p-1)$ over the first $j$ prime factors is
-still far below~$M$.
+follow the first $j$, Theorem~\ref{thm:deficit} is strong whenever
+the product of $p/(p-1)$ over the first $j$ prime factors is still
+well below~$M$.
 
 The second ingredient is a search. A Lehmer number whose first prime
 factors are small in a precise sense (Definition~\ref{def:heavy})
 already satisfies the bound of Theorem~\ref{thm:main}(a), by
-Theorem~\ref{thm:deficit} applied to its remaining prime factors. The
-remaining Lehmer numbers have rapidly growing prime factors, and an
-exhaustive search over their possible initial segments, which visits
-$33{,}678$ of them, shows that there are none. Parts (b) and (c) need
-no search: when $M\ge3$ or $3\mid n$ the target $M$ is so large that
-the growth condition alone rules out every candidate.
+Theorem~\ref{thm:deficit} applied to the prime factors that follow
+them. All other Lehmer numbers have rapidly growing prime factors, and
+an exhaustive search over their possible initial segments, which
+visits $33{,}678$ of them, shows that there are none. Parts (b) and
+(c) need no search: when $M\ge3$ or $3\mid n$ the quotient $M$ is so
+large that the growth condition alone rules out every candidate.
 
 \subsection{Outline}
 Section~\ref{sec:facts} collects the elementary facts about Lehmer
@@ -262,22 +266,25 @@ with strict inequality if $X_r>Z_r$.
 \begin{proof}
 The function $f(t)=\log(1-e^{-t})$ on $t>0$ has derivative
 $f'(t)=1/(e^t-1)$, which is positive and decreasing, so $f$ is
-concave. Put $t_i=\log x_i$ and $\sigma_i=\log z_i$. By concavity
+concave. Put $\tau_i=\log x_i$ and $\sigma_i=\log z_i$, so that
+$f(\tau_i)=\log(1-1/x_i)$ and $f(\sigma_i)=\log(1-1/z_i)$. By
+concavity
 \[
-  f(\sigma_i)\le f(t_i)+c_i(\sigma_i-t_i),\qquad
-  c_i=f'(t_i)=\frac1{x_i-1},
+  f(\sigma_i)\le f(\tau_i)+c_i(\sigma_i-\tau_i),\qquad
+  c_i=f'(\tau_i)=\frac1{x_i-1},
 \]
-and $c_1\ge c_2\ge\dots\ge c_r>0$ because the $x_i$ increase. The
-partial sums $\Delta_u=\sum_{i\le u}(\sigma_i-t_i)$ are at most $0$ by
-hypothesis, and summation by parts gives
+and $c_1\ge c_2\ge\dots\ge c_r>0$ because the $x_i$ are
+nondecreasing. The partial sums
+$\Delta_u=\sum_{i\le u}(\sigma_i-\tau_i)=\log(Z_u/X_u)$ are at most
+$0$ by hypothesis, and summation by parts gives
 \[
-  \sum_{i=1}^{r}c_i(\sigma_i-t_i)
+  \sum_{i=1}^{r}c_i(\sigma_i-\tau_i)
   =\sum_{u=1}^{r-1}(c_u-c_{u+1})\Delta_u+c_r\Delta_r
   \le c_r\Delta_r\le0 ,
 \]
 with $c_r\Delta_r<0$ when $X_r>Z_r$. Hence
-$\sum f(\sigma_i)\le\sum f(t_i)$, strictly in that case, and the lemma
-follows on exponentiating.
+$\sum f(\sigma_i)\le\sum f(\tau_i)$, strictly in that case, and the
+lemma follows on exponentiating.
 \end{proof}
 
 \begin{lemma}[Cook, Nielsen]\label{lem:cn}
@@ -285,7 +292,7 @@ Under \eqref{eq:hyp}, with $r\ge1$, we have $aX_r\le E_r(a+1)$.
 \end{lemma}
 
 \begin{proof}
-We use induction on $r$. Define real numbers
+We use induction on $r$. Define
 \[
   z_u=(a+1)^{2^{u-1}}+1\quad(1\le u\le r-1),\qquad
   z_r=(a+1)^{2^{r-1}} .
@@ -299,6 +306,9 @@ product telescopes:
   =\frac{(a+1)^{2^{r-1}-1}\,a}{c_r-1}\cdot\frac{c_r-1}{c_r}
   =\frac a{a+1} .
 \end{equation}
+These identities use only that $a$ is a positive real number, and we
+shall apply them once more with a value of $a$ that need not be an
+integer.
 
 Suppose first that $X_u\le Z_u$ for some $1\le u\le r-1$, so that
 $aX_u+1\le(a+1)^{2^u}$. By Lemma~\ref{lem:tail} and the induction
@@ -323,7 +333,7 @@ Put $G=b(a+1)/d$ and $A=G-1=a(b+1)/d$, and define real numbers
 Then $aZ_1=A=G-1$, induction gives $aZ_u=G^{2^{u-1}}-1$ for
 $1\le u\le r-1$, and $aZ_r=(G^{2^{r-2}}-1)G^{2^{r-2}}=E_{r-1}(G)$.
 The numbers $z_2,\dots,z_r$ are the sequence of the proof of
-Lemma~\ref{lem:cn} for the numerator $A$ and $r-1$ terms, so by
+Lemma~\ref{lem:cn} with $A$ in place of $a$ and $r-1$ terms, so by
 \eqref{eq:zprod}
 \[
   \prod_{u=1}^{r}\Bigl(1-\frac1{z_u}\Bigr)
@@ -340,16 +350,18 @@ applied to the $r-u\ge1$ terms $x_{u+1},\dots,x_r$, and
   =E_{r-1}(G).
 \]
 Otherwise $X_u>Z_u$ for all $u\le r-1$. If also $X_r>Z_r$, then
-Lemma~\ref{lem:major} gives $\prod(1-1/x_i)>\prod(1-1/z_i)=a/b$,
-contrary to \eqref{eq:hyp}. Hence $X_r\le Z_r$, that is
-$aX_r\le E_{r-1}(G)$.
+Lemma~\ref{lem:major}, which applies because every $z_u$ exceeds $1$
+(for $z_1$ because $b+1>d$), gives
+$\prod(1-1/x_i)>\prod(1-1/z_i)=a/b$, contrary to \eqref{eq:hyp}.
+Hence $X_r\le Z_r$, that is $aX_r\le E_{r-1}(G)$.
 
-If $d\mid b+1$, then $z_1$ is an integer, and $z_1\ge2$ because
-$b+1>d$. Then $A$ and $G$ are integers and so are all $z_u$. They are
-nondecreasing, since $G\ge z_1$ amounts to $ab\ge1$ and
-$z_r=(z_{r-1}-1)^2\ge z_{r-1}$ for $r\ge3$. The products of
-$1-1/z_u$ are $a/b$ over all $r$ terms and larger over the first
-$r-1$, so the $z_u$ satisfy \eqref{eq:hyp} and attain
+If $d\mid b+1$, then $z_1$ is an integer greater than $1$, so
+$z_1\ge2$, and $A=az_1$, $G=A+1\ge3$ and all $z_u$ are integers. They
+are nondecreasing: $z_2\ge G\ge z_1$, since $G\ge z_1$ amounts to
+$ab\ge1$; the middle terms increase; and for $r\ge3$ we have
+$z_r=(z_{r-1}-1)^2\ge z_{r-1}$ because $z_{r-1}-1\ge G\ge3$. The
+product of $1-1/z_u$ is $a/b$ over all $r$ terms and larger over the
+first $r-1$, so the $z_u$ satisfy \eqref{eq:hyp} and attain
 $aZ_r=E_{r-1}(G)$.
 \end{proof}
 
@@ -366,21 +378,22 @@ coincide, and separate as $d$ grows.}
 \end{figure}
 
 \begin{remark}\label{rem:compare}
-Since $G=(a+1)/(1-a/b)$, Theorem~\ref{thm:deficit} depends on $a/b$
-only through its distance from $1$. Its base is smaller than the base
-$(a+1)^2$ of Lemma~\ref{lem:cn} by the factor $(a+1)d/b$, which is at
-least $1$ because $ad\ge a$; Figure~\ref{fig:surfaces} shows the two
-bases. Stone's bound $E_{r-1}(b^2/d)$ exceeds ours by
-the factor $b/(a+1)$ in the base. A second feature matters for the
-application: when $a$ and $d=b-a$ come from $a=P_j$ and
-$b=M\varphi(P_j)$, the base $G=(P_j+1)/(1-r_j/M)$ decreases as $M$
-increases, so the smallest admissible $M$ yields an upper bound, while
-$b^2/d=M^2\varphi(P_j)^2/(M\varphi(P_j)-P_j)$ is not monotone in~$M$.
+Since $G=(a+1)/(1-a/b)$, the bound of Theorem~\ref{thm:deficit}
+depends on $b$ only through the distance of $a/b$ from $1$. Its base
+is smaller than the base $(a+1)^2$ of Lemma~\ref{lem:cn} by the factor
+$(a+1)d/b$, which is at least $1$ because $ad\ge a$;
+Figure~\ref{fig:surfaces} shows the two bases. Stone's bound
+$E_{r-1}(b^2/d)$ exceeds ours by the factor $b/(a+1)$ in the base. In
+the application $a=P_j$ and $b=M\varphi(P_j)$, and then the base
+$G=(P_j+1)/(1-r_j/M)$ decreases as $M$ increases, so the smallest
+admissible value of $M$ yields an upper bound. The base
+$b^2/d=M^2\varphi(P_j)^2/(M\varphi(P_j)-P_j)$ of Stone has no such
+property: it decreases for $M<2r_j$ and increases for $M>2r_j$.
 \end{remark}
 
 \begin{remark}\label{rem:fermat}
-The extremal sequences of Theorem~\ref{thm:deficit} are easy to write
-down. For $a/b=5/8$ we have $d=3$, $z_1=3$, $A=15$ and $G=16$, and with
+The extremal sequences of Theorem~\ref{thm:deficit} are explicit. For
+$a/b=5/8$ we have $d=3$, $z_1=3$, $A=15$ and $G=16$, and with
 $r=4$ the sequence is $3,17,257,65536$:
 \[
   \frac23\cdot\frac{16}{17}\cdot\frac{256}{257}\cdot\frac{65535}{65536}
@@ -390,10 +403,10 @@ $r=4$ the sequence is $3,17,257,65536$:
 The first three terms are Fermat primes. For $a=1$ the sequence in the
 proof of Lemma~\ref{lem:cn} consists of the Fermat numbers
 $F_0,\dots,F_{r-2}$, where $F_i=2^{2^i}+1$, followed by $2^{2^{r-1}}$,
-and the same telescoping product shows that $F_0F_1\cdots F_{r-1}$
-solves the companion equation $n+1=2\varphi(n)$ whenever these Fermat
-numbers are prime. The deepest prefixes of the search in
-Section~\ref{sec:search} resemble these products
+and $n=F_0F_1\cdots F_{r-1}=2^{2^r}-1$ solves the companion equation
+$n+1=2\varphi(n)$ whenever these Fermat numbers are prime. Such
+products have $n/\varphi(n)$ just below $2$, and so do the deepest
+nodes of the search of Section~\ref{sec:search}
 (Section~\ref{sec:remarks}).
 \end{remark}
 
@@ -455,30 +468,40 @@ $j+1\ge s$ because $V_j>1$, and $n<V_j^{2^{k-j-1}}<2^{2^{k-s}}$.
 Theorem~\ref{thm:main}(a) therefore follows once we know that no
 Lehmer number is $7$-heavy, which Section~\ref{sec:search}
 establishes. We first record how fast the prime factors of a heavy
-Lehmer number grow.
+Lehmer number grow. Fix $s$, an index $j\ge0$ and a positive integer
+$P_j$. For $i>j$ let $\lambda_i$ be the least positive integer $m$
+with $P_jm^{i-j}\ge t_i$, and put $y_i=(t_i/P_j)^{1/(i-j)}$. Then
+$\lambda_i=\max\{1,\lceil y_i\rceil\}$, so $\lambda_i\ge y_i$, and
+$\lambda_i<y_i+1$ whenever $\lambda_i>1$.
 
 \begin{lemma}\label{lem:growth}
-Let $n$ be an $s$-heavy Lehmer number and $0\le j<i\le k-1$. Let
-$\lambda_i$ be the least positive integer $m$ with $P_jm^{i-j}\ge t_i$,
-and $y_i=(t_i/P_j)^{1/(i-j)}$. Then $p_i\ge\lambda_i>y_i-1$, and
-$y_{i+1}\ge y_i^{4/3}$ whenever $i\ge j+2$ and $y_i>1$.
+Let $i>j$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item If $i\ge j+2$ and $y_i>1$, then $y_{i+1}\ge y_i^{4/3}$.
+\item If $n$ is an $s$-heavy Lehmer number, $P_j$ is the product of
+its $j$ smallest prime factors and $i\le k-1$, then $p_i\ge\lambda_i$.
+\end{enumerate}
 \end{lemma}
 
 \begin{proof}
-By (H1), $t_i\le P_i\le P_jp_i^{\,i-j}$, so $p_i\ge\lambda_i$. If
-$y_i>1$, then $t_i>P_j\ge1$, so $i\ge s$ and $t_{i+1}=t_i^2$. Hence
+(a) If $y_i>1$, then $t_i>P_j\ge1$, so $i\ge s$ and
+$t_{i+1}=t_i^2$. Hence
 \[
   (i+1-j)\log y_{i+1}=2\log t_i-\log P_j
   \ge2(\log t_i-\log P_j)=2(i-j)\log y_i ,
 \]
-so $\log y_{i+1}\ge\frac{2(i-j)}{i+1-j}\log y_i\ge\frac43\log y_i$.
+so $\log y_{i+1}\ge\frac{2(i-j)}{i+1-j}\log y_i\ge\frac43\log y_i$,
+since $i-j\ge2$ and $\log y_i>0$.
+
+(b) By (H1) at $i$, $t_i\le P_i\le P_jp_i^{\,i-j}$, so
+$p_i\ge\lambda_i$.
 \end{proof}
 
 The search needs an upper bound for $r_k/r_j$ that uses only
 $p_1,\dots,p_j$ and a lower bound for $p_{j+1}$. For an integer
 $q\ge3$ and $i>j$ let $\pi_i(q)$ be the $(i-j)$-th smallest prime that
-is at least~$q$ when $q<2\cdot10^7$ and that prime lies below
-$2\cdot10^7$, and $\pi_i(q)=q+2(i-j-1)$ otherwise. Put
+is at least~$q$, if this prime is less than $2\cdot10^7$, and
+$\pi_i(q)=q+2(i-j-1)$ otherwise. Put
 $b_i=\max\{\pi_i(q),\lambda_i\}$, let $i_0$ be the least index
 $i\ge j+3$ with $\lambda_i>10^{30}$, and define
 \begin{equation}\label{eq:B}
@@ -493,28 +516,37 @@ is a finite computation because $\lambda_i$ grows doubly exponentially
 in~$i$.
 
 \begin{lemma}\label{lem:ext}
-Let $n$ be an $s$-heavy Lehmer number, $0\le j\le k-1$, and $3\le q\le
-p_{j+1}$. Then $r_k\le r_jB_j(q)$.
+Let $n$ be an $s$-heavy Lehmer number, $0\le j\le k-1$, and let $q$ be
+an integer with $3\le q\le p_{j+1}$. Then $r_k\le r_jB_j(q)$.
 \end{lemma}
 
 \begin{proof}
 The quotient $r_k/r_j$ is the product of $p_i/(p_i-1)$ over
 $j<i\le k$, and $x/(x-1)$ decreases in $x$. For $j<i\le k-1$ we have
 $p_i\ge\pi_i(q)$, since $p_{j+1}<\dots<p_i$ are odd primes at least
-$q$, and $p_i\ge\lambda_i$ by Lemma~\ref{lem:growth}; so
+$q$, and $p_i\ge\lambda_i$ by Lemma~\ref{lem:growth}(b); so
 $p_i\ge b_i$. For the last prime, $p_k\ge q$ if $k=j+1$ and
 $p_k\ge p_{k-1}+2\ge b_{k-1}+2$ otherwise. This bounds $r_k/r_j$ by
-the first or second term of \eqref{eq:B} when $k\le i_0$. When
-$k>i_0$, Lemma~\ref{lem:growth} gives $p_i\ge y_i\ge
-y_{i_0}^{(4/3)^{i-i_0}}$ for $i_0\le i\le k-1$, where
-$y_{i_0}>\lambda_{i_0}-1\ge10^{30}$. Since $p_k>p_{k-1}$,
+the first term of \eqref{eq:B} when $k=j+1$, and by the second term,
+with $i=k-1$, when $j+2\le k\le i_0$.
+
+Suppose $k>i_0$. The primes $p_{j+1},\dots,p_{i_0-1}$ contribute at
+most $\prod_{l=j+1}^{i_0-1}b_l/(b_l-1)$, as before. Put $Y=y_{i_0}$. Since
+$\lambda_{i_0}>10^{30}$, we have $Y>\lambda_{i_0}-1\ge10^{30}$, and
+Lemma~\ref{lem:growth} gives
+$p_i\ge\lambda_i\ge y_i\ge Y^{(4/3)^{i-i_0}}$ for $i_0\le i\le k-1$.
+As $p_k>p_{k-1}$, the factor of $p_k$ is at most that of $p_{k-1}$,
+so
 \[
   \prod_{i=i_0}^{k}\frac{p_i}{p_i-1}
-  \le\exp\Bigl(2\sum_{m\ge0}\frac1{y_{i_0}^{(4/3)^m}-1}\Bigr)
-  \le\exp\Bigl(\frac{4}{y_{i_0}-1}\Bigr)
-  \le1+\frac{8}{\lambda_{i_0}-2},
+  \le\prod_{i=i_0}^{k-1}\Bigl(1+\frac1{p_i-1}\Bigr)^{2}
+  \le\exp\Bigl(2\sum_{m\ge0}\frac1{Y^{(4/3)^m}-1}\Bigr).
 \]
-which gives the third term.
+Because $(4/3)^m\ge1+m/3$ and $Y\ge10^{30}$, the terms with $m\ge1$
+add up to less than $1/(Y-1)$, so the exponent is less than
+$4/(Y-1)\le1$. With $e^x\le1+2x$ for $0\le x\le1$ the product is at
+most $1+8/(Y-1)<1+8/(\lambda_{i_0}-2)$, which is smaller than the
+factor $1+16/(\lambda_{i_0}-2)$ of the third term of \eqref{eq:B}.
 \end{proof}
 
 %%==================================================================
@@ -528,7 +560,7 @@ $r_j$ as before. Let $\mu(S)$ be the least integer $M>r_j$ with $M\ge2$
 and, if $p_1=3$, $M\equiv1\pmod3$, and let $\mu'(S)$ be the next such
 integer. We say that a Lehmer number $n$ \emph{extends} $S$ if
 $j\le k-1$ and $S$ consists of the $j$ smallest prime factors of~$n$.
-By Lemma~\ref{lem:facts}(c),(d), the quotient $M$ of such an $n$
+By Lemma~\ref{lem:facts}(a),(c),(d), the quotient $M$ of such an $n$
 satisfies $M\ge\mu(S)$. For $j\ge0$ and $M>r_j$ we use $V_j(M)$ as in
 \eqref{eq:V}, computed from $S$.
 
@@ -551,11 +583,12 @@ integer $M$ with $\mu(S)\le M<r_j(p_j+2)/(p_j+1)$, and
 $M\equiv1\pmod3$ if $p_1=3$, test whether
 $\bigl(M\varphi(P_j)-1\bigr)/\bigl(M\varphi(P_j)-P_j\bigr)$ is a prime
 greater than $p_j$ that is not $1$ modulo any $p_i$.
-\item\label{r:children} \emph{Children.} Generate the sequences
-$(p_1,\dots,p_j,q)$ for the primes $q>p_j$ with $q\not\equiv1\pmod
-{p_i}$ for $i\le j$ and with $P_jq\ge t_{j+1}$, taking $q$ in
-increasing order and omitting~$q$ in the following cases. Put $q_c=\lfloor\mu\varphi(P_j)/(\mu\varphi(P_j)-P_j)\rfloor$
-with $\mu=\mu(S)$.
+\item\label{r:children} \emph{Children.} Put $\mu=\mu(S)$ and
+$q_c=\lfloor\mu\varphi(P_j)/(\mu\varphi(P_j)-P_j)\rfloor$. Generate
+the sequences $(p_1,\dots,p_j,q)$ for the primes $q>p_j$ with
+$q\not\equiv1\pmod{p_i}$ for $i\le j$ and with $P_jq\ge t_{j+1}$,
+taking $q$ in increasing order and omitting~$q$ in the following
+cases.
 \begin{enumerate}[label=(\roman*)]
 \item If $r_jB_j(q)\le\mu(S)$, omit $q$ and every larger prime.
 \item If $q\le q_c$ and $r_jB_j(q)\le\mu'(S)$, omit every prime in
@@ -565,11 +598,13 @@ $(p_1,\dots,p_j,q)$, is less than $t_{j+2}$, omit $q$.
 \end{enumerate}
 \end{enumerate}
 
-For $q>q_c$ the inequality in (iii) is a quadratic inequality in $q$
-with positive leading coefficient, so the omitted primes form an
-interval that is computed once per node. In (ii) a prime $q\le q_c$
-gives $r_jq/(q-1)\ge\mu(S)$, so a Lehmer number extending
-$(p_1,\dots,p_j,q)$ has $M\ge\mu'(S)$.
+A prime $q$ satisfies $q\le q_c$ exactly when $r_jq/(q-1)\ge\mu$, so
+in (ii) a Lehmer number extending $(p_1,\dots,p_j,q)$ has $r_{j+1}\ge
+\mu$ and hence $M\ge\mu'(S)$. For $q>q_c$ we have $r_{j+1}<\mu$, so
+$V_{j+1}(\mu)$ is defined, and after multiplication by its positive
+denominator the inequality in (iii) becomes a quadratic inequality in
+$q$ with positive leading coefficient; the primes omitted by (iii)
+therefore form an interval, which is computed once per node.
 
 \begin{figure}[t]
 \centering
@@ -589,23 +624,26 @@ $p_k$.
 \end{proposition}
 
 \begin{proof}
-We show by induction on $j$ that $S_j=(p_1,\dots,p_j)$ is a node for
-$0\le j\le k-1$. The number $n$ extends $S_j$, so $M\ge\mu(S_j)$.
-Lemma~\ref{lem:ext} with $q=q_1\le p_{j+1}$ gives
-$r_jB_j(q_1)\ge r_k>M\ge\mu(S_j)$, so \ref{r:ratio} does not discard
-$S_j$; and $V_j(\mu(S_j))\ge V_j(M)\ge t_{j+1}$ by (H2), so
-\ref{r:deficit} does not either. Given that $S_j$ is a node with
-$j\le k-2$, the prime $q=p_{j+1}$ is one of the candidates of
-\ref{r:children} by Lemma~\ref{lem:facts}(b) and (H1) at $j+1$. For
-every prime $q'\le p_{j+1}$ that the enumeration reaches, $r_k\le
-r_jB_j(q')$ by Lemma~\ref{lem:ext}, and $r_k>M\ge\mu(S_j)$, so (i)
-does not stop the enumeration before $p_{j+1}$. If $p_{j+1}\le q_c$,
-then $M>r_{j+1}\ge\mu(S_j)$ forces $M\ge\mu'(S_j)$, and
-$r_jB_j(q')\ge r_k>\mu'(S_j)$ for $q'\le p_{j+1}$, so (ii) does not
-omit $p_{j+1}$. If $p_{j+1}>q_c$, rule (ii) concerns only smaller
-primes, $\mu(S_j)>r_{j+1}$, and $V_{j+1}(\mu(S_j))\ge V_{j+1}(M)\ge
-t_{j+2}$ by (H2) at $j+1$, so (iii) does not omit $p_{j+1}$. Hence $S_{j+1}$ is generated, and it is a
-node by the argument above.
+Write $S_j=(p_1,\dots,p_j)$. We show by induction on $j$ that $S_j$
+is generated and is a node, for $0\le j\le k-1$. The empty sequence
+$S_0$ is generated by definition. Suppose that $S_j$ is generated. As
+$n$ extends $S_j$, we have $M\ge\mu(S_j)$. Lemma~\ref{lem:ext} with
+$q=q_1\le p_{j+1}$ gives $r_jB_j(q_1)\ge r_k>M\ge\mu(S_j)$, so
+\ref{r:ratio} does not discard $S_j$, and $V_j(\mu(S_j))\ge
+V_j(M)\ge t_{j+1}$ by (H2), so \ref{r:deficit} does not either. Thus
+$S_j$ is a node.
+
+Now let $j\le k-2$. The prime $p_{j+1}$ is a candidate of
+\ref{r:children} at $S_j$, by Lemma~\ref{lem:facts}(b) and (H1) at
+$j+1$. Lemma~\ref{lem:ext} gives $r_jB_j(q)\ge r_k>M\ge\mu(S_j)$ for
+every integer $q$ with $3\le q\le p_{j+1}$, so rule (i) applies at no
+prime $q\le p_{j+1}$. If $p_{j+1}\le q_c$, then $r_{j+1}\ge\mu(S_j)$,
+and $M>r_{j+1}$ forces $M\ge\mu'(S_j)$; hence $r_jB_j(q)>\mu'(S_j)$
+for $q\le p_{j+1}$, rule (ii) applies at no prime $q\le p_{j+1}$, and
+an application at a larger prime does not reach $p_{j+1}$. If
+$p_{j+1}>q_c$, rule (ii) omits only primes up to $q_c$, and
+$V_{j+1}(\mu(S_j))\ge V_{j+1}(M)\ge t_{j+2}$ by (H2) at $j+1$, so
+rule (iii) does not omit $p_{j+1}$. Hence $S_{j+1}$ is generated.
 
 At the node $S_{k-1}$ we have $\mu(S_{k-1})\le M<r_k$ and
 $r_k=r_{k-1}p_k/(p_k-1)\le r_{k-1}(p_{k-1}+2)/(p_{k-1}+1)$, so $M$ is
@@ -619,8 +657,13 @@ evaluates them exactly. The primes $\pi_i(q)$ below $2\cdot10^7$ are
 taken from a sieve. Primes above that are reached by stepping to the
 next probable prime; such a step never skips a prime, so a composite
 number may occasionally be treated as a prime, which can only enlarge
-the tree. In rule~\ref{r:last} the quotient was never an integer, so
-no primality proof is needed.
+the tree. It is equally harmless to replace $q_1$ in \ref{r:ratio} by
+the smaller number $p_j+2$, as one of the two programs below does
+beyond the sieve, because the proof of
+Proposition~\ref{prop:complete} uses only Lemma~\ref{lem:ext}, which
+holds for every integer $q$ with $3\le q\le p_{j+1}$. In
+rule~\ref{r:last} the quotient was never an integer, so no primality
+proof is needed.
 
 \begin{table}[t]
 \centering
@@ -642,7 +685,8 @@ tests & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 16 & 215 & 11894 & 2689\\
 The tree $\mathcal T_7$ has $33{,}678$ nodes and depth $13$.
 Rule~\ref{r:last} tests $14{,}814$ values of $M$, and for none of them
 is the quotient $\bigl(M\varphi(P_j)-1\bigr)/\bigl(M\varphi(P_j)-P_j\bigr)$
-an integer. Consequently no Lehmer number is $7$-heavy.
+an integer. Consequently, by Proposition~\ref{prop:complete}, no
+Lehmer number is $7$-heavy.
 \end{theorem}
 
 Table~\ref{tab:depth} lists the nodes by depth. Every node has
@@ -701,8 +745,10 @@ we obtain, exactly as in Lemma~\ref{lem:ext} with $j=0$,
 where $w_i'=\max\{w_i,q_{i+1}-2\}$ accounts for $p_{i+1}\ge
 \max\{q_{i+1},w_i+2\}$, and $i_0$ is the least $i\ge s+4$ with
 $\rho_i>10^{30}$. The tail estimate is that of Lemma~\ref{lem:ext},
-applied to $y_i=t_i^{1/i}$, for which $p_i\ge y_i>\rho_i-1$ and
-$\log y_{i+1}=\frac{2i}{i+1}\log y_i\ge\frac43\log y_i$ when $i\ge s$.
+applied to $y_i=t_i^{1/i}$, for which $p_i\ge\rho_i\ge y_i>\rho_i-1$
+when $\rho_i>1$, and
+$\log y_{i+1}=\frac{2i}{i+1}\log y_i\ge\frac43\log y_i$ when
+$i\ge\max\{s,2\}$.
 
 \begin{proof}[Proof of Theorem~\textup{\ref{thm:main}(b)} and
 \textup{(c)}]
@@ -710,8 +756,10 @@ Suppose $3\mid n$. Then $M\ge4$ by Lemma~\ref{lem:facts}(c), and by
 Lemma~\ref{lem:facts}(b) every prime factor other than $3$ is
 $2\bmod3$. Take $\mathcal Q$ to be $3$ followed by the primes
 $p\equiv2\pmod3$. An exact computation gives
-$R_{1524}(\mathcal Q)=3.99986\ldots<4$, so (H1) must fail for some
-$j\le k-1$ with $s=1524$, and Corollary~\ref{cor:light} gives (c).
+$R_{1524}(\mathcal Q)=3.99986\ldots<4$. If (H1) held for all $j\le
+k-1$ with $s=1524$, then \eqref{eq:R} would give $r_k<4\le M$,
+contrary to Lemma~\ref{lem:facts}(d). So $n$ is not $1524$-heavy, and
+Corollary~\ref{cor:light} gives (c).
 
 Suppose $M\ge3$ and $3\nmid n$, and take $\mathcal Q$ to be the primes
 from $5$ on. Then $R_{24}(\mathcal Q)=2.99488\ldots<3$, and the same
@@ -733,15 +781,18 @@ $27947$.
 
 \subsection{Where the search is hard}
 The nodes that survive longest are prefixes with $r_j$ just below $2$.
-Every node at depth $13$ has $2-r_{13}<10^{-10}$, so that $P_{13}$ is
-within one part in $10^{10}$ of $2\varphi(P_{13})$. Such prefixes
-resemble the solutions of the companion equation $n+1=2\varphi(n)$,
-most of which are products of Fermat primes \cite{MBB}. For them
-$1-r_j/2$ is tiny, so $V_j$ is large and the deficit test cannot
-discard them, while any child must exceed
-$q_c=\lfloor1/(1-r_j/2)\rfloor>2\cdot10^{10}$, since a smaller prime
-would raise $r_{j+1}$ to $2$ or more. Figure~\ref{fig:profile} shows
-how close to the threshold of (H2) the deepest nodes come.
+Every node at depth $13$ has $2-r_{13}<10^{-10}$: there $P_{13}$ has
+between $27$ and $29$ digits, while $2\varphi(P_{13})-P_{13}$ has
+between $14$ and $18$.
+In this respect the deep nodes behave like the products of Fermat
+primes of Remark~\ref{rem:fermat}, for which
+$2\varphi(n)-n=1$. For such a prefix $1-r_j/2$ is tiny, so $V_j$ is
+large and the deficit test cannot discard it. Its children are few
+for the same reason: a prime $q\le q_c=\lfloor1/(1-r_j/2)\rfloor$,
+which exceeds $3\cdot10^{10}$ at depth $13$, would raise $r_{j+1}$
+to $2$ or more and force $M\ge3$, and rule (ii) removes these primes.
+Figure~\ref{fig:profile} shows how close to the threshold of (H2) the
+deepest nodes come.
 
 \subsection{Comparison with the bounds for prime tuples}
 Stone \cite[(52), (53)]{Sto24} treated tuples of primes with
@@ -800,15 +851,18 @@ $s=4,5,6,7$, on a logarithmic scale.}
 \label{fig:sizes}
 \end{figure}
 
+\section*{Acknowledgment}
+The authors used Claude, an AI system developed by Anthropic, for
+assistance with the proofs, the programs and the manuscript. The
+authors checked all of it and take full responsibility for the
+contents of this paper.
+
 \section*{Data availability}
-{\sloppy The programs that carry out the search of Section~\ref{sec:search} and
-the computation of Section~\ref{sec:large}, their recorded output, and
-the sources of this paper are archived at Zenodo,
-\href{https://doi.org/\zenododoi}{doi:\zenododoi}. The programs were
-written by D.~Bhattacharjee with the assistance of Claude, an AI system
-developed by Anthropic, which helped with the coding; the authors
-checked the programs and their output and take full responsibility for
-them.\par}
+The Zenodo archive \href{https://doi.org/\zenododoi}{doi:\zenododoi}
+holds the programs that carry out the search of
+Section~\ref{sec:search} and the computation of
+Section~\ref{sec:large}, their recorded output and the sources of
+this paper.
 
 \begin{thebibliography}{99}
 
