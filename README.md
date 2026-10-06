@@ -5,10 +5,10 @@ Code, data and Lean proofs for the paper
 > P. Mandal, D. Bhattacharjee, U. Bhattacharya,
 > *Lehmer's totient problem with fewer than sixteen prime factors*.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23171399.svg)](https://doi.org/10.5281/zenodo.23171399)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23180698.svg)](https://doi.org/10.5281/zenodo.23180698)
 
-Archived at Zenodo. The latest release, v2.5.2, is
-[doi:10.5281/zenodo.23171399](https://doi.org/10.5281/zenodo.23171399). The concept DOI
+Archived at Zenodo. The latest release, v2.6.0, is
+[doi:10.5281/zenodo.23180698](https://doi.org/10.5281/zenodo.23180698). The concept DOI
 [doi:10.5281/zenodo.23072268](https://doi.org/10.5281/zenodo.23072268), which the paper cites, covers every version and
 resolves to the newest.
 
