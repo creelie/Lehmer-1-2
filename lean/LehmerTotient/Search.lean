@@ -367,7 +367,7 @@ theorem last_two_converse {A B p q ε : ℤ} (hC : 2 * B - A ≠ 0)
   · exact absurd h0 hC
   · linarith
 
-/-- The form of Proposition 3.5 used for the checks of Section 8: if
+/-- The form of Proposition 3.5 used for the checks of Appendix A.4: if
 `b (A p q + ε) = a B (p - 1)(q - 1)` and `C = a B - b A`, then
 `(C p - a B)(C q - a B) = b (a A B + ε C)`. -/
 theorem last_two_general {a b A B p q ε : ℤ}

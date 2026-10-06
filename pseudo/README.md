@@ -22,7 +22,7 @@ PATH) for the two `pari_*` programs. Build the C program first, in this director
 
 | file | purpose | runtime |
 |---|---|---|
-| `tail3.c` | the last three entries for a whole interval of x_{k-2} (prime or integer), by the sum route of Section 4.5 | – |
+| `tail3.c` | the last three entries for a whole interval of x_{k-2} (prime or integer), by the sum route of Section 4.4 | – |
 | `tail3lib.py` | driver for `tail3`; problems where the sum route would be long are solved by a complete factorisation, with every prime factor proved prime | – |
 | `integer_tree.py` | Theorem 9.3 (i), first program: the tree with integer entries prime to 3, k <= 12, both signs | seconds |
 | `prime_prefixes.py` | Theorem 9.3 (ii), first program: the prime prefixes of the search of Theorems 1.1 and 1.4, then three integer entries | about 4 min of CPU time per sign for k = 15 |
