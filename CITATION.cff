@@ -8,6 +8,9 @@ identifiers:
     value: 10.5281/zenodo.23072268
     description: "Concept DOI: all versions, resolves to the newest"
   - type: doi
+    value: 10.5281/zenodo.23180698
+    description: "Version 2.6.0"
+  - type: doi
     value: 10.5281/zenodo.23171399
     description: "Version 2.5.2"
 authors:
