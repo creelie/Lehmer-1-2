@@ -24,7 +24,7 @@ lake env lean Check.lean
 | module | paper |
 |---|---|
 | `Basic.lean` | Lemma 2.1 (i), (ii); Lemma 2.2, residues modulo 3 |
-| `Search.lean` | `n/φ(n) = ∏ p/(p−1)` for squarefree `n`; Propositions 3.1, 3.2, 3.4 and the converse of 3.4; the form of 3.4 used in Section 8 |
+| `Search.lean` | `n/φ(n) = ∏ p/(p−1)` for squarefree `n`; Propositions 3.1, 3.2, 3.5 and the converse of 3.5; the form of 3.5 used in Section 8 |
 | `Three.lean` | Proposition 4.1 and its converse; Lemma 4.2; Section 4.5 (the sum identity, its converse, `c³ < N + 2c²`); `gcd(r, c) = 1` from the congruence prune |
 | `FirstHit.lean` | Lemma 4.3 for the recursive function: termination, the least solution, and completeness of `none` |
 | `Data.lean` | generated lists of primes in progressions, with a prime divisor of every skipped member |

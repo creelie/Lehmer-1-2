@@ -10,7 +10,7 @@ A solution is a squarefree `n` with `n + ε = 2 φ(n)`.  Its prime factors form 
 * `P_primeFactors`: `P S = 2 - ε / φ n` (equation (3.2)).
 * `P_lt_two`: Proposition 3.1.
 * `bounds_minus`, `bounds_plus`: Proposition 3.2.
-* `last_two`: Proposition 3.4.
+* `last_two`: Proposition 3.5.
 -/
 
 open Nat Finset
@@ -337,9 +337,9 @@ theorem bounds_plus (hs : Split n T pj x0) (hsq : Squarefree n)
   · have : 0 < 1 / (P T * φ n) := by positivity
     linarith
 
-/-! ### Proposition 3.4 -/
+/-! ### Proposition 3.5 -/
 
-/-- Proposition 3.4: if `A p q + ε = 2 B (p - 1)(q - 1)` with `B ≥ 1`, `p ≥ 2`, `q ≥ 1`, then
+/-- Proposition 3.5: if `A p q + ε = 2 B (p - 1)(q - 1)` with `B ≥ 1`, `p ≥ 2`, `q ≥ 1`, then
 `t = C p - 2 B > 0`, `t (q - 1) = A p + ε` and `(C p - 2 B)(C q - 2 B) = 2 A B + ε C`, where
 `C = 2 B - A`. -/
 theorem last_two {A B p q ε : ℤ} (hε : IsSign ε) (hB : 1 ≤ B) (hp : 2 ≤ p) (hq : 1 ≤ q)
@@ -355,7 +355,7 @@ theorem last_two {A B p q ε : ℤ} (hε : IsSign ε) (hB : 1 ≤ B) (hp : 2 ≤
   have : q * ((2 * B - A) * p - 2 * B) ≤ 0 := mul_nonpos_of_nonneg_of_nonpos (by omega) hneg
   linarith
 
-/-- The converse direction of Proposition 3.4, used when the last two primes are read off from
+/-- The converse direction of Proposition 3.5, used when the last two primes are read off from
 a divisor: the identity `(C p - 2 B)(C q - 2 B) = 2 A B + ε C` with `C ≠ 0` gives back
 `A p q + ε = 2 B (p - 1)(q - 1)`. -/
 theorem last_two_converse {A B p q ε : ℤ} (hC : 2 * B - A ≠ 0)
@@ -367,7 +367,7 @@ theorem last_two_converse {A B p q ε : ℤ} (hC : 2 * B - A ≠ 0)
   · exact absurd h0 hC
   · linarith
 
-/-- The form of Proposition 3.4 used for the checks of Section 8: if
+/-- The form of Proposition 3.5 used for the checks of Section 8: if
 `b (A p q + ε) = a B (p - 1)(q - 1)` and `C = a B - b A`, then
 `(C p - a B)(C q - a B) = b (a A B + ε C)`. -/
 theorem last_two_general {a b A B p q ε : ℤ}

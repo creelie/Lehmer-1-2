@@ -37,6 +37,10 @@ What the computations establish (see the paper for the proofs they complete):
    with two. An entry x with a^(A±1) ≡ 1 (mod x) for every a prime to x, where A = x₁⋯x_k, is squarefree and
    q − 1 | A ± 1 for every prime q | x; for pairwise coprime entries and the sign −1, A is then a Carmichael number
    (Section 9.7). The tuples of statement 8 all contain the entry 25 and fail this test.
+11. The analytic results of the paper are proved by hand; two programs check their numbers. `bound/hand_bound.py`
+   checks the bounds in the proof that no composite n with φ(n) | n−1 is 2-heavy, which gives n < 2^(2^(k−2))
+   without a search (Proposition 6.11), and `bound/greedy_growth.py` computes Table 1, the growth of the independent
+   sets chosen one prime at a time against log log x, the rate that Theorem 2.7 (the large sieve) allows.
 
 The lemmas and propositions behind 1–4, 7 and 9, and statements 5, 6, 8 and 10 in full, are proved in Lean 4 in
 `lean/` (see `lean/README.md`); for 2 and 7 this includes the reduction, the identities and the sieve of the
@@ -78,7 +82,7 @@ factors nothing, so its negative answers rely on no primality test.
 | `lastthree_b.py` | Section 4, second implementation: boxes in v, Lagrange-reduced lattice bases, own frontier and prime generation | – |
 | `lastthree_c.py` | Section 4.5, third implementation: the sum t + N/t is fixed modulo C'², found by a short scan with one square test per value; no boxes, no factoring, no primality proof | – |
 | `k15_run.py` | the case k = 15 of Theorems 1.1 (`--eps -1`) and 1.4 (`--eps 1`) with any of the three implementations (`--program A`, `B` or `C`); resumable, multi-core | 15–45 min of CPU time per run |
-| `k15_stats.py` | Figure 9 (the ratio c³/N over the k = 15 search), the run totals of Table 3, and the k = 16 statistics of Section 9 | a few minutes |
+| `k15_stats.py` | Figure 9 (the ratio c³/N over the k = 15 search), the run totals of Table 4, and the k = 16 statistics of Section 9 | a few minutes |
 | `extensions.py` | Theorem 1.6: one- and two-prime extensions of the known solutions | seconds |
 | `check_certificates.py` | re-derives the fifteen long terminal nodes of k = 14 and checks the stored factorisations | seconds |
 | `validate.py` | both programs on 2^k(n−1) = (2^k+m)φ(n), k = 4, 5: must return the 56 listed solutions | ~10 min |

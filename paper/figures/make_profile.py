@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Writes fig_profile.tex: the number of nodes at each depth of the search for k = 7..15 (logs/walls.log, Table 1
+"""Writes fig_profile.tex: the number of nodes at each depth of the search for k = 7..15 (logs/walls.log, Table 2
 and Section 5.2 of the paper), as a grid of cells shaded by the decimal logarithm of the count."""
 import math
 prof = {

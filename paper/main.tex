@@ -72,8 +72,10 @@ companion problem, in which the totient divides one more than the
 number, we find every solution with at most eight prime factors, show
 that a solution prime to three has at least sixteen, and show that
 the known solutions other than 2 are exactly the numbers obtained
-from one by adjoining one or two primes at a time. For every number
-of factors from twenty-six on we construct integers, not all prime,
+from one by adjoining one or two primes at a time. For both problems
+we show by the large sieve that the number of prime factors is at
+least doubly exponential in the quotient of the number plus or minus
+one by its totient. For every number of factors from twenty-six on we construct integers, not all prime,
 that satisfy every condition our searches impose except primality,
 so a proof for all numbers of factors has to use primality, and we
 show that a Fermat test on each factor excludes them.
@@ -253,8 +255,57 @@ coming from the factorisation $255^2+255+1=65281=97\cdot673$, just as
 $4294967295$ comes from the trivial factorisation $65281=1\cdot65281$
 (Figure~\ref{fig:tree}).
 
+Our last theorem is analytic and concerns both equations. It shows
+that the number of prime factors of a solution is at least doubly
+exponential in the quotient.
+
+\begin{theorem}\label{thm:doubly}
+There is an absolute and effective constant $c>0$ with the following
+property. Let $n$ be composite with $\varphi(n)\mid n-1$, or let $n>3$
+with $\varphi(n)\mid n+1$, and let $M$ be the quotient
+$(n-1)/\varphi(n)$ or $(n+1)/\varphi(n)$. Then
+\[
+  \omega(n)\ge\exp\bigl(\exp(cM)\bigr)-2 .
+\]
+\end{theorem}
+
+The first primes alone give only $\omega(n)\ge\exp(c'M)$, since the
+product of $p/(p-1)$ over the first $K$ primes grows like $\log K$.
+Theorem~\ref{thm:doubly} uses the fact that no prime factor of a
+solution divides another prime factor minus one, and it is proved by
+the large sieve (Section~\ref{sec:growth}). It explains why the bounds
+$16001$ and $10^8$ in Theorems~\ref{thm:first} and~\ref{thm:quotient}
+lie so far above the bounds $33$ and $1540$ that the first primes give.
+
+\subsection{Theory and computation}
+The proofs combine analytic arguments with exhaustive computation, and
+every search rests on a theorem that reduces the statement to finitely
+many cases and proves that the search covers all of them. The following
+results are proved by hand: the reductions of Section~\ref{sec:elem},
+including the bounds of Lemmas~\ref{lem:three} and~\ref{lem:Mtwo} up to
+the evaluation of a finite product; Theorem~\ref{thm:doubly}; the interval bounds, the
+divisibility condition for the last two primes and the completeness of
+the search (Propositions~\ref{prop:bounds} and~\ref{prop:last},
+Theorem~\ref{thm:complete}), together with an explicit bound that makes
+the search finite (Corollary~\ref{cor:finite}); the reduction of the
+last three primes to divisors in a residue class and the bound on the
+number of such divisors (Proposition~\ref{prop:class},
+Theorem~\ref{thm:three} and Proposition~\ref{prop:fourdiv}); the sharp
+product lemma (Theorem~\ref{thm:deficit}) and the size bound
+$n<2^{2^{k-2}}$ (Proposition~\ref{prop:hand}); Theorem~\ref{thm:ext}
+up to the factorisation of eight integers; and the structural results
+of Section~\ref{sec:walls} (Propositions~\ref{prop:pseudo},
+\ref{prop:local}, \ref{prop:lehmerext} and~\ref{prop:threeentries},
+Lemmas~\ref{lem:parity} and~\ref{lem:korselt}). The computations then
+settle finitely many cases: the searches for at most fifteen prime
+factors (Sections~\ref{sec:first} and~\ref{sec:second}), the searches
+over independent sets that give the numerical bounds for $M\ge3$ and for
+$3\mid n$ (Proposition~\ref{prop:indep}), and the search that carries the size
+bound from $n<2^{2^{k-2}}$ to $n<2^{2^{k-7}}$
+(Theorem~\ref{thm:sizesearch}).
+
 \subsection{Scope}
-Theorems~\ref{thm:first}--\ref{thm:ext} bound the number of prime
+Theorems~\ref{thm:first}--\ref{thm:doubly} bound the number of prime
 factors and the size of a new solution and describe the known ones; they do not
 decide whether \eqref{eq:first} has a composite solution or whether
 \eqref{eq:second} has solutions beyond \eqref{eq:known}. Section~\ref{sec:walls}
@@ -353,8 +404,9 @@ Parts (ii) and (iii) combine the lemma of Cook and Nielsen with the
 search of Section~\ref{sec:indep}.
 
 The paper is organised as follows. Section~\ref{sec:elem} proves the
-reductions, the bounds for large quotients and for $3\mid n$, and
-Theorem~\ref{thm:quotient}. Section~\ref{sec:search}
+reductions, the bounds for large quotients and for $3\mid n$,
+Theorem~\ref{thm:quotient}, and, by the large sieve,
+Theorem~\ref{thm:doubly}. Section~\ref{sec:search}
 sets up the search and proves that it is complete, and
 Section~\ref{sec:three} describes the treatment of the last three
 primes. Section~\ref{sec:first} completes the proof of
@@ -674,6 +726,234 @@ primes reaches $4$ before $k=10^8+2$ (open circle).}
 \label{fig:products}
 \end{figure}
 
+\subsection{The growth of independent sets}\label{sec:growth}
+Proposition~\ref{prop:indep} needs a search because the product of
+$p/(p-1)$ over an independent set grows very slowly with the size of
+the set. Over the first $K$ primes the product is asymptotic to
+$e^{\gamma}\log K$ by Mertens' theorem, so that the products alone
+give only $\omega(n)\ge\exp(c'M)$ for some $c'>0$. Over an independent
+set of $K$ primes the product is at most a constant multiple of
+$\log\log K$, and this forces $\omega(n)$ to be at least doubly
+exponential in $M$ (Theorem~\ref{thm:doubly}).
+
+For a set $S$ of primes and $x\ge2$ put
+\[
+  P_S(x)=\prod_{p\in S,\ p\le x}\frac p{p-1},\qquad
+  \delta_S(x)=\prod_{p\in S,\ p\le x}\Bigl(1-\frac1{p-1}\Bigr).
+\]
+An independent set with at least two elements does not contain $2$,
+since $2$ divides $q-1$ for every odd prime $q$. For a set $S$ of odd
+primes every factor of $\delta_S(x)$ is at least $\frac12$, and since
+$\frac p{p-1}\bigl(1-\frac1{p-1}\bigr)=1-\frac1{(p-1)^2}$,
+\begin{equation}\label{eq:deltaP}
+  \delta_S(x)\,P_S(x)\le1 .
+\end{equation}
+
+\begin{theorem}\label{thm:sieve}
+There is an absolute constant $c_0$ such that every independent set
+$S$ of $K\ge3$ primes satisfies
+\[
+  \prod_{p\in S}\frac p{p-1}\le c_0\log\log K .
+\]
+\end{theorem}
+
+The proof rests on the large sieve. Each element $p$ of $S$ excludes
+from $S$ the primes congruent to $1$ modulo $p$, so that a prime above
+$x$ can belong to $S$ only if it avoids one residue class modulo every
+element of $S$ up to $x$; the large sieve bounds the number of such
+primes by $\delta_S(x)$ times the number of all primes in the range.
+
+\begin{lemma}\label{lem:sievestep}
+Let $S$ be an independent set of odd primes and $N\ge2^{88}$. Then
+\[
+  \#\{q\in S:\ N^{1/44}<q\le N\}\le\frac{132\,N\,\delta_S(N^{1/44})}{\log N}.
+\]
+\end{lemma}
+
+\begin{proof}
+Put $Q=N^{1/2}$ and $z=N^{1/44}=Q^{1/22}$, so that $z\ge4$. For a prime
+$p\le z$ let $\Omega_p$ consist of the residue class $0$ modulo $p$
+and, if $p\in S$, also of the class $1$; for $z<p\le Q$ let $\Omega_p$
+be empty. Let $\omega(p)<p$ be the number of classes in $\Omega_p$. A
+prime $q\in S$ with $z<q\le N$ lies in none of these classes: it is
+not divisible by a prime $p\le z<q$, and for $p\in S$ it is not
+congruent to $1$ modulo $p$, because $S$ is independent. The large
+sieve \cite{Mon68,MV73} states that a set of integers in $[1,N]$ that
+avoids the classes of $\Omega_p$ for every prime $p\le Q$ has at most
+$(N+Q^2)/L$ elements, where
+\[
+  L=\sum_{q\le Q}\mu^2(q)\,G(q),\qquad G(q)=\prod_{p\mid q}g(p),\qquad
+  g(p)=\frac{\omega(p)}{p-\omega(p)} .
+\]
+Here $g(p)=1/(p-1)$ for $p\le z$ with $p\notin S$, $g(p)=2/(p-2)$ for
+$p\le z$ with $p\in S$, and $g(p)=0$ for $p>z$; in every case
+$g(p)\le6/p$.
+
+Let $\Pi$ be the product of the primes up to $z$ and put
+$\sigma=1/\log z$, so that $Q^{\sigma}=e^{22}$. Then $L$ is the sum of
+$G(q)$ over the divisors $q\le Q$ of $\Pi$. A divisor $q>Q$ has
+$(q/Q)^{\sigma}>1$, and so
+\[
+  \sum_{q\mid\Pi,\ q>Q}G(q)\le Q^{-\sigma}\sum_{q\mid\Pi}G(q)\,q^{\sigma}
+  =e^{-22}\prod_{p\le z}\bigl(1+g(p)p^{\sigma}\bigr).
+\]
+For $p\le z$ we have $0<\sigma\log p\le1$, hence
+$p^{\sigma}-1\le(e-1)\sigma\log p$ by convexity, and
+$1+g(p)p^{\sigma}\le\bigl(1+g(p)\bigr)\exp\bigl(g(p)(p^{\sigma}-1)\bigr)$.
+With $g(p)\le6/p$ and the elementary bound\footnote{Let
+$m=\lfloor z\rfloor$. Legendre's formula gives
+$\log m!\ge\sum_{p\le m}\lfloor m/p\rfloor\log p
+>m\sum_{p\le m}(\log p)/p-\sum_{p\le m}\log p$, while
+$\log m!\le m\log m$ and $\sum_{p\le m}\log p<m\log4$, because the
+product of the primes up to $m$ is less than $4^m$. Dividing by $m$
+gives the bound.}
+$\sum_{p\le z}(\log p)/p<\log z+\log4$ this gives
+\[
+  \prod_{p\le z}\bigl(1+g(p)p^{\sigma}\bigr)
+  \le\exp\Bigl(6(e-1)\Bigl(1+\frac{\log4}{\log z}\Bigr)\Bigr)
+  \prod_{p\le z}\bigl(1+g(p)\bigr)
+  <e^{20.7}\prod_{p\le z}\bigl(1+g(p)\bigr),
+\]
+because $z\ge4$ and $12(e-1)<20.7$. Since
+$\prod_{p\le z}(1+g(p))=\sum_{q\mid\Pi}G(q)$ and $e^{20.7-22}<\frac13$,
+the divisors $q>Q$ contribute less than a third of this sum, and
+$L>\frac23\prod_{p\le z}(1+g(p))$. Finally $1+g(p)=p/(p-1)$ for
+$p\notin S$ and $1+g(p)=\frac p{p-1}\bigl(1-\frac1{p-1}\bigr)^{-1}$ for
+$p\in S$, so that
+\[
+  \prod_{p\le z}\bigl(1+g(p)\bigr)
+  =\frac1{\delta_S(z)}\prod_{p\le z}\Bigl(1-\frac1p\Bigr)^{-1}
+  >\frac{\log z}{\delta_S(z)},
+\]
+since the product $\prod_{p\le z}(1-1/p)^{-1}$ is at least
+$\sum_{n\le z}1/n>\log z$. With $\log z=(\log N)/44$ we obtain
+$L>\log N/(66\,\delta_S(z))$, and the large sieve, with $N+Q^2=2N$,
+gives the lemma.
+\end{proof}
+
+\begin{lemma}\label{lem:sievesum}
+Let $S$ be an independent set of odd primes and $y\ge2^{88}$. Then
+\[
+  \sum_{q\in S,\ y<q\le y^2}\frac1q\le269\,\delta_S\bigl(y^{1/44}\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $a=\lfloor\log_2y\rfloor\ge88$ and $b=\lceil2\log_2y\rceil$, so
+that $b\le2a+2$. The interval $(y,y^2]$ is covered by the intervals
+$(2^{i-1},2^i]$ with $a<i\le b$. For each such $i$,
+Lemma~\ref{lem:sievestep} with $N=2^i$ applies to the elements of $S$
+in $(2^{i-1},2^i]$, because $2^{i/44}\le2^{i-1}$, and
+$\delta_S(2^{i/44})\le\delta_S(y^{1/44})$, because $2^i>y$ and
+$\delta_S$ is decreasing. Each of these elements exceeds $2^{i-1}$, so
+their reciprocals add up to at most
+\[
+  \frac{132\cdot2^i\,\delta_S(y^{1/44})}{2^{i-1}\,i\log2}
+  =\frac{264\,\delta_S(y^{1/44})}{i\log2}.
+\]
+Since $\sum_{a<i\le b}1/i\le\log(b/a)\le\log(2+2/88)<0.705$ and
+$264\cdot0.705/\log2<269$, the lemma follows.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:sieve}]
+By Mertens' theorem $\prod_{p\le x}(1-1/p)^{-1}=e^{\gamma}\log x+O(1)$,
+so there is an absolute constant $c_1$ with
+$\prod_{u<p\le u^{44}}p/(p-1)\le c_1$ for all $u\ge2$. Let $S$ be an
+independent set of odd primes. Then $P_S(y)\le c_1P_S(y^{1/44})$ for
+$y\ge2^{44}$, and
+Lemma~\ref{lem:sievesum} and \eqref{eq:deltaP} give, for $y\ge2^{88}$,
+\begin{equation}\label{eq:sievestep}
+  \sum_{q\in S,\ y<q\le y^2}\frac1q\le\frac{269}{P_S(y^{1/44})}
+  \le\frac{269\,c_1}{P_S(y)} .
+\end{equation}
+Put $y_0=2^{88}$, $y_{j+1}=y_j^2$ and $a_j=P_S(y_j)$. Since
+$-\log(1-1/q)\le2/q$, \eqref{eq:sievestep} gives
+$a_{j+1}\le a_je^{c_2/a_j}$ with $c_2=538\,c_1$, and also
+$a_{j+1}\le c_1a_j$. If $a_j\ge c_2$, then
+$a_{j+1}\le a_j(1+2c_2/a_j)=a_j+2c_2$, because $e^t\le1+2t$ for
+$0\le t\le1$; if $a_j<c_2$, then $a_{j+1}<c_1c_2$. By induction
+$a_j\le c_3+2c_2j$ for all $j\ge0$, where
+$c_3=\max\bigl\{c_1c_2,\prod_{p\le2^{88}}p/(p-1)\bigr\}\ge a_0$. For $x>y_0$
+let $j$ be the least index with $y_j\ge x$. Then
+$2^{j-1}\log y_0<\log x$, and
+$P_S(x)\le a_j\le c_3+2c_2\bigl(1+\log_2(\log x/\log y_0)\bigr)$.
+Together with $P_S(x)\le a_0\le c_3$ for $x\le y_0$, this gives
+$P_S(x)\le c_4\log\log x$ for all $x\ge3$, with an absolute constant
+$c_4$.
+
+Now let $S$ have $K\ge3$ elements, so that its elements are odd. At
+most $K$ of them exceed $K^2$, and each of those contributes a factor
+at most $1+1/K^2$, so that together they contribute less than
+$e^{1/K}<2$. Hence
+\[
+  \prod_{p\in S}\frac p{p-1}<2P_S(K^2)\le2c_4\log\log K^2
+  =2c_4(\log2+\log\log K)\le20\,c_4\log\log K,
+\]
+since $\log2<9\log\log3$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:doubly}]
+Let $n$ be as in Lemma~\ref{lem:basic} and $k=\omega(n)\ge2$. The prime
+factors of $n$ form an independent set, and $n/\varphi(n)$ is the
+product of $p/(p-1)$ over them. If $k\ge3$, Theorem~\ref{thm:sieve} and
+Lemma~\ref{lem:basic}(iii) give
+$M\le c_0\log\log k+1/\varphi(n)<(c_0+3)\log\log(k+2)$, since
+$\log\log5>\frac13$. If $k=2$, then $n/\varphi(n)\le\frac32\cdot\frac54$
+and $\varphi(n)\ge8$, so that $M\le2<7\log\log4$. In both cases
+$\log\log(k+2)\ge cM$ with $c=1/\max\{c_0+3,7\}$, which is the
+assertion.
+\end{proof}
+
+The constants in Theorems~\ref{thm:sieve} and~\ref{thm:doubly} are
+effective but large, and the numerical bounds of
+Corollary~\ref{cor:indep} come from Proposition~\ref{prop:indep}, not
+from the sieve. What the sieve explains is the shape of those bounds.
+Heuristically, the elements of $S$ up to $x$ leave a proportion
+$\delta_S(x)$ of the primes near $x$ available, and a set that takes
+every available prime gains $\log P_S$ at the rate
+$\delta_S(x)\,d\log\log x$, since $\sum_{q\le x}1/q$ grows like
+$\log\log x$. The derivative of $P_S$ with respect to $\log\log x$ is
+then $\delta_S(x)P_S(x)$, which is at most $1$ by \eqref{eq:deltaP},
+so that $P_S(x)$ grows at most like $\log\log x$, the rate of
+Theorem~\ref{thm:sieve}. The independent sets chosen one prime at a
+time in Section~\ref{sec:indep} grow at this rate
+(Table~\ref{tab:greedy}). Between $x=10^3$ and $x=10^8$ the product of
+$p/(p-1)$ over the elements up to $x$ differs from a linear function of
+$\log\log x$ by less than $0.003$, with slope $0.82$ for the primes
+from $5$ on and $0.41$ for the primes $p\equiv2\pmod3$, which are
+half of all primes. The first set needs $100470$ primes to reach the
+product $3$, where the first primes from $5$ on need $33$, and the
+second has not reached $\frac83$ below $2\cdot10^8$
+(Section~\ref{sec:indep}). This is
+why the bounds of Corollary~\ref{cor:indep} exceed $33$ and $1540$ by
+so much.
+
+\begin{table}[ht]
+\centering
+\caption{The independent sets chosen one prime at a time from the
+primes from $5$ on and from the primes $p\equiv2\pmod3$ from $5$ on:
+the number of elements up to $x$ and the product of $p/(p-1)$ over
+them.}
+\label{tab:greedy}
+\smallskip
+\small
+\begin{tabular}{@{}rrrrrr@{}}
+\toprule
+ & & \multicolumn{2}{c}{primes from $5$ on} &
+ \multicolumn{2}{c}{$p\equiv2\pmod3$} \\
+\cmidrule(lr){3-4}\cmidrule(l){5-6}
+$x$ & $\log\log x$ & elements & product & elements & product \\
+\midrule
+$10^3$ & $1.933$ & $62$ & $2.3430$ & $45$ & $1.6489$ \\
+$10^4$ & $2.220$ & $407$ & $2.5792$ & $293$ & $1.7626$ \\
+$10^5$ & $2.443$ & $2\,908$ & $2.7593$ & $2\,185$ & $1.8564$ \\
+$10^6$ & $2.626$ & $22\,602$ & $2.9078$ & $17\,396$ & $1.9328$ \\
+$10^7$ & $2.780$ & $183\,730$ & $3.0344$ & $142\,723$ & $1.9979$ \\
+$10^8$ & $2.913$ & $1\,538\,281$ & $3.1447$ & $1\,207\,989$ & $2.0546$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 %%==================================================================
 \section{A branch-and-bound for \texorpdfstring{$n+\varepsilon=2\varphi(n)$}{n+e=2phi(n)}}\label{sec:search}
 %%==================================================================
@@ -747,7 +1027,46 @@ $T-1=C_j/A_j\ge1/A_j$.
 Apart from the correction terms, \eqref{eq:bounds} says $x<T\le x^m$,
 that is $1/(T-1)<p_{j+1}-1\le1/(T^{1/m}-1)$. Since
 $T^{1/m}-1$ is close to $(T-1)/m$, the interval has length about
-$(m-1)/(T-1)=(m-1)A_j/C_j$ (Figure~\ref{fig:interval}).
+$(m-1)/(T-1)=(m-1)A_j/C_j$ (Figure~\ref{fig:interval}). The upper end
+obeys a bound that makes the search finite.
+
+\begin{corollary}\label{cor:finite}
+Let $0\le j\le k-2$, let $p_1<\dots<p_j$ be odd primes with $P_j<2$,
+and let $p_{j+1}>p_j$ be a prime that satisfies the inequality for
+$x^m$ in \eqref{eq:bounds}. Then $p_{j+1}<1+3(k-j)B_j/C_j<4kA_j$. If
+$n=p_1\cdots p_k$ satisfies \eqref{eq:M2}, then moreover
+$p_k\le2B_{k-1}+1$, and
+\[
+  A_j<(4k)^{2^j}\quad(0\le j\le k),\qquad n<(4k)^{2^k}.
+\]
+\end{corollary}
+
+\begin{proof}
+Let $m=k-j$ and $x=p_{j+1}/(p_{j+1}-1)$, so that
+$p_{j+1}-1=1/(x-1)$. By \eqref{eq:bounds}, $x^m\ge T'$, where $T'=T$
+if $\varepsilon=-1$ and $T'=T-1/(A_jW)$ if $\varepsilon=+1$. As
+$T-1=C_j/A_j$ with $C_j\ge1$, and $W\ge4$, in both cases
+$T'-1\ge(C_j-\frac14)/A_j\ge3C_j/(4A_j)>0$ and $T'\le T$. For $t>1$
+we have $t^{1/m}-1=(t-1)/\sum_{i<m}t^{i/m}\ge(t-1)/(mt)$, and so
+\[
+  p_{j+1}-1=\frac1{x-1}\le\frac1{T'^{1/m}-1}\le\frac{mT'}{T'-1}
+  \le\frac{2mB_j}{A_j}\cdot\frac{4A_j}{3C_j}<\frac{3mB_j}{C_j}.
+\]
+Since $C_j\ge1$ and $B_j\le A_j-1$ for $j\ge1$, while
+$A_0=B_0=C_0=1$, this gives $p_{j+1}<4kA_j$. For a solution, the
+equation $A_{k-1}p_k+\varepsilon=2B_{k-1}(p_k-1)$ gives
+$p_kC_{k-1}=2B_{k-1}+\varepsilon$, and $C_{k-1}\ge1$ by
+Proposition~\ref{prop:below2}, so that $p_k\le2B_{k-1}+1<4kA_{k-1}$.
+By Propositions~\ref{prop:below2} and~\ref{prop:bounds} the first part
+applies to $p_{j+1}$ for every $j\le k-2$. Hence $A_{j+1}<4kA_j^2$ for
+$0\le j<k$, and induction gives $A_j\le(4k)^{2^j-1}$.
+\end{proof}
+
+Every node of the search below satisfies the hypotheses of
+Corollary~\ref{cor:finite}, so the tree has finitely many nodes and the
+search terminates. The bound $n<(4k)^{2^k}$ has the shape of the bound
+$n<k^{2^k}$ of Pomerance \cite{Pom77}; Theorem~\ref{thm:size} replaces
+it by $n<2^{2^{k-7}}$.
 
 \begin{figure}[t]
 \centering
@@ -1208,15 +1527,34 @@ is about $2(N/c^3)^{1/2}+2$ operations. This is comparable with the
 number of boxes above, but unlike the work in the boxes it does not
 depend on where the divisors lie.
 
-The same argument bounds the number of divisors. Two divisors
-$t_1<t_2\le\sqrt N$ with $u\ge1$ have sums $t_i+N/t_i$ that differ by
-a positive multiple of $c^2$, and both sums lie between $2\sqrt N$ and
-$r+c+N/(r+c)<2c+N/c$. If there were two, then $c^2<2c+N/c-2\sqrt N<2c+N/c$, that is,
-$c^3<N+2c^2$. Hence, if $c^3\ge N+2c^2$, the class contains at most
-one divisor $t\le\sqrt N$ besides $t=r$. For classes of this special
-kind, and at the price of the term $2c^2$, this sharpens Lenstra's
-bound of $11$ to at most four divisors in all, namely $r$, $N/r$, $t$
-and $N/t$.
+The same argument bounds the number of divisors.
+
+\begin{proposition}\label{prop:fourdiv}
+In the situation of Proposition~\ref{prop:class}, suppose that
+$c^3\ge N+2c^2$. Then at most one divisor $t\le\sqrt N$ of $N$ with
+$t\equiv r\pmod c$ is different from $r$, and $N$ has at most four
+positive divisors congruent to $r$ modulo $c$.
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:class}, every divisor $t$ of $N$ in the
+class has $N/t\equiv r^2r^{-1}=r\pmod c$. Let $t_1<t_2\le\sqrt N$ be
+divisors of $N$ in the class, both different from $r$. The hypothesis
+gives $c^3>2c^2$, so $c>2$ and $0<r<c$. Hence $t_i=r+cu_i$ with
+$u_i\ge1$, and $N/t_i=r+cv_i$ with $v_i\ge u_i$. By \eqref{eq:sum} the sums
+$u_i+v_i$ lie in one class modulo $c$, so the numbers
+$t_i+N/t_i=2r+c(u_i+v_i)$ differ by a multiple of $c^2$. The difference
+is positive, because $x+N/x$ decreases on $(0,\sqrt N\,]$, and both
+numbers lie between $2\sqrt N$ and $r+c+N/(r+c)<2c+N/c$. Hence
+$c^2<2c+N/c-2\sqrt N<2c+N/c$, that is, $c^3<N+2c^2$, contrary to the
+hypothesis. Finally, every divisor of $N$ above $\sqrt N$ in the class
+is $N/t$ for a divisor $t<\sqrt N$ in the class, and so there are at
+most four divisors in the class: $r$, $N/r$, $t$ and $N/t$.
+\end{proof}
+
+For classes of this special kind, and at the price of the term $2c^2$,
+Proposition~\ref{prop:fourdiv} sharpens Lenstra's bound of $11$ to
+four.
 
 We ran this route, too, over every pair of a node at depth $k-3$ and
 an admissible $s$. It takes its primes $s$ from a sieve of its own and
@@ -1744,8 +2082,84 @@ $n<(A_j+1)^{2^{k-j}}\le2^{2^{k-s}}$. If (H2) fails at $j$, then
 $j+1\ge s$ because $V_j>1$, and $n<V_j^{2^{k-j-1}}<2^{2^{k-s}}$.
 \end{proof}
 
-Theorem~\ref{thm:size}(i) therefore follows once we know that no
-solution is $7$-heavy, which Section~\ref{sec:sizesearch} establishes.
+For $s=2$ condition (H1) alone contradicts
+Lemma~\ref{lem:sizefacts}(i), and the argument can be carried out by
+hand.
+
+\begin{proposition}\label{prop:hand}
+No composite solution of \eqref{eq:first} is $2$-heavy. Consequently
+every composite solution with $k$ prime factors satisfies
+$n<2^{2^{k-2}}$.
+\end{proposition}
+
+\begin{proof}
+Let $n$ be $2$-heavy, and let $1\le i\le k-1$. Condition (H1) at $j=i$
+and $A_i\le p_i^{\,i}$ give $p_i\ge\theta_i^{1/i}=2^{2^{i-2}/i}$. Hence
+$p_7\ge24$, $p_8\ge256$, $p_9>19000$ and $p_i>4^i$ for $i\ge10$, so
+that
+\[
+  \sum_{8\le i\le k-1}\frac1{p_i-1}<\frac1{256}+\frac1{19000}
+  +\sum_{i\ge10}\frac1{4^i-1}<0.004 .
+\]
+Put $f(x)=x/(x-1)$, which decreases for $x>1$ and satisfies
+$f(x)\le e^{1/(x-1)}$. Then $P_k=\prod_{i\le k}f(p_i)$ and
+$f(p_k)<f(p_{k-1})$. Let $b_1,\dots,b_7$ be lower bounds for
+$p_1,\dots,p_7$ and $\beta_j=\prod_{i\le j}f(b_i)$. If $k\le8$, then
+$P_k<\beta_{k-1}f(b_{k-1})$. If $k\ge9$, the prime factors
+$p_8,\dots,p_k$ contribute less than $e^{0.004}f(p_{k-1})<e^{0.008}$,
+and $P_k<\beta_7e^{0.008}$. We distinguish four cases.
+\begin{enumerate}[label=(\alph*)]
+\item If $3\mid n$, then $p_1=3$ and $M\ge4$ by Lemma~\ref{lem:three},
+  and the next prime factors are at least $5,7,11,13,17$ and, as
+  $p_7\ge24$, $29$.
+\item If $p_1=5$ and $p_2=7$, then no other prime factor is congruent
+  to $1$ modulo $5$ or $7$ by Lemma~\ref{lem:basic}(ii), which excludes
+  $11$, $29$ and $31$.
+\item If $p_1=5$ and $p_2\ne7$, then $p_2\ge13$, and $11$ and $31$ are
+  excluded because they are congruent to $1$ modulo $5$.
+\item If $p_1\ge7$, the prime factors are at least the primes from $7$
+  on, and $p_7\ge29$.
+\end{enumerate}
+In cases (b) to (d), $3\nmid n$ and $M\ge2$. Table~\ref{tab:hand}
+lists the bounds $b_1,\dots,b_7$ in each case and the larger of
+$\max_{j\le7}\beta_jf(b_j)$ and $\beta_7e^{0.008}$. In every case it is
+less than $M$, so that $P_k<M$, contrary to
+Lemma~\ref{lem:sizefacts}(i). Hence no composite solution is
+$2$-heavy, and Corollary~\ref{cor:light} with $s=2$ gives the bound.
+\end{proof}
+
+\begin{table}[ht]
+\centering
+\caption{The four cases in the proof of Proposition~\ref{prop:hand}:
+lower bounds $b_1,\dots,b_7$ for the seven smallest prime factors and
+the resulting upper bound for $P_k$, rounded up.}
+\label{tab:hand}
+\smallskip
+\small
+\begin{tabular}{@{}llrr@{}}
+\toprule
+case & $b_1,\dots,b_7$ & bound for $P_k$ & $M\ge$ \\
+\midrule
+(a) $p_1=3$ & $3,5,7,11,13,17,29$ & $2.972$ & $4$ \\
+(b) $p_1=5$, $p_2=7$ & $5,7,13,17,19,23,37$ & $1.957$ & $2$ \\
+(c) $p_1=5$, $p_2\ne7$ & $5,13,17,19,23,29,37$ & $1.738$ & $2$ \\
+(d) $p_1\ge7$ & $7,11,13,17,19,23,29$ & $1.749$ & $2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The proof uses only condition (H1), whose failure gives the bound
+through the lemma of Cook and Nielsen, and the fact that no prime
+factor divides another minus one.
+For $s=1$ the same argument needs only the cases $3\mid n$ and
+$3\nmid n$, with the primes from $5$ on as lower bounds and
+$p_6\ge41$, $p_7\ge569$, $p_8\ge65537$ from (H1); it shows that no
+composite solution is $1$-heavy, which gives $n<2^{2^{k-1}}$, half the
+number of binary digits allowed by the bound of Burek and \.Zmija. For larger $s$ the estimates of this proof
+are too weak, and Theorem~\ref{thm:size}(i) follows once we know that
+no solution is $7$-heavy, which Section~\ref{sec:sizesearch}
+establishes with exact bounds at every node and with condition (H2)
+and Theorem~\ref{thm:deficit} as well.
 We first record how fast the prime factors of a heavy solution grow.
 Fix $s$, an index $j\ge0$ and the product $A_j$ of $j$ odd primes. For
 $i>j$ let $\lambda_i$ be the least positive integer $\lambda$ with
@@ -1989,8 +2403,8 @@ Two independent programs carried out the search, one of them written
 in PARI/GP \cite{PARI}. The first applies rule (iii) by solving the
 quadratic inequality, and the second locates the omitted interval by
 bisection; they use different data structures for the tree. For
-$s=4,5,6,7$ both report the same trees, with $12$, $24$, $118$ and
-$33678$ nodes. The deficit test does most of the work: without
+$s=1,\dots,7$ both report the same trees, with $1$, $3$, $7$, $12$,
+$24$, $118$ and $33678$ nodes. The deficit test does most of the work: without
 rules~\ref{r:deficit} and (iii), the tree $\mathcal T_6$ already has
 $4469$ nodes and depth $12$. Either program completes the search for
 $s=7$ in less than half a minute on one processor core.
@@ -3391,7 +3805,7 @@ $43,\,317,\,331,\,953,\,166357$ & 1 & $43,\,139,\,47819,\,1145259251,\,653813324
 \section*{Data availability}
 Deep Bhattacharjee wrote and ran the programs of this paper, in
 Python, C, PARI/GP and shell, and wrote Lean~4 proofs \cite{dMU21},
-checked with the Mathlib library \cite{Mathlib}, of most of the
+checked with the Mathlib library \cite{Mathlib}, of many of the
 statements that do not depend on a search, among them Theorem~\ref{thm:deficit},
 Proposition~\ref{prop:sizebounds} and the results of
 Section~\ref{sec:structure}, all with the assistance of Claude Code
@@ -3401,7 +3815,9 @@ factorisations of the fifteen integers of Table~\ref{tab:hard}, the
 logs of the three-prime searches of Section~\ref{sec:fifteen}, the
 program and the journal of the eight-prime search of
 Section~\ref{sec:eight}, the programs of Sections~\ref{sec:indep}
-and~\ref{sec:sizesearch} and their output, the programs and logs
+and~\ref{sec:sizesearch} and their output, the programs that check the
+numbers of Table~\ref{tab:greedy} and of the proof of
+Proposition~\ref{prop:hand}, the programs and logs
 of Section~\ref{sec:walls}, the entries of the tuple of
 Theorem~\ref{thm:pseudo25} with the check of Lemma~\ref{lem:korselt}
 on them, the Lean proofs, and the sources of this paper are archived
@@ -3520,6 +3936,18 @@ G.~Molnar and G.~Singh,
 \emph{Positive spoof Lehmer factorizations},
 preprint, 2025, arXiv:2409.17076v2 [math.NT].
 \href{https://doi.org/10.48550/arXiv.2409.17076}{doi:10.48550/arXiv.2409.17076}
+
+\bibitem{Mon68}
+H.~L. Montgomery,
+\emph{A note on the large sieve},
+J. London Math. Soc. \textbf{43} (1968), 93--98.
+\href{https://doi.org/10.1112/jlms/s1-43.1.93}{doi:10.1112/jlms/s1-43.1.93}
+
+\bibitem{MV73}
+H.~L. Montgomery and R.~C. Vaughan,
+\emph{The large sieve},
+Mathematika \textbf{20} (1973), no.~2, 119--134.
+\href{https://doi.org/10.1112/S0025579300004708}{doi:10.1112/S0025579300004708}
 
 \bibitem{dMU21}
 L.~de Moura and S.~Ullrich,
