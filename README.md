@@ -46,6 +46,12 @@ What the computations establish (see the paper for the proofs they complete):
    with n − 1 = 2φ(n) gives such a solution with x its largest prime. For k ≤ 15 no such x exists, prime or not;
    for the sign +1 one exists, at the tuple (3, 5, 17, 257, 65537, 2³² + 1) (Section 9.8). In searches along the defects with prime
    entries the sum of 1/C falls, while with integer entries it rises (`pseudo/descent_prime.py`).
+13. For a solution of n − 1 = 2φ(n) as in 12, a prime ℓ dividing C is not among p₁, …, p_{k−1}, and none of them is
+   1 modulo ℓ. Then ℓ | C needs at least 201 prime factors for ℓ = 5, 59 for ℓ = 7, 17 for ℓ = 11, 24 for ℓ = 13,
+   20 for ℓ = 17, 19 for ℓ = 19 and 18 for ℓ = 23, and a solution with sixteen prime factors has no prime factor of
+   C below 29 (`defect/`, Section 9.9). Lehmer's conjecture is equivalent to the assertion that no set S of odd
+   primes and M ≥ 2 make D = M∏(p − 1) − ∏p a positive divisor of ∏p − 1 with (M∏(p − 1) − 1)/D a prime above
+   max S (Remark 9.16); that assertion is not proved.
 
 The lemmas and propositions behind 1–4, 7 and 9, and statements 5, 6, 8 and 10 in full, are proved in Lean 4 in
 `lean/` (see `lean/README.md`); for 2 and 7 this includes the reduction, the identities and the sieve of the
@@ -62,7 +68,7 @@ Python 3.8 or later with `sympy` (tested with Python 3.11 and sympy 1.14). `siev
 and about 2 GB of memory. The fifteen-prime programs (`lastthree.py`, `lastthree_b.py`, `lastthree_c.py`, `k15_run.py`,
 `k15_stats.py` and the scripts in `tests/`) need `numpy`, `gmpy2` and `python-flint` (tested with numpy 2.4,
 gmpy2 2.3 and python-flint 0.9, which bundles FLINT 3.6). The eight-prime search in `companion8/` and
-`pseudo/integer_tree_scan.py` also need a C compiler with GMP and PARI/GP 2.15 or later (`gp` on the PATH).
+`pseudo/integer_tree_scan.py` also need a C compiler with GMP and PARI/GP 2.15 or later (`gp` on the PATH). The second program of `defect/` needs PARI/GP as well.
 
 **Primality tests.** Without `gmpy2`, SymPy's `isprime` is a strong probable-prime test to the first thirteen
 prime bases below 3.3·10^24, which is a proof there (Sorenson and Webster), and a Baillie–PSW test above.
@@ -87,7 +93,7 @@ factors nothing, so its negative answers rely on no primality test.
 | `lastthree_b.py` | Section 4, second implementation: boxes in v, Lagrange-reduced lattice bases, own frontier and prime generation | – |
 | `lastthree_c.py` | Section 4.4, third implementation: the sum t + N/t is fixed modulo C'², found by a short scan with one square test per value; no boxes, no factoring, no primality proof | – |
 | `k15_run.py` | the case k = 15 of Theorems 1.1 (`--eps -1`) and 1.4 (`--eps 1`) with any of the three implementations (`--program A`, `B` or `C`); resumable, multi-core | 15–45 min of CPU time per run |
-| `k15_stats.py` | Figure 9 (the ratio c³/N over the k = 15 search), the run totals of Table 10, and the k = 16 statistics of Section 9 | a few minutes |
+| `k15_stats.py` | Figure 9 (the ratio c³/N over the k = 15 search), the run totals of Table 11, and the k = 16 statistics of Section 9 | a few minutes |
 | `extensions.py` | Theorem 1.6: one- and two-prime extensions of the known solutions | seconds |
 | `check_certificates.py` | re-derives the fifteen long terminal nodes of k = 14 and checks the stored factorisations | seconds |
 | `validate.py` | both programs on 2^k(n−1) = (2^k+m)φ(n), k = 4, 5: must return the 56 listed solutions | ~10 min |
@@ -109,6 +115,7 @@ factors nothing, so its negative answers rely on no primality test.
 | `data/k15/stats.json` | output of `k15_stats.py` | |
 | `pseudo/` | Section 9: pseudo-solutions prime to 3 (Theorem 9.3), the first-moment count and the searches with prime entries of Section 9.8; see `pseudo/README.md` | |
 | `logs/` | recorded output of every script | |
+| `defect/` | Section 9.9: the bounds k_ℓ for primes ℓ dividing the last defect and the ℓ-sets of Table 10, by two independent programs (Python and PARI/GP), with their logs; see `defect/README.md` | about 2 min for k_ℓ, 15 min for the table |
 | `bound/` | Proposition 2.5 (independent sets of primes) and Section 6 (Theorem 1.2): two independent programs for each search, the computation of Section 6.5, and their logs; see `bound/README.md` | see `bound/README.md` |
 | `lean/` | Lean 4 formalisation (Lean and Mathlib v4.34.1); `lake build`, then `lake env lean Check.lean` for the axiom audit | ~1 min with the Mathlib cache |
 

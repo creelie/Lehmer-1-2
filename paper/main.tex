@@ -56,29 +56,25 @@
 
 \thanks{\textsuperscript{*}\,Corresponding author: Deep Bhattacharjee.}
 
-\subjclass[2020]{Primary 11A25; Secondary 11Y70, 11A51, 11D68}
-\keywords{Euler's totient function, Lehmer's totient problem,
-Fermat primes, Egyptian fractions, exhaustive search}
+\subjclass[2020]{Primary 11A25; Secondary 11A41, 11A51, 11D68, 11N36,
+11Y11, 11Y16, 11Y70}
+\keywords{Lehmer's totient problem, Euler's totient function, large
+sieve, Fermat primes}
 \date{}
 
 \begin{document}
 
 \begin{abstract}
 We prove that a composite number whose totient divides one less than
-the number has at least sixteen distinct prime factors, more than a
-hundred million if it is divisible by three, and at most one binary
-digit for every 128 subsets of its prime factors. For the
-companion problem, in which the totient divides one more than the
-number, we find every solution with at most eight prime factors, show
-that a solution prime to three has at least sixteen, and show that
-the known solutions other than 2 are exactly the numbers obtained
-from one by adjoining one or two primes at a time. For both problems
-we show by the large sieve that the number of prime factors is at
-least doubly exponential in the quotient of the number plus or minus
-one by its totient. For every number of factors from twenty-six on we construct integers, not all prime,
-that satisfy every condition our searches impose except primality,
-so a proof for all numbers of factors has to use primality, and we
-show that a Fermat test on each factor excludes them.
+the number has at least sixteen prime factors, more than a hundred
+million if it is divisible by three, and at most one binary digit for
+every 128 subsets of its prime factors. For the companion problem, in
+which the totient divides one more than the number, we find every
+solution with at most eight prime factors. For both problems the number
+of prime factors is at least doubly exponential in the ratio of the
+number plus or minus one to its totient. The assertion needed to
+settle Lehmer's conjecture, which we do not prove, is stated in
+Remark~\ref*{rem:open}.
 \end{abstract}
 
 \maketitle
@@ -296,14 +292,17 @@ $n<2^{2^{k-2}}$ (Proposition~\ref{prop:hand}); Theorem~\ref{thm:ext}
 up to the factorisation of eight integers; and the structural results
 of Section~\ref{sec:walls} (Propositions~\ref{prop:pseudo},
 \ref{prop:local}, \ref{prop:lehmerext} and~\ref{prop:threeentries},
-Lemmas~\ref{lem:parity}, \ref{lem:korselt}, \ref{lem:largest}
-and~\ref{lem:defect}, and Proposition~\ref{prop:largest}(i)). The computations then
+Lemmas~\ref{lem:parity}, \ref{lem:korselt}, \ref{lem:largest},
+\ref{lem:defect} and~\ref{lem:ell}, Proposition~\ref{prop:largest}(i),
+and the equivalence of Remark~\ref{rem:open}). The computations then
 settle finitely many cases: the searches for at most fifteen prime
 factors (Sections~\ref{sec:first} and~\ref{sec:second}), the searches
 over independent sets that give the numerical bounds for $M\ge3$ and for
 $3\mid n$ (Proposition~\ref{prop:indep}), and the search that carries the size
 bound from $n<2^{2^{k-2}}$ to $n<2^{2^{k-7}}$
-(Theorem~\ref{thm:sizesearch}).
+(Theorem~\ref{thm:sizesearch}), and the searches over sets of primes
+that avoid a residue class (Propositions~\ref{prop:kell}
+and~\ref{prop:defectk}).
 
 \subsection{Scope}
 Theorems~\ref{thm:first}--\ref{thm:doubly} bound the number of prime
@@ -341,6 +340,13 @@ factors determine the last through a single divisibility, and that
 for $k\le15$ no solution exists even when the largest entry need only
 be an integer prime to the others (Proposition~\ref{prop:largest}); for
 the companion equation such a solution exists with six entries.
+Section~\ref{sec:defect} shows that a small prime can divide the
+modulus $C$ of this divisibility, the last defect, only when the
+solution has many prime factors: $5\mid C$ needs at least $201$ of them, and a
+solution with sixteen prime factors has no prime factor of $C$ below
+$29$ (Corollary~\ref{cor:defect}). Remark~\ref{rem:open} states the
+assertion, equivalent to Lehmer's conjecture, that this paper does not
+prove.
 
 \subsection{Method}
 The bound $\omega(n)\ge16$ of Theorem~\ref{thm:first} and
@@ -429,7 +435,8 @@ Theorems~\ref{thm:eight}, \ref{thm:coprime} and~\ref{thm:ext}.
 Section~\ref{sec:checks} summarises the checks on the computations,
 whose details are in Appendix~\ref{app:checks}, and
 Section~\ref{sec:walls} treats the next cases, the pseudo-solutions
-and the structure of the equation.
+and the structure of the equation, and ends with the assertion that
+remains open (Remark~\ref{rem:open}).
 
 \subsection*{Notation}
 Throughout, $n=p_1p_2\cdots p_k$ with primes $p_1<\dots<p_k$, and
@@ -3731,6 +3738,220 @@ Lemma~\ref{lem:three} removes a prefix with two or more entries left,
 so excluding these prefixes for $k\ge16$ needs the modulus $C$ of each
 prefix.
 
+\subsection{Prime factors of the last defect}\label{sec:defect}
+Let $n=p_1\cdots p_k$ be a composite solution of $n-1=2\varphi(n)$, and
+form $A$, $B$ and $C$ from $p_1,\dots,p_{k-1}$ as in
+Section~\ref{sec:largest}. We call $C$ the \emph{last defect} of $n$.
+By Proposition~\ref{prop:largest}(i), $C\ge5$, $C\mid A-1$ and
+$p_k=(2B-1)/C$, so the first $k-1$ prime factors determine the last
+through $C$ (Figure~\ref{fig:defect}). By Corollary~\ref{cor:indep},
+every composite solution of $\varphi(n)\mid n-1$ with at most $16000$
+prime factors satisfies $n-1=2\varphi(n)$ and is prime to $3$. The
+prime factors of $C$ restrict the other prime factors of $n$ in the way
+that the prime $3$ does in Lemma~\ref{lem:three}.
+
+\begin{lemma}\label{lem:ell}
+Let $n=p_1\cdots p_k$ be a composite solution of $n-1=2\varphi(n)$
+with last defect $C$, and let $\ell$ be a prime factor of $C$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\ell\ne p_i$ and $p_i\not\equiv1\pmod\ell$ for every $i<k$.
+\item $A\equiv1$ and $2B\equiv1\pmod C$, so that
+$\prod_{i<k}(1-1/p_i)\equiv\frac12\pmod C$.
+\item $\displaystyle\prod_{i<k}\frac{p_i}{p_i-1}<2<\prod_{i\le k}\frac{p_i}{p_i-1}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:largest}, $\gcd(C,2AB)=1$. (i) The prime $\ell$
+divides neither $A=p_1\cdots p_{k-1}$ nor $B=(p_1-1)\cdots(p_{k-1}-1)$.
+(ii) The first congruence is $C\mid A-1$, and the second is
+$2B-1=p_kC$. As $A$ and $B$ are prime to $C$, the product
+$\prod_{i<k}(1-1/p_i)=B/A$ is congruent to $\frac12$ modulo $C$.
+(iii) The product over $i<k$ is $A/B=2-C/B<2$, and the product over
+$i\le k$ is $n/\varphi(n)=2+1/\varphi(n)$ by
+Lemma~\ref{lem:basic}(iii).
+\end{proof}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_defect.png}
+\caption{(a)~The first $k-1$ prime factors of a solution of
+$n-1=2\varphi(n)$ determine $A$, $B$ and the last defect $C$, and $C$
+determines the largest prime factor. A prime $\ell$ dividing $C$
+excludes $\ell$ and the class $1$ modulo $\ell$ from the first $k-1$
+prime factors (Lemma~\ref{lem:ell}). (b)~The least number $k_\ell$ of
+prime factors that this exclusion allows, for the primes $\ell\le199$
+(Proposition~\ref{prop:kell}), and the larger lower bounds of
+Corollary~\ref{cor:defect} (open circles). The dashed line is the bound
+$\omega(n)\ge16$ of Theorem~\ref{thm:first}.}
+\label{fig:defect}
+\end{figure}
+
+Part~(i) removes from the first $k-1$ prime factors the prime $\ell$
+and the primes congruent to $1$ modulo $\ell$, which by the prime number
+theorem for arithmetic progressions make up the proportion $1/(\ell-1)$
+of all primes, and part~(iii) then needs many of the primes that
+remain. To measure this, let $\ell\ge5$ be prime and
+$K\ge1$. We call a set $S$ of $K$ primes an \emph{$\ell$-set} if its
+elements are at least $5$, different from $\ell$ and not congruent to
+$1$ modulo $\ell$, if $S$ is independent, and if
+\begin{equation}\label{eq:lset}
+  \prod_{p\in S}\frac{p}{p-1}<2<\prod_{p\in S}\frac{p}{p-1}\cdot\frac{q_S}{q_S-1},
+\end{equation}
+where $q_S$ is the least prime larger than the elements of $S$ that is
+not congruent to $1$ modulo any of them. Let $k_\ell$ be the least
+value of $K+1$ for which an $\ell$-set of size $K$ exists. If $\ell$
+divides the last defect of a solution $n=p_1\cdots p_k$, then
+$S=\{p_1,\dots,p_{k-1}\}$ is an $\ell$-set: its elements are at least
+$5$ by Proposition~\ref{prop:largest}(i), it is independent by
+Lemma~\ref{lem:basic}(ii), Lemma~\ref{lem:ell}(i) gives the conditions
+modulo $\ell$, and $p_k\ge q_S$, because $p_k$ is a prime larger than
+$p_{k-1}$ and not congruent to $1$ modulo any $p_i$, so that
+Lemma~\ref{lem:ell}(iii) gives \eqref{eq:lset}. Hence $k\ge k_\ell$.
+
+\begin{proposition}\label{prop:kell}
+We have $k_5=201$, $k_7=58$, $k_{11}=14$, $k_{13}=21$, $k_{17}=16$,
+$k_{19}=15$, $k_{23}=14$ and $k_{37}=12$, and $k_\ell=11$ for every
+other prime $\ell$ with $29\le\ell\le199$. A composite solution of
+$n-1=2\varphi(n)$ whose last defect is divisible by $\ell$ has at least
+$k_\ell$ prime factors.
+\end{proposition}
+
+\begin{proof}
+The second assertion was shown above. For the first we use the search
+of Proposition~\ref{prop:indep} with three changes. The allowed primes
+are those from $5$ on that differ from $\ell$ and are not congruent to
+$1$ modulo $\ell$. The bound $B(S)$ of a set $S$ with fewer than $K$
+elements contains, besides the factors for $S$ and for the $K-|S|$
+smallest candidates for $S$, the factor $q/(q-1)$ for the least prime
+$q$ above the last of these candidates that is not congruent to $1$
+modulo an element of $S$; this prime is not restricted modulo $\ell$,
+since Lemma~\ref{lem:ell} says nothing about $p_k$ modulo $\ell$.
+Finally, a set whose product is at least $2$ is discarded, since every
+set that contains it has a larger product. If $T$ is an $\ell$-set of
+size $K$ whose $|S|$ smallest elements form $S$, then the other
+elements of $T$ are candidates for $S$ and $q_T$ is at least the prime
+$q$ just described, so the right-hand side of \eqref{eq:lset} for $T$
+is at most $B(S)$, and the argument in the proof of
+Proposition~\ref{prop:indep} shows that the search creates $T$. For
+every $\ell$ the search finds no $\ell$-set of size less than
+$k_\ell-1$ and finds one of size $k_\ell-1$.\footnote{For $\ell=17$ the
+only $\ell$-set of size $15$ is
+$\{5,7,13,19,23,37,59,67,73,83,89,97,107,109,163\}$, with $q_S=173$ and
+product $1.98918\ldots$; its last defect
+$C=15724416449794753166951$ is congruent to $6$ modulo $17$.} Sets of
+size $K$ are decided by \eqref{eq:lset} in exact rational arithmetic,
+and the bounds are handled as in Proposition~\ref{prop:indep}, so that
+rounding can add sets to the search but never remove one. Two programs
+written independently carry out the search
+(Appendix~\ref{app:defect}).
+\end{proof}
+
+For $\ell=11$ and for $17\le\ell\le199$ the value of $k_\ell$ is at most the
+bound $16$ of Theorem~\ref{thm:first}. Deciding the equation on every
+$\ell$-set goes further.
+
+\begin{proposition}\label{prop:defectk}
+For each pair $(\ell,k)$ in Table~\ref{tab:defect}, no composite
+solution of $n-1=2\varphi(n)$ with $k$ prime factors has a last defect
+divisible by $\ell$.
+\end{proposition}
+
+\begin{proof}
+For such a solution $\{p_1,\dots,p_{k-1}\}$ is an $\ell$-set of size
+$k-1$, as shown above, and with $A$, $B$ and $C$ formed from its
+elements, $\ell$ divides $C$ and $C$ divides $A-1$. Continued past the
+first $\ell$-set, the search of Proposition~\ref{prop:kell} lists every
+$\ell$-set of size $k-1$. Table~\ref{tab:defect} gives their number
+and the number of them with $\ell\mid C$; none of these has
+$C\mid A-1$.
+\end{proof}
+
+\begin{table}[t]
+\centering
+\caption{The $\ell$-sets of size $k-1$ for the pairs $(\ell,k)$ of
+Proposition~\ref{prop:defectk}, and the number of them whose last
+defect $C$ is divisible by $\ell$. None of them has $C\mid A-1$.}
+\label{tab:defect}
+\begin{tabular}{rrrr@{\qquad}rrrr}
+\toprule
+$\ell$ & $k$ & $\ell$-sets & $\ell\mid C$ & $\ell$ & $k$ & $\ell$-sets & $\ell\mid C$\\
+\midrule
+$7$ & $58$ & $70829$ & $11708$ & $19$ & $15$ & $1$ & $0$\\
+$11$ & $14$ & $17$ & $2$ & $19$ & $16$ & $40$ & $1$\\
+$11$ & $15$ & $803$ & $93$ & $19$ & $17$ & $1926$ & $113$\\
+$11$ & $16$ & $582751$ & $61964$ & $19$ & $18$ & $319369$ & $17685$\\
+$13$ & $21$ & $118$ & $12$ & $23$ & $14$ & $4$ & $0$\\
+$13$ & $22$ & $11965$ & $974$ & $23$ & $15$ & $95$ & $4$\\
+$13$ & $23$ & $3254401$ & $273205$ & $23$ & $16$ & $5348$ & $251$\\
+$17$ & $16$ & $1$ & $0$ & $23$ & $17$ & $1766427$ & $81086$\\
+$17$ & $17$ & $42$ & $1$ & & & &\\
+$17$ & $18$ & $2836$ & $161$ & & & &\\
+$17$ & $19$ & $935248$ & $59643$ & & & &\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{corollary}\label{cor:defect}
+Let $n$ be a composite solution of $\varphi(n)\mid n-1$ with $k\le16000$
+prime factors. Then $n-1=2\varphi(n)$; let $C$ be its last defect.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item If $\ell\mid C$, then $k\ge201$ for $\ell=5$, $k\ge59$ for
+$\ell=7$, $k\ge17$ for $\ell=11$, $k\ge24$ for $\ell=13$, $k\ge20$ for
+$\ell=17$, $k\ge19$ for $\ell=19$ and $k\ge18$ for $\ell=23$.
+\item If $k=16$, then every prime factor of $C$ is at least $29$; in
+particular $C\ge29$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+By Corollary~\ref{cor:indep}, $n-1=2\varphi(n)$. (i) Proposition~\ref{prop:kell} gives $k\ge k_\ell$, and
+Proposition~\ref{prop:defectk} excludes the values of $k$ from $k_\ell$
+up to one less than the stated bound. (ii) The number $C$ is odd, and
+$3\nmid C$ by Lemma~\ref{lem:largest}(iii), since $3\nmid A$. For
+$k=16$, part~(i) shows that no prime from $5$ to $23$ divides $C$. As
+$C\ge5$, it has a prime factor, and every prime factor is at least
+$29$.
+\end{proof}
+
+For the primes $\ell$ with $29\le\ell\le199$ the values of $k_\ell$ lie
+below the bound of Theorem~\ref{thm:first}, and Lemma~\ref{lem:ell}
+bounds the prime factors of $C$ only from below. A solution with
+sixteen prime factors whose last defect has only prime factors from
+$29$ on is therefore not excluded by this section; excluding it needs
+the traversal of Section~\ref{sec:sixteen}.
+
+\begin{remark}\label{rem:open}
+Lehmer's conjecture is equivalent to the following assertion, which
+this paper does not prove: \emph{there are no finite set $S$ of odd
+primes and no integer $M\ge2$ such that, with $A=\prod_{p\in S}p$ and
+$B=\prod_{p\in S}(p-1)$, the number $D=MB-A$ is positive, divides
+$A-1$, and makes $(MB-1)/D$ a prime larger than every element of $S$.}
+Indeed, let $n$ be a composite solution of $\varphi(n)\mid n-1$, let
+$q$ be its largest prime factor, $S$ the set of its other prime factors
+and $M=(n-1)/\varphi(n)$. Then $n=Aq$, $\varphi(n)=B(q-1)$, and
+$n-1=M\varphi(n)$ reads $qD=MB-1$; so $D\ge1$, $D$ divides
+$MB-1=D+(A-1)$ and hence $A-1$, and $q=(MB-1)/D$. Conversely, for $S$
+and $M$ as in the assertion the number $n=Aq$ with $q=(MB-1)/D$ is
+composite and satisfies $n-1=M\varphi(n)$, since $qD=MB-1$ is the same
+equation. By Theorem~\ref{thm:first} a set $S$ with these properties
+has at least $15$ elements, at least $16000$ if $M\ge3$, and at least
+$10^8$ if $3\in S$. For $M=2$ the number $D$ is the last defect, with
+the properties of Proposition~\ref{prop:largest}(i) and
+Corollary~\ref{cor:defect}. The assertion asks that one number attached
+to each set $S$ never be a prime above the elements of $S$. The
+integer tuples of Theorem~\ref{thm:pseudo25} show that a proof has to
+use the primality of the elements of $S$, and
+Proposition~\ref{prop:local} shows that no congruence modulo a fixed
+number other than that of Lemma~\ref{lem:three} can replace the
+modulus $D$, which depends on $S$. For the companion equation the same
+construction with $D=1$ gives the Fermat numbers: the Fermat primes
+$S=\{3,5,17,257,65537\}$ give $2^{32}+1$. For Lehmer's equation $D=1$
+would give $(MB-1)/D=A$, which is not a prime larger than the elements
+of $S$; so $D>1$, and the assertion is not a question about Fermat
+numbers.
+\end{remark}
+
 
 
 \appendix
@@ -3765,7 +3986,8 @@ the program of Section~\ref{sec:eight}, whose checks are described in
 Section~\ref{sec:checks8}. The search behind Theorem~\ref{thm:size}
 was likewise carried out by two independent programs
 (Appendix~\ref{app:size}), and so were the searches of
-Proposition~\ref{prop:indep}.
+Proposition~\ref{prop:indep} and of Section~\ref{sec:defect}
+(Appendix~\ref{app:defect}).
 
 \subsection{A second implementation of the lattice method}\label{app:second}
 We implemented the lattice method twice. The first implementation
@@ -4001,6 +4223,25 @@ uses the $n-1$ and $n+1$ methods of Brillhart, Lehmer and Selfridge
 \cite{BLS75} when enough of $n-1$ or $n+1$ can be factored, and
 otherwise the Jacobi sum test of Adleman, Pomerance and Rumely
 \cite{APR83} in the form given by Cohen and Lenstra \cite{CL84}.
+
+\subsection{The last defect}\label{app:defect}
+Two programs written independently carry out the searches of
+Propositions~\ref{prop:kell} and~\ref{prop:defectk}. The first uses a
+table of the primes below $3\cdot10^7$, bounds each child both with the
+candidates of its parent and with its own, and evaluates the bounds in
+double precision with a margin of $10^{-9}$ in the logarithm; a second
+run with the margin $10^{-6}$ gives the same values of $k_\ell$. The
+second, written in PARI/GP \cite{PARI}, generates the candidates one
+prime at a time without a table, bounds each child only with the
+candidates of its parent, computes the logarithms to $38$ digits with a
+margin of $10^{-20}$, and decides every bound within the margin in
+exact rational arithmetic. Both decide every set of full size exactly.
+For every prime $\ell\le199$ the two programs give the same value of
+$k_\ell$, and for every pair in Table~\ref{tab:defect} the same two
+counts. Each program finds all the values of $k_\ell$ in less than
+a minute, and the longest listing in the table, of the $3254401$ sets
+for $(\ell,k)=(13,23)$, takes each of them about five minutes. No $\ell$-set in the table has both $\ell\mid C$ and
+$C\mid A-1$, so no primality test enters these results.
 
 %%==================================================================
 %%==================================================================
