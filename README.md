@@ -42,9 +42,9 @@ What the computations establish (see the paper for the proofs they complete):
    without a search (Proposition 6.11), and `bound/greedy_growth.py` computes Table 1, the growth of the independent
    sets chosen one prime at a time against log log x, the rate that Theorem 2.7 (the large sieve) allows.
 12. For primes p₁ < ⋯ < p_{k−1} with A = ∏pᵢ, B = ∏(pᵢ − 1) and C = 2B − A, the equation A·x − 1 = 2B(x − 1) has an
-   integer solution x > p_{k−1} prime to A only if C divides A − 1, and then x = (2B − 1)/C. That no such x exists, prime
-   or not, implies that n − 1 = 2φ(n) has no composite solution and holds for k ≤ 15; its analogue for the sign +1
-   fails at the tuple (3, 5, 17, 257, 65537, 2³² + 1) (Section 9.8). In searches along the defects with prime
+   integer solution x > p_{k−1} prime to A only if C ≥ 5 divides A − 1, and then x = (2B − 1)/C; every composite n
+   with n − 1 = 2φ(n) gives such a solution with x its largest prime. For k ≤ 15 no such x exists, prime or not;
+   for the sign +1 one exists, at the tuple (3, 5, 17, 257, 65537, 2³² + 1) (Section 9.8). In searches along the defects with prime
    entries the sum of 1/C falls, while with integer entries it rises (`pseudo/descent_prime.py`).
 
 The lemmas and propositions behind 1–4, 7 and 9, and statements 5, 6, 8 and 10 in full, are proved in Lean 4 in

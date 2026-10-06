@@ -337,11 +337,10 @@ Fermat's test for the exponent $n+\varepsilon$ is squarefree and
 satisfies Korselt's condition (Lemma~\ref{lem:korselt}), which the
 tuples of Theorem~\ref{thm:pseudo25} violate. Finally, for Lehmer's
 equation with $M=2$ the first $k-1$ prime factors determine the last
-through a single divisibility, and the statement that no solution
-exists even when the largest entry need only be prime to the others
-implies that $n-1=2\varphi(n)$ has no composite solution and holds for
-$k\le15$ (Proposition~\ref{prop:largest}); its analogue for the
-companion equation is false (Section~\ref{sec:largest}).
+through a single divisibility, and for $k\le15$ no solution exists
+even when the largest entry need only be an integer prime to the
+others (Proposition~\ref{prop:largest}); for the companion equation
+such a solution exists with six entries (Section~\ref{sec:largest}).
 
 \subsection{Method}
 The bound $\omega(n)\ge16$ of Theorem~\ref{thm:first} and
@@ -3438,12 +3437,11 @@ For Lehmer's equation, and for the companion equation with $3\nmid n$,
 the situation is different. A solution of Lehmer's equation with
 $M=2$ has $3\nmid n$ by Lemma~\ref{lem:three}, so its prime factors
 form a solution of \eqref{eq:product} prime to $3$, and the same holds
-for a solution of the companion equation with $M=2$ and $3\nmid n$. So
-if
+for a solution of the companion equation with $M=2$ and $3\nmid n$.
+Theorem~\ref{thm:pseudo3} shows that for $k\le13$ equation
 \eqref{eq:product} has no solution in odd integers prime to $3$, prime
-or not, then neither equation has a solution with $M=2$ and
-$3\nmid n$. This hypothesis involves no primes at all.
-Theorem~\ref{thm:pseudo3} verifies it for $k\le13$. A first-moment count
+or not, so for these $k$ the case $M=2$, $3\nmid n$ of both equations
+follows without using that the entries are prime. A first-moment count
 along the tree, weighting each two-entry problem by the expected number
 of divisors of $2AB+\varepsilon C$ in its class,\footnote{An integer
 $t$ in the class is counted as a divisor of $N=2AB+\varepsilon C$ with
@@ -3461,7 +3459,7 @@ $5,7,13,17,19,23,25,37,119$, which has the smallest value
 $C_9=2529647$ among the $910$ prefixes of length nine in the tree for
 $k=13$. Below that prefix it gives $4\cdot10^{-6}$, $5\cdot10^{-5}$
 and $2\cdot10^{-4}$ for $k=12$, $13$ and $14$.
-Theorem~\ref{thm:pseudo3} is therefore what the count predicts. For larger $k$ the hypothesis fails.
+Theorem~\ref{thm:pseudo3} is therefore what the count predicts. For larger $k$ such solutions exist.
 
 \begin{theorem}\label{thm:pseudo25}
 There are pseudo-solutions of \eqref{eq:product} prime to $3$ with
@@ -3596,14 +3594,14 @@ Proposition~\ref{prop:lehmerext} gives pseudo-solutions of Lehmer's
 equation with $\nu=2$, and none with pairwise coprime entries, because
 $3$ divides $A$. Appending $2B+1=A+2$, as in the proof of
 Theorem~\ref{thm:pseudo25}, keeps the entries pairwise coprime, so a
-single pairwise coprime pseudo-solution of the companion equation
-prime to $3$ with $3\mid B$ would give infinitely many, and
+pairwise coprime pseudo-solution of the companion equation
+prime to $3$ with $3\mid B$ gives infinitely many, and
 Proposition~\ref{prop:lehmerext} turns every divisor $d$ of $A^2+A-1$
 with $\gcd(d^2-1,A)=\gcd(d-1,A+2)=1$ into a pseudo-solution of
 Lehmer's equation with pairwise coprime entries. By
 Lemma~\ref{lem:parity} a pseudo-solution of Lehmer's equation with
-pairwise coprime entries is prime to $3$, and we do not know whether
-one exists. The smallest $k$ with a pseudo-solution prime to $3$ lies
+pairwise coprime entries is prime to $3$, and none has at most $13$
+entries, by Proposition~\ref{prop:largest}(iii). The smallest $k$ with a pseudo-solution prime to $3$ lies
 between $14$ and $25$ for $\varepsilon=+1$, and between $14$ and $26$
 for $\varepsilon=-1$.
 
@@ -3729,21 +3727,20 @@ equation, where $A+1=2^{64}$, the property fails at the last entry,
 since $2^{32}+1=641\cdot6700417$ and $640\nmid2^{64}$; this is the
 factorisation that excludes it in Section~\ref{sec:allk}.
 
-Lemma~\ref{lem:korselt} therefore suggests a weaker hypothesis than the
-one of Section~\ref{sec:allk}: that \eqref{eq:product} has no solution
-in pairwise coprime odd integers prime to $3$, each of which satisfies
-$a^{A+\varepsilon}\equiv1\pmod{x_i}$ for every $a$ prime to $x_i$.
-Prime entries have both properties, so this hypothesis still implies
-that neither \eqref{eq:first} nor \eqref{eq:second} has a solution
-with $M=2$ and $3\nmid n$. Unlike the hypothesis of
-Section~\ref{sec:allk}, no tuple in this section contradicts it:
-those of Propositions~\ref{prop:pseudo} and~\ref{prop:lehmerext} and
-of Theorem~\ref{thm:pseudo25}, and the spoof factorisations above, all
-have two entries with a common factor or contain the entry $3$. For $k\le13$ it holds by
-Theorem~\ref{thm:pseudo3}; for larger $k$ it is open.
+Lemma~\ref{lem:korselt} therefore singles out a class of tuples
+between the integer tuples of Section~\ref{sec:allk} and the prime
+ones. The prime factors of a solution of \eqref{eq:first} or
+\eqref{eq:second} with $M=2$ and $3\nmid n$ form a solution of
+\eqref{eq:product} in pairwise coprime odd integers prime to $3$, each
+of which satisfies $a^{A+\varepsilon}\equiv1\pmod{x_i}$ for every $a$
+prime to $x_i$. No tuple in this section has these properties: those
+of Propositions~\ref{prop:pseudo} and~\ref{prop:lehmerext} and of
+Theorem~\ref{thm:pseudo25}, and the spoof factorisations above, all
+have two entries with a common factor or contain the entry $3$. For
+$k\le13$ no such tuple exists, by Theorem~\ref{thm:pseudo3}.
 
 \subsection{Primality of the largest entry}\label{sec:largest}
-The hypotheses of Sections~\ref{sec:allk} and~\ref{sec:structure}
+The tuples of Sections~\ref{sec:allk} and~\ref{sec:structure}
 weaken the primality of every entry. Here we keep the primality of
 every entry but the largest and drop it there. The largest entry is the
 one that the step at the start of Section~\ref{sec:structure}
@@ -3751,7 +3748,7 @@ determines from the others, and in the tuple
 $(3,5,17,257,65537,2^{32}+1)$ of Section~\ref{sec:allk} it is the entry
 whose primality decides the matter.
 
-Throughout this section $p_1<\dots<p_j$, with $j\ge1$, are odd primes
+In the next lemma and the remarks after it, $p_1<\dots<p_j$, with $j\ge1$, are odd primes
 with $p_i\nmid p_l-1$ for all $i$ and $l$, and
 \[
   A=p_1\cdots p_j,\qquad B=(p_1-1)\cdots(p_j-1),\qquad C=2B-A .
@@ -3803,41 +3800,43 @@ $\varepsilon=-1$, part~(ii) is Proposition~\ref{prop:pseudo} read from
 the prefix, and part~(iii) gives the case $M=2$ of
 Lemma~\ref{lem:three}.
 
-The following statement asks nothing of the largest entry except that
-it be prime to the others.
-\begin{itemize}[leftmargin=2.6em]
-\item[(P)] There are no odd primes $p_1<\dots<p_{k-1}$ and no integer
-$x>p_{k-1}$ prime to $p_1\cdots p_{k-1}$ such that
-$(p_1,\dots,p_{k-1},x)$ satisfies \eqref{eq:product} with
-$\varepsilon=-1$.
-\end{itemize}
-Let $(p_1,\dots,p_{k-1},x)$ be a tuple that contradicts (P), with
-$j=k-1$. A common divisor of $Ax$ and $B(x-1)$ divides
-$Ax-2B(x-1)=1$, so the primes are independent, and the equation reads
-$Cx=2B-1$. So $C\ge1$, $C$ divides $2B-1$ and $x=X$. Since $x$ is prime
-to $A$, Lemma~\ref{lem:largest}(iii) gives $3\nmid A$ and $3\nmid C$,
-part~(ii) gives $C\ne1$, and $C$ is odd, so $C\ge5$.
+The next proposition asks nothing of the largest entry except that it
+be prime to the others. Its first part holds for every $k$.
 
 \begin{proposition}\label{prop:largest}
+Let $k\ge2$, let $p_1<\dots<p_{k-1}$ be odd primes, and let $x>p_{k-1}$
+be an integer prime to $p_1\cdots p_{k-1}$.
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item If \textup{(P)} holds for every $k\ge2$, then no composite $n$
-satisfies $n-1=2\varphi(n)$.
-\item \textup{(P)} holds for $k\le15$.
+\item If $(p_1,\dots,p_{k-1},x)$ satisfies \eqref{eq:product} with
+$\varepsilon=-1$, then $p_i\nmid p_l-1$ for all $i$ and $l$, and, with
+$A$, $B$ and $C$ formed from $p_1,\dots,p_{k-1}$, we have $3\nmid A$,
+$C\ge5$, $C\mid A-1$ and $x=(2B-1)/C$. This holds with $x=p_k$ for
+every composite solution $n=p_1\cdots p_k$ of $n-1=2\varphi(n)$.
+\item If $k\le15$, then $(p_1,\dots,p_{k-1},x)$ does not satisfy
+\eqref{eq:product} with $\varepsilon=-1$.
 \item For $k\le13$, equation~\eqref{eq:product} with $\varepsilon=-1$
-has no solution in pairwise coprime integers greater than $1$; in
-particular \textup{(P)} holds for $k\le13$ with the composite entry in
-any position.
+has no solution in pairwise coprime integers greater than $1$.
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-(i) By Lemma~\ref{lem:basic}(i) a composite solution is odd and
-squarefree, say $n=p_1\cdots p_k$ with primes $p_1<\dots<p_k$ and
-$k\ge2$. Then $n-1=2\prod_i(p_i-1)$, so $(p_1,\dots,p_k)$ satisfies
-\eqref{eq:product} with $\varepsilon=-1$, and $x=p_k$ contradicts (P).
+(i) Put $A=p_1\cdots p_{k-1}$ and $B=(p_1-1)\cdots(p_{k-1}-1)$. A
+common divisor of $Ax$ and $B(x-1)$ divides $Ax-2B(x-1)=1$, so
+$\gcd(A,B)=1$ and $p_i\nmid p_l-1$ for all $i$ and $l$, and the
+equation reads $Cx=2B-1$. So $C\ge1$, $C$ divides $2B-1=C+(A-1)$, hence
+also $A-1$, and $x=X$ in the notation of Lemma~\ref{lem:largest}. Since
+$x$ is prime to $A$, part~(iii) of that lemma gives $3\nmid A$ and
+$3\nmid C$, and part~(ii) gives $C\ne1$, since $X=A$ is not prime to
+$A>1$. As $C$ is odd, $C\ge5$. By Lemma~\ref{lem:basic}(i) a composite
+solution of $n-1=2\varphi(n)$ is odd and squarefree, say
+$n=p_1\cdots p_k$ with primes $p_1<\dots<p_k$ and $k\ge2$. Then
+$n-1=2\prod_i(p_i-1)$, so $(p_1,\dots,p_k)$ satisfies
+\eqref{eq:product} with $\varepsilon=-1$, and $x=p_k$ is prime to the
+other entries.
 
-(ii) Let $(p_1,\dots,p_{k-1},x)$ contradict (P) with $k\le15$. As shown
-above, $3\nmid A$, and Lemma~\ref{lem:largest}(iii) gives $3\nmid x$.
+(ii) Suppose that the tuple satisfies \eqref{eq:product} with
+$\varepsilon=-1$ and $k\le15$. By part~(i), $3\nmid A$, and
+Lemma~\ref{lem:largest}(iii) gives $3\nmid x$.
 The entries are odd, since $x$ divides $2B-1$, and increasing, and
 they satisfy \eqref{eq:product} with $\varepsilon=-1$ and hence the
 conditions $\gcd(x_i,x_l-1)=1$. If $x$ is prime,
@@ -3857,8 +3856,9 @@ pseudo-solution prime to $3$, which Theorem~\ref{thm:pseudo3}(i)
 excludes.
 \end{proof}
 
-For the companion equation the analogue of (P) is false. The tuple
-$(3,5,17,257,65537,2^{32}+1)$ of Section~\ref{sec:allk} has five prime
+For the companion equation the analogue of
+Proposition~\ref{prop:largest}(ii) is false. The tuple
+$(3,5,17,257,\allowbreak65537,2^{32}+1)$ of Section~\ref{sec:allk} has five prime
 entries, and its last entry $2^{32}+1=641\cdot6700417$ is prime to
 them. With $A=2^{32}-1$ and $B=2^{31}$ it satisfies
 $Ax+1=2^{64}=2B(x-1)$, which is \eqref{eq:product} with
@@ -3867,15 +3867,17 @@ Lemma~\ref{lem:largest}(ii) gives the entry $A+2$ for $\varepsilon=+1$.
 For $\varepsilon=-1$ the same step gives the entry $A$, which is not
 prime to the others; it produces the pseudo-solutions of
 Proposition~\ref{prop:pseudo} and those of Theorem~\ref{thm:pseudo25}
-with $\varepsilon=-1$, and (P) excludes it.
+with $\varepsilon=-1$, and the condition $C\ge5$ of
+Proposition~\ref{prop:largest}(i) excludes it.
 
 Proposition~\ref{prop:largest}(ii) rests on the searches, and they give
 no shortcut beyond $k=15$. After a prefix of $k-2$ primes, with $A$, $B$
 and $C$ now formed from these, the identity \eqref{eq:hyperbola}, whose
 proof uses only the equation, turns the last two entries $y<x$ into a
-factorisation $(Cy-2B)(Cx-2B)=2AB-C$, and (P) asks only that $y$ be
-prime and $x$ be prime to the other entries. Deciding (P) for $k=16$
-therefore needs the traversal of Section~\ref{sec:sixteen}, with its
+factorisation $(Cy-2B)(Cx-2B)=2AB-C$, and
+Proposition~\ref{prop:largest}(ii) asks only that $y$ be prime and $x$
+be prime to the other entries. Its extension to $k=16$ therefore needs
+the traversal of Section~\ref{sec:sixteen}, with its
 $9\cdot10^{13}$ two-prime problems.
 
 The next lemma shows how the primality of the prefix keeps the
@@ -3921,30 +3923,30 @@ total of $1.3\cdot10^{-10}$ over all steps and no completion
 (Figure~\ref{fig:descent}). With integer entries, as in the search
 behind Theorem~\ref{thm:pseudo25}, and the same prefixes and number of
 children, the sum rose instead, to a total of $1.9\cdot10^{-8}$ after
-twelve steps. These counts are heuristic and
-prove nothing about (P).
+twelve steps. These counts are heuristic, and no result of this
+paper depends on them.
 
-For Lehmer's equation with $M=2$ the statements of this section compare
-as follows. The hypothesis of Section~\ref{sec:allk} fails for
-$k\ge26$ (Theorem~\ref{thm:pseudo25}). The statement that
-\eqref{eq:product} with $\varepsilon=-1$ has no solution in pairwise
-coprime integers greater than $1$ holds for $k\le13$ by
-Proposition~\ref{prop:largest}(iii) and is open beyond. It implies both the hypothesis of
-Section~\ref{sec:structure} and (P), and neither of these two is known
-to imply the other: the first asks of every entry a property weaker
-than primality, and (P) asks every entry but the largest to be prime
-and nothing of the largest except that it be prime to the others. Each
-of them implies that $n-1=2\varphi(n)$ has no composite solution. A
-proof of (P) has to show that no prefix of independent odd primes with
-defect $C\ge5$ and $C<(2B-1)/p_{k-1}$ has $C\mid2B-1$ with
-$(2B-1)/C$ prime to $A$. By Proposition~\ref{prop:local} no
+For Lehmer's equation with $M=2$ the tuples of this section compare
+as follows. The prime factors of a composite solution of
+$n-1=2\varphi(n)$ form a solution of \eqref{eq:product} with
+$\varepsilon=-1$ of each of three kinds: in odd integers prime to $3$;
+in pairwise coprime odd integers that pass the test of
+Lemma~\ref{lem:korselt}; and in primes followed by a largest entry
+prime to them. Solutions of the first kind exist for every $k\ge26$
+(Theorem~\ref{thm:pseudo25}). Solutions of the second and third kinds
+have pairwise coprime entries, so none has $k\le13$
+(Proposition~\ref{prop:largest}(iii)), and none of the third kind has
+$k\le15$ (Proposition~\ref{prop:largest}(ii)). Neither of these two
+kinds contains the other: the second asks of every entry a property
+weaker than primality, and the third asks every entry but the largest
+to be prime and nothing of the largest except that it be prime to the
+others. By Proposition~\ref{prop:largest}(i) a solution of the third
+kind comes from a prefix of independent odd primes with $C\ge5$,
+$C<(2B-1)/p_{k-1}$ and $C\mid2B-1$. By Proposition~\ref{prop:local} no
 congruence modulo a fixed number other than that of
 Lemma~\ref{lem:three} removes a prefix with two or more entries left,
-so the argument has to use the modulus $C$ of each
-prefix, and if \eqref{eq:product} with
-$\varepsilon=-1$ has a solution in pairwise coprime integers it has to
-use the primality of the prefix. We do not know such an argument, and
-(P) is open for $k\ge16$.
+so excluding these prefixes for $k\ge16$ needs the modulus $C$ of each
+prefix.
 
 
 
