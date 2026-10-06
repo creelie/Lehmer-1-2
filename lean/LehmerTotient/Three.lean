@@ -5,7 +5,7 @@ import LehmerTotient.Search
 
 * `class_of_solution`, `solution_of_class`: Proposition 4.1 and its converse.
 * `coset_of_divisor`, `box_bounds`, `window_of_modEq`: Lemma 4.2.
-* `sum_identity`, `sum_converse`, `at_most_one_divisor`: Section 4.5.
+* `sum_identity`, `sum_converse`, `at_most_one_divisor`: Section 4.4.
 
 All statements are in `ℤ`.  We write `c = 2 B' - A'` and `N = 2 A' B' + ε c`.
 -/
@@ -157,7 +157,7 @@ theorem box {N c r ri u u0 u1 : ℤ} (hc : 0 < c) (hr : 0 < r) (hri : r * ri ≡
     ((hcos.symm.sub_right vm))
   linarith
 
-/-! ### Section 4.5: the sum of the two factors -/
+/-! ### Section 4.4: the sum of the two factors -/
 
 /-- Equation (4.4): with `N = r ^ 2 + c m`, `(r + c u)(r + c v) = N` if and only if
 `c u v + r (u + v) = m`. -/
@@ -210,7 +210,7 @@ theorem cofactor_class {N c r t w : ℤ} (hcop : IsCoprime r c) (hN : N ≡ r ^ 
     exact Int.modEq_iff_dvd.mp h1
   exact Int.modEq_iff_dvd.mpr (hcop.symm.dvd_of_dvd_mul_left h2)
 
-/-- Section 4.5: two divisors `r + c ≤ t₁ < t₂` of `N`, both at most their cofactors and both
+/-- Section 4.4: two divisors `r + c ≤ t₁ < t₂` of `N`, both at most their cofactors and both
 in the class `r` with `1 ≤ r < c`, force `c ^ 3 < N + 2 c ^ 2`. Hence if `c ^ 3 ≥ N + 2 c ^ 2`
 the class contains at most one divisor `t ≤ √N` besides `t = r`. -/
 theorem at_most_one_divisor {N c r t1 t2 w1 w2 : ℤ} (hc : 2 ≤ c) (hr1 : 1 ≤ r) (hrc : r < c)

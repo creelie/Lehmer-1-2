@@ -32,7 +32,7 @@ programs write P_j, F_j, r_j and t_i for the quantities A_j, B_j, P_j and θ_i o
 | `ratio_bound.py` | the exact values R_15981 = 2.99999900041… < 3 (J = 16000) and R_(10^8) = 3.9999966… < 4 (J = 10^8 + 1) of Section 6.5; `python3 ratio_bound.py 16000` | 4 s |
 | `hand_bound.py` | exact check of the numbers in the proof of Proposition 6.11 (no solution is 2-heavy, so n < 2^(2^(k−2)), proved by hand) and of the remark after it (none is 1-heavy); `python3 hand_bound.py` | 1 s |
 | `greedy_growth.py` | Table 1 of Section 2.2: the independent sets chosen one prime at a time, with their products against log log x; `python3 greedy_growth.py 1e8 all` and `... 1e8 mod3` | 1 min each |
-| `tree_stats.py`, `tree_profile.py` | nodes and last-prime tests by depth (Table 6, Figure 14) and the ranges of Figure 13 | seconds |
+| `tree_stats.py`, `tree_profile.py` | nodes and last-prime tests by depth (Table 5, Figure 14) and the ranges of Figure 13 | seconds |
 | `logs/` | recorded output: `independent_py_i.log`, `independent_gp_i.log`, `independent_stream_py_ii.log`, `independent_stream_py_iii.log`, `independent_stream_gp_ii.log`, `independent_stream_gp_iii.log`, `search_py_s*.log`, `search_gp_s*.log` (s = 1..7), `hand_bound.log`, `greedy_growth_all.log`, `greedy_growth_mod3.log`, `ratio_bound.log`, `search_without_deficit_s6.log`, `hist_s*.json`, `prof_s7.json` | |
 
 The five figures of Section 6 are drawn from TikZ sources in `../paper/figures` (`fig_dichotomy`, `fig_bases`, `fig_rules`,

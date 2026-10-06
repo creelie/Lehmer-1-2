@@ -85,9 +85,9 @@ factors nothing, so its negative answers rely on no primality test.
 | `second_equation.py` | Theorem 1.3, and Theorem 1.4 for k ≤ 14: n + 1 = 2φ(n), k ≤ 7 with p₁ ≥ 3, and k = 7..14 with p₁ ≥ 5 | ~3 min |
 | `lastthree.py` | Section 4, first implementation: the last three primes through divisors in a residue class, boxes in u | – |
 | `lastthree_b.py` | Section 4, second implementation: boxes in v, Lagrange-reduced lattice bases, own frontier and prime generation | – |
-| `lastthree_c.py` | Section 4.5, third implementation: the sum t + N/t is fixed modulo C'², found by a short scan with one square test per value; no boxes, no factoring, no primality proof | – |
+| `lastthree_c.py` | Section 4.4, third implementation: the sum t + N/t is fixed modulo C'², found by a short scan with one square test per value; no boxes, no factoring, no primality proof | – |
 | `k15_run.py` | the case k = 15 of Theorems 1.1 (`--eps -1`) and 1.4 (`--eps 1`) with any of the three implementations (`--program A`, `B` or `C`); resumable, multi-core | 15–45 min of CPU time per run |
-| `k15_stats.py` | Figure 9 (the ratio c³/N over the k = 15 search), the run totals of Table 4, and the k = 16 statistics of Section 9 | a few minutes |
+| `k15_stats.py` | Figure 9 (the ratio c³/N over the k = 15 search), the run totals of Table 10, and the k = 16 statistics of Section 9 | a few minutes |
 | `extensions.py` | Theorem 1.6: one- and two-prime extensions of the known solutions | seconds |
 | `check_certificates.py` | re-derives the fifteen long terminal nodes of k = 14 and checks the stored factorisations | seconds |
 | `validate.py` | both programs on 2^k(n−1) = (2^k+m)φ(n), k = 4, 5: must return the 56 listed solutions | ~10 min |

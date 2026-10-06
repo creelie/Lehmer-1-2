@@ -1,6 +1,6 @@
 /*
  tail3.c -- the last three entries of  b (x_1 ... x_k + eps) = a (x_1 - 1) ... (x_k - 1)  for a whole interval of the
- third-to-last entry t = x_{k-2}, by the sum route of Section 4.5 of the paper.  With A'' = A t, B'' = B (t - 1) and
+ third-to-last entry t = x_{k-2}, by the sum route of Section 4.4 of the paper.  With A'' = A t, B'' = B (t - 1) and
  C'' = a B'' - b A'', the last two entries p < q satisfy  C'' pq = a B'' (p + q - 1) + b eps,  so sigma = p + q - 1 lies
  in one residue class modulo C'' / gcd(a B'', C'').
 
