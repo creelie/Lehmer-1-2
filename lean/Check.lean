@@ -92,3 +92,14 @@ open LehmerTotient
 #print axioms fermat_entry
 #print axioms fermat_tuple
 #print axioms fermat_tuple_carmichael
+#print axioms largest_coprime_defect
+#print axioms largest_sub_one
+#print axioms largest_coprime_entry
+#print axioms largest_defect_one
+#print axioms largest_three_dvd
+#print axioms largest_three_not_dvd
+#print axioms defect_pos_iff
+#print axioms defect_step
+#print axioms defect_rest_bounds
+#print axioms defect_dvd_iff
+#print axioms defect_completion

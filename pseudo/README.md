@@ -1,6 +1,6 @@
 # Pseudo-solutions prime to 3
 
-Programs and logs for Section 9 of the paper: Theorems 9.3 and 9.5, the first-moment count of Section 9.6 and the check of Lemma 9.8 in Section 9.7. The Lean
+Programs and logs for Section 9 of the paper: Theorems 9.3 and 9.5, the first-moment count of Section 9.6, the check of Lemma 9.8 in Section 9.7 and the searches with prime entries of Section 9.8. The Lean
 proofs of Lemma 9.2 and Proposition 9.4 are in `lean/LehmerTotient/Barrier.lean`.
 
 The equation is
@@ -37,6 +37,8 @@ PATH) for the two `pari_*` programs. Build the C program first, in this director
 | `descent.py` | the search that found `companion_k25.txt`: descent through the defects with selection, testing every node for a last entry | 2.2 h on 4 cores |
 | `coprime_tree.py` | the tree of `integer_tree.py` restricted to pairwise coprime entries, down to depth k - 3; collects every prefix with 0 < c x_j < 2B, which one more entry can complete (Section 9) | 1 s for k = 15 |
 | `descent_coprime.py` | `descent.py` restricted to pairwise coprime entries: every child must also be prime to every earlier entry and completable by one more entry, and the threshold keeps the beam full; started from the 13190 prefixes of `coprime_tree.py 15`, the sum of 1/c falls by about a factor 0.8 per step and no completion occurs in twelve steps (Section 9) | 3 min on 3 cores |
+| `prime_seeds.py` | the 12170 prefixes of `coprime_tree.py 15` that consist of primes p_1 < ... < p_j with p_i not dividing p_l - 1, with their sum of 1/c, 7.6e-11 of the 7.7e-11 of all 13190 (Section 9.8); writes `prime_prefixes_k15.pkl` | seconds |
+| `descent_prime.py` | `descent.py` with every new entry a probable prime (BPSW) that is not 1 modulo an earlier entry, keeping exactly the N prime children with the smallest defect and testing every node for a last entry (2B + eps)/c; from `prime_prefixes_k15.pkl` with N = 5000 the smallest defect rises from 1.2e11 to 2.2e18 and the sum of 1/c falls from 7.6e-11 to 2.1e-18 in eight steps, with no completion (Section 9.8). `descent.py` run from the same prefixes with N = 5000 sees the sum rise, to a total of 1.9e-8 after twelve steps | 30 s on 4 cores |
 | `companion_k25.txt` | a pseudo-solution prime to 3 with 25 entries and eps = +1, one entry per line | – |
 | `check_tuple.py`, `check_gp.sh` | independent checks of a pseudo-solution in Python and in PARI/GP: equation, order, oddness, 3 divides no entry, all gcd(x_i, x_j - 1) = 1 | seconds |
 | `fermat_k25.py` | for every entry x of `companion_k25.txt`, whether 2^(A+1) = 1 (mod x), with A the product of the entries; for the entries below 10^13 also the factorisation, squarefreeness and the primes q with q - 1 not dividing A + 1 (Lemma 9.8) | 20 min |
@@ -63,6 +65,9 @@ Run from this directory.
     python3 make_seeds.py; python3 descent.py --N 10000000 --gens 16 --workers 4 --q 1.6   > logs/descent.log
                                                        (the log is kept up to step 14, where the tuple was found)
     python3 coprime_tree.py 15 > logs/coprime_tree_k15.log; python3 descent_coprime.py --N 1000000 --gens 12 --workers 3   > logs/descent_coprime.log
+    python3 prime_seeds.py > logs/prime_seeds.log
+    python3 descent_prime.py --seeds prime_prefixes_k15.pkl --N 5000 --gens 8 --workers 4   > logs/descent_prime.log
+    python3 descent.py --seeds prime_prefixes_k15.pkl --N 5000 --gens 12 --workers 2 --out tmp/descent_int_prime_seeds.pkl   > logs/descent_int_prime_seeds.log
     python3 check_tuple.py companion_k25.txt 1; ./check_gp.sh companion_k25.txt 1
     python3 fermat_k25.py companion_k25.txt > logs/fermat_k25.log
 
