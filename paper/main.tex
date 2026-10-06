@@ -296,7 +296,8 @@ $n<2^{2^{k-2}}$ (Proposition~\ref{prop:hand}); Theorem~\ref{thm:ext}
 up to the factorisation of eight integers; and the structural results
 of Section~\ref{sec:walls} (Propositions~\ref{prop:pseudo},
 \ref{prop:local}, \ref{prop:lehmerext} and~\ref{prop:threeentries},
-Lemmas~\ref{lem:parity} and~\ref{lem:korselt}). The computations then
+Lemmas~\ref{lem:parity}, \ref{lem:korselt}, \ref{lem:largest}
+and~\ref{lem:defect}, and Proposition~\ref{prop:largest}(i)). The computations then
 settle finitely many cases: the searches for at most fifteen prime
 factors (Sections~\ref{sec:first} and~\ref{sec:second}), the searches
 over independent sets that give the numerical bounds for $M\ge3$ and for
@@ -334,7 +335,13 @@ last two, cannot be read off from the divisors of a single integer
 (Proposition~\ref{prop:threeentries}), and an entry that passes
 Fermat's test for the exponent $n+\varepsilon$ is squarefree and
 satisfies Korselt's condition (Lemma~\ref{lem:korselt}), which the
-tuples of Theorem~\ref{thm:pseudo25} violate.
+tuples of Theorem~\ref{thm:pseudo25} violate. Finally, for Lehmer's
+equation with $M=2$ the first $k-1$ prime factors determine the last
+through a single divisibility, and the statement that no solution
+exists even when the largest entry need only be prime to the others
+implies that $n-1=2\varphi(n)$ has no composite solution and holds for
+$k\le15$ (Proposition~\ref{prop:largest}); its analogue for the
+companion equation is false (Section~\ref{sec:largest}).
 
 \subsection{Method}
 The bound $\omega(n)\ge16$ of Theorem~\ref{thm:first} and
@@ -3525,7 +3532,10 @@ completions at that step. With $10^7$ prefixes kept it grows from
 $1.4\cdot10^{-6}$ to $0.62$, its running total passes $1$ at step $14$,
 and the tuple of Theorem~\ref{thm:pseudo25} is completed there. With
 pairwise coprime entries and $10^6$ prefixes kept it falls from
-$7.7\cdot10^{-11}$ to $4.0\cdot10^{-12}$ in twelve steps. Right: the
+$7.7\cdot10^{-11}$ to $4.0\cdot10^{-12}$ in twelve steps, and with
+prime entries and $5000$ prefixes kept it falls from
+$7.6\cdot10^{-11}$ to $2.1\cdot10^{-18}$ in eight
+(Section~\ref{sec:largest}). Right: the
 number of digits of the $25$ entries of that tuple, of which the first
 nine form the prefix $5,7,13,17,19,23,25,37,119$.}
 \label{fig:descent}
@@ -3732,6 +3742,210 @@ of Theorem~\ref{thm:pseudo25}, and the spoof factorisations above, all
 have two entries with a common factor or contain the entry $3$. For $k\le13$ it holds by
 Theorem~\ref{thm:pseudo3}; for larger $k$ it is open.
 
+\subsection{Primality of the largest entry}\label{sec:largest}
+The hypotheses of Sections~\ref{sec:allk} and~\ref{sec:structure}
+weaken the primality of every entry. Here we keep the primality of
+every entry but the largest and drop it there. The largest entry is the
+one that the step at the start of Section~\ref{sec:structure}
+determines from the others, and in the tuple
+$(3,5,17,257,65537,2^{32}+1)$ of Section~\ref{sec:allk} it is the entry
+whose primality decides the matter.
+
+Throughout this section $p_1<\dots<p_j$, with $j\ge1$, are odd primes
+with $p_i\nmid p_l-1$ for all $i$ and $l$, and
+\[
+  A=p_1\cdots p_j,\qquad B=(p_1-1)\cdots(p_j-1),\qquad C=2B-A .
+\]
+A prime factor of $A$ that divides $B$ divides some $p_l-1$, so
+$\gcd(A,B)=1$.
+
+\begin{lemma}\label{lem:largest}
+If $C\ge1$, then $\gcd(C,2AB)=1$. Suppose moreover that $C$ divides
+$2B+\varepsilon$, and put $X=(2B+\varepsilon)/C$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $X-1=(A+\varepsilon)/C$ and $\gcd(X,2B)=\gcd(X-1,A)=1$.
+\item If $C=1$, then $X=A$ for $\varepsilon=-1$ and $X=A+2$ for
+$\varepsilon=+1$.
+\item Let $\varepsilon=-1$. If $3\mid A$, then $3\mid X$. If $3\nmid A$,
+then $3\nmid X$ and $3\nmid C$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Since $\gcd(A,B)=1$, we have $\gcd(C,B)=\gcd(A,B)=1$ and
+$\gcd(C,A)=\gcd(2B,A)=1$, and $C$ is odd because $A$ is.
+
+(i) From $CX=2B+\varepsilon$ we get $C(X-1)=2B+\varepsilon-C=A+\varepsilon$. So
+$X$ divides $2B+\varepsilon$, which is prime to $2B$, and $X-1$ divides
+$A+\varepsilon$, which is prime to $A$.
+
+(ii) If $C=1$, then $A=2B-1$ and $X=2B+\varepsilon=A+1+\varepsilon$.
+
+(iii) If $3\mid A$, then $3$ is one of the $p_i$, and every other $p_l$
+is congruent to $2$ modulo $3$, since $3\nmid p_l-1$. Hence
+$B\equiv2$, $2B-1\equiv0$ and $C=2B-A\equiv1\pmod3$, and $3\mid X$. If
+$3\nmid A$, then either some $p_l\equiv1\pmod3$ and $3\mid B$, or every
+$p_l\equiv2\pmod3$ and $B\equiv1\pmod3$. In both cases $3\nmid2B-1=CX$.
+\end{proof}
+
+By the step at the start of Section~\ref{sec:structure}, a prime
+$p>p_j$ makes $n=Ap$ a solution of $n-1=2\varphi(n)$ exactly when
+$C\ge1$, $C$ divides $2B-1$ and $p=X$. Since $2B-1=C+(A-1)$, the
+condition on the first $j$ primes is the single divisibility
+$C\mid A-1$, and the only further condition is that $X$ be prime. This
+is the congruence of the remark after Proposition~\ref{prop:local},
+whose modulus depends on the prefix. Once $C$ divides $A-1$ the identity
+$AX-1=2B(X-1)$ holds exactly, so every condition that Lehmer's equation
+imposes modulo a power of a prime $q$ is contained in this one
+divisibility, including $v_q(n-1)\ge\sum_iv_q(p_i-1)$, which Korselt's
+criterion weakens to the largest of these valuations. For
+$\varepsilon=-1$, part~(ii) is Proposition~\ref{prop:pseudo} read from
+the prefix, and part~(iii) gives the case $M=2$ of
+Lemma~\ref{lem:three}.
+
+The following statement asks nothing of the largest entry except that
+it be prime to the others.
+\begin{itemize}[leftmargin=2.6em]
+\item[(P)] There are no odd primes $p_1<\dots<p_{k-1}$ and no integer
+$x>p_{k-1}$ prime to $p_1\cdots p_{k-1}$ such that
+$(p_1,\dots,p_{k-1},x)$ satisfies \eqref{eq:product} with
+$\varepsilon=-1$.
+\end{itemize}
+Let $(p_1,\dots,p_{k-1},x)$ be a tuple that contradicts (P), with
+$j=k-1$. A common divisor of $Ax$ and $B(x-1)$ divides
+$Ax-2B(x-1)=1$, so the primes are independent, and the equation reads
+$Cx=2B-1$. So $C\ge1$, $C$ divides $2B-1$ and $x=X$. Since $x$ is prime
+to $A$, Lemma~\ref{lem:largest}(iii) gives $3\nmid A$ and $3\nmid C$,
+part~(ii) gives $C\ne1$, and $C$ is odd, so $C\ge5$.
+
+\begin{proposition}\label{prop:largest}
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item If \textup{(P)} holds for every $k\ge2$, then no composite $n$
+satisfies $n-1=2\varphi(n)$.
+\item \textup{(P)} holds for $k\le15$.
+\item For $k\le13$, equation~\eqref{eq:product} with $\varepsilon=-1$
+has no solution in pairwise coprime integers greater than $1$; in
+particular \textup{(P)} holds for $k\le13$ with the composite entry in
+any position.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) By Lemma~\ref{lem:basic}(i) a composite solution is odd and
+squarefree, say $n=p_1\cdots p_k$ with primes $p_1<\dots<p_k$ and
+$k\ge2$. Then $n-1=2\prod_i(p_i-1)$, so $(p_1,\dots,p_k)$ satisfies
+\eqref{eq:product} with $\varepsilon=-1$, and $x=p_k$ contradicts (P).
+
+(ii) Let $(p_1,\dots,p_{k-1},x)$ contradict (P) with $k\le15$. As shown
+above, $3\nmid A$, and Lemma~\ref{lem:largest}(iii) gives $3\nmid x$.
+The entries are odd, since $x$ divides $2B-1$, and increasing, and
+they satisfy \eqref{eq:product} with $\varepsilon=-1$ and hence the
+conditions $\gcd(x_i,x_l-1)=1$. If $x$ is prime,
+then $Ax$ is a composite solution of $\varphi(n)\mid n-1$ with at most
+fifteen prime factors, which Theorem~\ref{thm:first} excludes.
+Otherwise the tuple is a pseudo-solution prime to $3$ whose first $k-3$
+entries are prime, which Theorem~\ref{thm:pseudo3}(ii) excludes.
+
+(iii) Let pairwise coprime integers greater than $1$ form such a
+solution. They are odd, since an
+even entry would make the left side of \eqref{eq:product} odd and the
+right side even. By Lemma~\ref{lem:parity} the number of entries
+divisible by $3$ is even, and pairwise coprime entries include at most
+one multiple of $3$, so no entry is divisible by $3$. If every entry is
+prime, Theorem~\ref{thm:first} excludes the solution; otherwise it is a
+pseudo-solution prime to $3$, which Theorem~\ref{thm:pseudo3}(i)
+excludes.
+\end{proof}
+
+For the companion equation the analogue of (P) is false. The tuple
+$(3,5,17,257,65537,2^{32}+1)$ of Section~\ref{sec:allk} has five prime
+entries, and its last entry $2^{32}+1=641\cdot6700417$ is prime to
+them. With $A=2^{32}-1$ and $B=2^{31}$ it satisfies
+$Ax+1=2^{64}=2B(x-1)$, which is \eqref{eq:product} with
+$\varepsilon=+1$. It comes from $C=1$, which by
+Lemma~\ref{lem:largest}(ii) gives the entry $A+2$ for $\varepsilon=+1$.
+For $\varepsilon=-1$ the same step gives the entry $A$, which is not
+prime to the others; it produces the pseudo-solutions of
+Proposition~\ref{prop:pseudo} and those of Theorem~\ref{thm:pseudo25}
+with $\varepsilon=-1$, and (P) excludes it.
+
+Proposition~\ref{prop:largest}(ii) rests on the searches, and they give
+no shortcut beyond $k=15$. After a prefix of $k-2$ primes, with $A$, $B$
+and $C$ now formed from these, the identity \eqref{eq:hyperbola}, whose
+proof uses only the equation, turns the last two entries $y<x$ into a
+factorisation $(Cy-2B)(Cx-2B)=2AB-C$, and (P) asks only that $y$ be
+prime and $x$ be prime to the other entries. Deciding (P) for $k=16$
+therefore needs the traversal of Section~\ref{sec:sixteen}, with its
+$9\cdot10^{13}$ two-prime problems.
+
+The next lemma shows how the primality of the prefix keeps the
+defects large.
+
+\begin{lemma}\label{lem:defect}
+Let $x_1<\dots<x_j$ be integers greater than $1$ with
+$A=x_1\cdots x_j$ and $B=(x_1-1)\cdots(x_j-1)$, suppose that
+$C=2B-A\ge2$ is prime to $2B$, and put $y_0=\lfloor2B/C\rfloor+1$. An
+entry $y$ appended to the prefix gives a positive defect exactly when
+$y\ge y_0$, and then
+\[
+  Cy-2B=r+(y-y_0)C,\qquad r=Cy_0-2B,\qquad 1\le r\le C-1 .
+\]
+In particular the defect decreases only for $y=y_0$. Moreover $C$
+divides $2B-1$ exactly when $r=C-1$, and then $(2B-1)/C=y_0-1$.
+\end{lemma}
+
+\begin{proof}
+Appending $y$ gives the defect $2B(y-1)-Ay=Cy-2B$, which is positive
+exactly when $y>2B/C$, that is, when $y\ge y_0$. Since $C\ge2$ is prime
+to $2B$, it does not divide $2B$, so $r=C-(2B\bmod C)$ lies between $1$
+and $C-1$. Finally $r=C-1$ exactly when $2B\bmod C=1$, that is, when
+$C\mid2B-1$, and then $2B-1=C\lfloor2B/C\rfloor=C(y_0-1)$.
+\end{proof}
+
+Along a path of integers every step may take the entry $y_0$, and the
+defects can fall quickly: in the search behind
+Theorem~\ref{thm:pseudo25} the smallest defect fell from
+$1.9\cdot10^6$ after the first step to $29$ at the fourteenth. Along a
+path of independent primes, where $\gcd(C,2B)=1$ by
+Lemma~\ref{lem:largest}, the defect falls only at a step where
+$\lfloor2B/C\rfloor+1$ happens to be prime. Of the $13190$ prefixes
+from which the search with pairwise coprime entries starts, $12170$
+consist of primes, with a sum of $1/C$ of $7.6\cdot10^{-11}$. A search
+of the same kind in which every new entry is a probable prime, started
+from these
+$12170$ prefixes and keeping at each step the $5000$ children with the
+smallest defect, saw the smallest defect rise from $1.2\cdot10^{11}$ to
+$2.2\cdot10^{18}$ in eight steps. The sum of $1/C$, which estimates the
+number of completions by an integer, fell to $2.1\cdot10^{-18}$, with a
+total of $1.3\cdot10^{-10}$ over all steps and no completion
+(Figure~\ref{fig:descent}). With integer entries, as in the search
+behind Theorem~\ref{thm:pseudo25}, and the same prefixes and number of
+children, the sum rose instead, to a total of $1.9\cdot10^{-8}$ after
+twelve steps. These counts are heuristic and
+prove nothing about (P).
+
+For Lehmer's equation with $M=2$ the statements of this section compare
+as follows. The hypothesis of Section~\ref{sec:allk} fails for
+$k\ge26$ (Theorem~\ref{thm:pseudo25}). The statement that
+\eqref{eq:product} with $\varepsilon=-1$ has no solution in pairwise
+coprime integers greater than $1$ holds for $k\le13$ by
+Proposition~\ref{prop:largest}(iii) and is open beyond. It implies both the hypothesis of
+Section~\ref{sec:structure} and (P), and neither of these two is known
+to imply the other: the first asks of every entry a property weaker
+than primality, and (P) asks every entry but the largest to be prime
+and nothing of the largest except that it be prime to the others. Each
+of them implies that $n-1=2\varphi(n)$ has no composite solution. A
+proof of (P) has to show that no prefix of independent odd primes with
+defect $C\ge5$ and $C<(2B-1)/p_{k-1}$ has $C\mid2B-1$ with
+$(2B-1)/C$ prime to $A$. By Proposition~\ref{prop:local} no
+congruence modulo a fixed number other than that of
+Lemma~\ref{lem:three} removes a prefix with two or more entries left,
+so the argument has to use the modulus $C$ of each
+prefix, and if \eqref{eq:product} with
+$\varepsilon=-1$ has a solution in pairwise coprime integers it has to
+use the primality of the prefix. We do not know such an argument, and
+(P) is open for $k\ge16$.
+
 
 
 \appendix
@@ -3807,8 +4021,9 @@ Deep Bhattacharjee wrote and ran the programs of this paper, in
 Python, C, PARI/GP and shell, and wrote Lean~4 proofs \cite{dMU21},
 checked with the Mathlib library \cite{Mathlib}, of many of the
 statements that do not depend on a search, among them Theorem~\ref{thm:deficit},
-Proposition~\ref{prop:sizebounds} and the results of
-Section~\ref{sec:structure}, all with the assistance of Claude Code
+Proposition~\ref{prop:sizebounds}, the results of
+Section~\ref{sec:structure} and Lemmas~\ref{lem:largest}
+and~\ref{lem:defect}, all with the assistance of Claude Code
 (Anthropic). The programs that carry out the searches, the threshold computations
 and the checks of Section~\ref{sec:checks}, their recorded output, the
 factorisations of the fifteen integers of Table~\ref{tab:hard}, the
