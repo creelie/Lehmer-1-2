@@ -11,7 +11,7 @@ and theta_i, and B_j(q) below is Gamma_j(q).)  Facts used (Lemmas 2.1, 2.2 and 6
   (L) p_k = (M F_{k-1} - 1)/(M F_{k-1} - P_{k-1}).
 A Lehmer number is s-heavy if P_j >= t_j (H1) and V_j >= t_{j+1} (H2) for all
 j <= k-1, where V_j = M F_j (P_j + 1)/(M F_j - P_j).  The search visits every
-prefix of an s-heavy Lehmer number (Proposition 6.13):
+prefix of an s-heavy Lehmer number (Proposition 6.14):
   R1  ratio test: discard the prefix if r_j * B_j(q_1) <= mu, the least admissible M;
   R2  deficit test: discard the prefix if V_j(mu) < t_{j+1};
   R3  last prime: test (L) for every admissible M in [mu, r_j (p_j+2)/(p_j+1));

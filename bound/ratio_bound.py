@@ -5,7 +5,7 @@
 # w_i = max(l_i, rho_i).  For J < i <= k-1 we have p_i >= w_i, and p_k >= max(l_k, w_{k-1} + 2), so
 #   P_k < Vstar * max{ 1, max_{J <= i < i0} (w'_i + 2)/(w'_i + 1) prod_{J < l <= i} w_l/(w_l - 1),
 #                     (1 + 16/(rho_i0 - 2)) prod_{J < l < i0} w_l/(w_l - 1) },   w'_i = max(w_i, l_{i+1} - 2),
-# with i0 the least i >= max(J + 1, s + 4) with rho_i > 10^30 (tail estimate of Lemma 6.12).
+# with i0 the least i >= max(J + 1, s + 4) with rho_i > 10^30 (tail estimate of Lemma 6.13).
 # Here an integer lower bound for rho_i is used in place of rho_i, which can only enlarge the bound.
 import sys
 import mpmath

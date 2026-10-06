@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Checks the data for the fifteen long terminal nodes of the case k = 14 of n - 1 = 2 phi(n) (Table 2 of the paper):
+"""Checks the data for the fifteen long terminal nodes of the case k = 14 of n - 1 = 2 phi(n) (Table 3 of the paper):
 for each prefix p_1..p_12, recompute A, B, C = 2B - A, the interval [lo, hi] for p_13 and D = 2AB - C, and verify that
 the stored factorisation multiplies out to D and that every stored factor passes the primality test.
 Also prints the level profile.  Runtime: seconds."""
